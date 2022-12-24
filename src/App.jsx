@@ -4,12 +4,13 @@ import "./App.css";
 import LoginForm from "./components/LoginForm/LoginForm.jsx";
 // import NavBarUser from "./components/NavBarUser";
 // import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
+import Home from "./components/Home/Home.jsx";
 
 function App() {
   return (
     <div className="App">
       <LoginForm />
+      <Home />
 
     </div>
   );
