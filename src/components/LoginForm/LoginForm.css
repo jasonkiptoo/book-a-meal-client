@@ -1,12 +1,12 @@
-login-page {
+.form-container {
     min-height: 70vh;
-    background-color: #add7e0;
+    background-color: #990F02;
     width: 60vw;
     max-width: 600px;
     min-width: 400px;
     margin: 60px auto;
     border-radius: 30px;
-    color: white;
+    color: #990F02;
   }
   
   input {
@@ -41,3 +41,4 @@ login-page {
     -webkit-text-fill-color: transparent;
     animation: shine 3s infinite linear;
   }
+  
