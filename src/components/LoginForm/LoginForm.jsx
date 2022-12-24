@@ -1,13 +1,20 @@
-import react from 'react';
-import './LoginForm.css';
+import React from 'react';
 
-const LoginForm = (props) => {
+const LoginPage = () => {
   return (
     <div>
-      <h1>LoginForm</h1>
-      <p>Username: {props.username}</p>
-      <p>Password: {props.password}</p>
+      <h1>Login</h1>
+      <form>
+        <label htmlFor="username">Username:</label>
+        <input type="text" id="username" name="username" />
+        <br />
+        <label htmlFor="password">Password:</label>
+        <input type="password" id="password" name="password" />
+        <br />
+        <button type="submit">Login</button>
+      </form>
     </div>
   );
-}
-export default LoginForm;
+};
+
+export default LoginPage;
