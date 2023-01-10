@@ -1,28 +1,36 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
+import Carousel from "react-bootstrap/Carousel";
+import './Specials.css'
 
 const Specials = () => {
-    const [specials, setSpecials] = useState([])
+  const [specials, setSpecials] = useState([]);
 
-    useEffect(() => {
-        fetch("http://127.0.0.1:3000/favourites")
-          .then((res) => res.json())
-          .then((data) => setSpecials(data));
+  useEffect(() => {
+    fetch("http://127.0.0.1:3000/favourites")
+      .then((res) => res.json())
+      .then((data) => setSpecials(data));
+  }, []);
 
-    }, [])
-
-    return (
-      <div>
-        Specials
+  return (
+    <div className="carousel-container">
+      <Carousel className="carousel-component">
         {specials.map((special) => (
-          <div key={special.meal_id}>
-            <h2>{special.meal.name}</h2>
-            <img src={special.meal.image_url} alt={special.meal.name} />
-            <p>{special.description}</p>
-            <p>Price: ${special.meal.price}</p>
-          </div>
+          <Carousel.Item key={special.meal_id}>
+            <img
+              className="d-block w-100 h-25"
+              src={special.meal.image_url}
+              alt={special.meal.name}
+            />
+            <Carousel.Caption>
+              <h3>{special.meal.name}</h3>
+              <p>{special.meal.description}</p>
+              <p> <em>Price: ${special.meal.price}</em></p>
+            </Carousel.Caption>
+          </Carousel.Item>
         ))}
-      </div>
-    );
-}
+      </Carousel>
+    </div>
+  );
+};
 
-export default Specials
+export default Specials;
