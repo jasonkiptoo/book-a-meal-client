@@ -1,31 +1,59 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { FaInstagram, FaFacebook, FaTwitter } from 'react-icons/fa';
+import React from "react";
+import { Link } from "react-router-dom";
+import { FaInstagram, FaFacebook, FaTwitter, FaWhatsapp } from "react-icons/fa";
 
 const NavigationBar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="collapse navbar-collapse" id="navbarNav">
-        <ul className="navbar-nav">
-          <li className="nav-item active">
-            <Link to="/menu" className="nav-link">Menu</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/my-orders" className="nav-link">My Orders</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/order-history" className="nav-link">Order History</Link>
-          </li>
-        </ul>
+    <nav className="navbar navbar-custom navbar-expand-lg navbar-dark  py-2 sticky-top navigation">
+      <div className="container px-lg-2">
+        <Link className="navbar-brand mb-2" to="/dashboard">
+          GrubHub
+        </Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link
+                className="nav-link active"
+                aria-current="page"
+                to="/assessments"
+              >
+                Menu
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/my-orders">
+                My Orders
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/order-history">
+                Order History
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div className="navbar-nav ml-auto">
-        <a href="#" className="nav-link"><FaInstagram /></a>
-        <a href="#" className="nav-link"><FaFacebook /></a>
-        <a href="#" className="nav-link"><FaTwitter /></a>
-        <a href="#" className="nav-link">Logout</a>
-      </div>
+
+      <li className="navbar-nav ml-auto">
+        <i className="nav-link bi bi-instagram"></i>
+        <i className="nav-link bi bi-facebook"> </i>
+        <i className="nav-link bi bi-twitter"> </i>
+
+        <button className="btn bg-light">Logout</button>
+      </li>
     </nav>
   );
-}
+};
 
 export default NavigationBar;

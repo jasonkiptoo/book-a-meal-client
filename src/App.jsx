@@ -10,12 +10,17 @@ import Home from "./components/Home/Home.jsx";
 function App() {
   return (
     <div className="App">
+       <NavBar />
       <LoginForm />
       <Home />
-      <NavBar />
+
 
     </div>
   );
 }
 
 export default App;
+
+
+
+
