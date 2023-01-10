@@ -1,8 +1,8 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { FaInstagram, FaFacebook, FaTwitter, FaWhatsapp } from "react-icons/fa";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { IconName } from "react-icons/fa";
 function bars() {
   return (
     
@@ -17,14 +17,14 @@ function bars() {
             <Nav.Link href="#features">My Orders</Nav.Link>
             <Nav.Link href="#pricing">Order History</Nav.Link>
           </Nav>
-          
-          <li className="navbar-nav ml-auto">
-        <i className="nav-link bi bi-instagram"></i>
-        <i className="nav-link bi bi-facebook"> </i>
-        <i className="nav-link bi bi-twitter"> </i>
-
+          <h1>
+          <FontAwesomeIcon IconName=" FaInstagram" />
+          <FontAwesomeIcon IconName=" FaFacebook" />
+          <FontAwesomeIcon IconName=" Whatsapp" />
+          <FontAwesomeIcon IconName=" FaTwitter" />
+        </h1>
         <button className="btn bg-light">Logout</button>
-      </li>
+     
         </Container>
       </Navbar>
 
@@ -32,6 +32,7 @@ function bars() {
      
     </>
   );
+  
 }
 
 export default bars;
