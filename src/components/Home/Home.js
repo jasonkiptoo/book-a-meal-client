@@ -1,4 +1,6 @@
 import React from "react";
+
+
 function Home() {
   return (
     <div>
@@ -6,8 +8,8 @@ function Home() {
         <div
           className="bg-image"
           style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Zm9vZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60')",
+            // backgroundImage:
+            //   "url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Zm9vZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60')",
             height: "100vh",
             width: "100%",
           }}
