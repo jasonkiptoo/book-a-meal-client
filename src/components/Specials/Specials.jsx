@@ -6,9 +6,13 @@ const Specials = () => {
   const [specials, setSpecials] = useState([]);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:3000/favourites")
-      .then((res) => res.json())
-      .then((data) => setSpecials(data));
+     fetch("http://127.0.0.1:3000/favourites", {
+       headers: {
+         Authorization: `Bearer ${localStorage.getItem("token")}`,
+       },
+     })
+       .then((res) => res.json())
+       .then((data) => setSpecials(data));
   }, []);
 
   return (
