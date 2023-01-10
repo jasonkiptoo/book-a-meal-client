@@ -13,14 +13,14 @@ const Specials = () => {
     return (
       <div>
         Specials
-        {/* {specials.map((special) => (
+        {specials.map((special) => (
           <div key={special.meal_id}>
             <h2>{special.meal.name}</h2>
             <img src={special.meal.image_url} alt={special.meal.name} />
             <p>{special.description}</p>
             <p>Price: ${special.meal.price}</p>
           </div>
-        ))} */}
+        ))}
       </div>
     );
 }
