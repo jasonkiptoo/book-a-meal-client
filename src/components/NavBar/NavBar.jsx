@@ -6,7 +6,7 @@ const NavigationBar = () => {
   return (
     <nav className="navbar navbar-custom navbar-expand-lg navbar-dark  py-2 sticky-top navigation">
       <div className="container px-lg-2">
-        <Link className="navbar-brand mb-2" to="/dashboard">
+        <Link className="navbar-brand mb-2 ms-auto mb-2 mb-lg-0" to="/dashboard">
           GrubHub
         </Link>
         <button
