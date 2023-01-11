@@ -89,7 +89,7 @@ const OrderSummaryCard = () => {
                   <hr WIDTH="100%" COLOR="#990F02" SIZE="5" />
                 </div>
                 <div
-                  className="card h-20 shadow-sm"
+                  className="card h-20 shadow-sm mb-2"
                   style={{ backgroundColor: "#D9D9D9" }}
                 >
                   <div class="form-check">
@@ -101,58 +101,49 @@ const OrderSummaryCard = () => {
                       checked
                     />
                     <h5 class="mb-2">Credit card or Debit card</h5>
-                    <div class="row mb-4">
-                      <div class="col">
+                    <div class="row mb-1">
+                      <div class="col-9 mb-2">
                         <div class="form-outline">
                           <input
                             type="text"
                             id="formNameOnCard"
                             class="form-control"
-                            placeholder="Card Number"
+                            placeholder="0000 1111 2222 3333"
                           />
-                          <label class="form-label" for="formNameOnCard">
-                            Card Number
-                          </label>
                         </div>
                       </div>
-                      <div class="col">
-                        <div class="form-outline">
-                          <input
-                            type="text"
-                            id="formCardNumber"
-                            class="form-control"
-                          />
-                          <label class="form-label" for="formCardNumber">
-                            Credit card number
-                          </label>
-                        </div>
-                      </div>
+                      <div class="col-5 mb-2"></div>
                     </div>
                     <div class="row mb-4">
-                      <div class="col-3">
+                      <div class="col-5">
                         <div class="form-outline">
                           <input
                             type="text"
-                            id="formExpiration"
+                            id="formNameOnCard"
                             class="form-control"
+                            placeholder="01 / 12"
                           />
-                          <label class="form-label" for="formExpiration">
-                            Expiration
-                          </label>
                         </div>
                       </div>
-                      <div class="col-3">
+                      <div class="col-4 mb-2">
                         <div class="form-outline">
                           <input
                             type="text"
                             id="formCVV"
                             class="form-control"
+                            placeholder="CVV"
                           />
-                          <label class="form-label" for="formCVV">
-                            CVV
-                          </label>
                         </div>
+
                       </div>
+                      <div class="col-8">
+                          <input
+                            type="text"
+                            id="formCardNumber"
+                            class="form-control"
+                            placeholder="Billing address"
+                          />
+                        </div>
                     </div>
                   </div>
 
@@ -174,14 +165,15 @@ const OrderSummaryCard = () => {
                     </div>
                   </div>
 
-                  <button
-                    class="btn btn-primary btn-lg btn-block mb-2 ml-auto" style={{backgroundColor: "#990F02"}}
+
+                </div>
+                <button
+                    class="btn btn-primary btn-lg btn-block mb-2 ml-auto"
+                    style={{ backgroundColor: "#990F02" }}
                     type="submit"
                   >
                     Make Payment
                   </button>
-                </div>
-
               </div>
             </div>
           </div>
