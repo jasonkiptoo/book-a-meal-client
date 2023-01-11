@@ -1,13 +1,18 @@
 import { color } from "@mui/system";
 import React, { useState } from "react";
-import "./LoginForm.css";
-import 'font-awesome/css/font-awesome.min.css';
+import { FaInstagram, FaFacebook, FaTwitter, FaWhatsapp} from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+
+
+
 
 
 
 document.body.style.backgroundColor = "#990F02";
 
+
 function Login() {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -42,18 +47,8 @@ function Login() {
  
   return (
     <div className="Login">
-      <div class="icon-container"
-      style={{
-        position: "absolute",
-        right: "10px",
-        top: "10px",
-        display: "flex",                    
-
-      }}>
-    <a href="#" style={{color: "black"}}><i class="fa fa-facebook"></i></a>
-    <a href="#"><i class="fa fa-twitter"></i></a>
-    <a href="#"><i class="fa fa-instagram"></i></a>
-</div>
+      
+    
       <div
         className="page-image"
         style={{
@@ -61,12 +56,45 @@ function Login() {
           top: 0,
           left: "50%",
           width: "50%",
-          height: "100%",
+          height: "100vh",
           backgroundImage: "url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Zm9vZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60')",
           backgroundSize: "cover",
           
         }}
-      />
+       
+      ><div className="social-container"
+      style={{
+        backgroundColor: "transparent",
+        display: "flex",
+        justifyContent: "flex-end",
+        marginRight: "4rem",
+        marginTop: "1rem"
+        
+        
+      }}>
+      <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" style={{
+            color: 'white',
+            marginRight: '1rem'
+        }}>
+            {/* <FontAwesomeIcon icon={faTwitter} size="2x" /> */}
+            <FaTwitter  size= "30px"/>
+        </a>
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" style={{
+            color: 'white',
+            marginRight: '1rem'
+        }}>
+            {/* <FontAwesomeIcon icon={faInstagram} size="2x" /> */}
+            <FaInstagram size= "30px" />
+        </a>
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" style={{
+            color: 'white'
+        }}>
+            {/* <FontAwesomeIcon icon={faFacebook} size="2x" /> */}
+            <FaFacebook size= "30px" />
+        </a>
+      
+      </div></div>
+      
       
       <div className="login-form"
       style={{
@@ -88,14 +116,14 @@ function Login() {
           
         }}>
         <form onSubmit={handleSubmit}>
-          <h3 style={{color: "#990F02"}}>GrubHub</h3>
-          
+          <h3 style={{color: "#990F02"}}>GrubHub</h3> 
           <br />
           <label
           style={{
             display: "flex",
             alignItems: "flex-start",
             paddingTop: "5px",
+            marginBottom: "-22px",
           }}>Enter Username</label> <br />
           <input
             type="text"
@@ -116,6 +144,7 @@ function Login() {
             display: "flex",
             alignItems: "flex-start",
             paddingTop: "5px",
+            marginBottom: "-22px",
           }}>Enter Password</label><br />
           <input
             type="password"
@@ -131,7 +160,8 @@ function Login() {
             }}
           />
           <br />
-          <br />
+        
+          <a href="#" style={{color: "#990F02", textDecoration: "none"}}>Forgot Password?</a><br /><br />
           <input 
           type="submit" 
           value="Login" 
@@ -146,13 +176,20 @@ function Login() {
 
           }}
           />
+          <br />
+          <p style={{
+            color: "#990F02",
+            paddingTop: "8px",
+            display: "flex",
+            fontSize: "16px",
+            
+          }}> Don't have an account? <a href="#" style={{color: "#000", fontWeight: "normal"}}onClick = {navigate ("/registerform")}>Register</a></p>
         </form>
       </div>
-    
     </div>
   );
 }
 
 export default Login;
 
-  // https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Zm9vZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60'
+  
