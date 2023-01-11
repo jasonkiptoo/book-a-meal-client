@@ -6,11 +6,11 @@ import Specials from './components/Home/Special';
 function App() {
   return (
     <div className="App">
-      
+
      <NavBar />
      <Specials />
      <Home />
-    
+
     </div>
   );
 }
