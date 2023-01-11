@@ -19,7 +19,7 @@ const Products = () => {
     return (
       <div>
         Products
-        {/* <div className='flex flex-col p-4 gap-3'>
+        <div className='flex flex-col p-4 gap-3'>
           <table className='w-full border-collapse'>
             <thead>
               <tr>
@@ -48,7 +48,7 @@ const Products = () => {
               ))}
             </tbody>
           </table>
-        </div> */}
+        </div>
       </div>
     );
 }
