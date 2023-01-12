@@ -1,8 +1,8 @@
 // import logo from "./logo.svg";
 import "./App.css";
 // import Homepage from "./components/HomePage";
-import LoginForm from "./components/LoginForm/LoginForm.js";
-import Register from "./components/LoginForm/RegisterForm.js";
+import LoginForm from "./components/LoginForm/LoginForm.jsx";
+import Register from "./components/LoginForm/RegisterForm.jsx";
 // import NavBarUser from "./components/NavBarUser";
 // import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Home from "./components/Home/Home.js";
