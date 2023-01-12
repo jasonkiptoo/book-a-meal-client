@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { FaEdit } from "react-icons/fa";
 import { ImBin } from "react-icons/im";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import './Products.css'
 
 
@@ -74,6 +76,9 @@ const Products = () => {
           return product;
         });
         setProducts(updatedProducts);
+        toast.success("Product updated succefully", {
+          position: toast.POSITION.TOP_RIGHT
+        });
       })
       .catch((error) => console.log("Error:", error, error.status));
   };
@@ -106,14 +111,15 @@ const Products = () => {
       .then((data) => {
         // Update the products state to remove the deleted product
         setProducts(products.filter((product) => product.id !== productId));
+        toast.success("Product deleted succefully");
       });
   };
-  console.log(products);
 
   
 
   return (
     <div className="container">
+      <ToastContainer />
       {/* NAVBAR HERE */}
       <div className="products-container">
         <h2 className="text-left">PRODUCT LIST</h2>
@@ -135,7 +141,7 @@ const Products = () => {
                   <td className="name">{product.name}</td>
                   <td>${product.price}</td>
                   <td>
-                  {/* logic to hide edit button on editing */}
+                    {/* logic to hide edit button on editing */}
                     {editingProductId !== product.id ? (
                       <FaEdit onClick={() => setEditing(product.id)} />
                     ) : (
@@ -171,7 +177,7 @@ const Products = () => {
                     )}
                   </td>
                   <td>
-                  {/* logic to hide delete icon on editing */}
+                    {/* logic to hide delete icon on editing */}
                     {editingProductId !== product.id ? (
                       <ImBin onClick={() => handleDelete(product.id)} />
                     ) : null}
