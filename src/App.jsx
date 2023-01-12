@@ -7,7 +7,7 @@ import NavBar from "./components/NavBar/NavBar.jsx";
 
 import Register from "./components/LoginForm/RegisterForm.jsx";
 
-import Home from "./components/Home/Home.js";
+import Home from "./components/Home/Home.jsx";
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
 
       <LoginForm />
       {/* <Register /> */}
-//       <Home />
+       <Home />
 
 
     </div>
