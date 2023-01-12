@@ -16,9 +16,9 @@ function App() {
        <NavBar />
 
 
-      <LoginForm />
-      {/* <Register /> */}
-       <Home />
+      {/* <LoginForm /> */}
+      <Register />
+       {/* <Home /> */}
 
 
     </div>
