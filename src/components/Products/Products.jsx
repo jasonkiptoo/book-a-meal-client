@@ -2,15 +2,23 @@ import React, { useEffect, useState } from 'react'
 import { FaEdit } from "react-icons/fa";
 import { ImBin } from "react-icons/im";
 import './Products.css'
+
+
 const Products = () => {
+
+  // States
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [startingIndex, setStartingIndex] = useState(1);
+  const [editingProductId, setEditing] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
     price: "",
   });
 
+
+  // Get all products
   useEffect(() => {
     fetch("http://127.0.0.1:3000/meals", {
       headers: {
@@ -20,6 +28,8 @@ const Products = () => {
       .then((res) => res.json())
       .then((data) => setProducts(data));
   }, []);
+
+  /* Pagination Logic */
 
   // Calculate the number of pages needed
   const totalPages = Math.ceil(products.length / itemsPerPage);
@@ -32,35 +42,56 @@ const Products = () => {
   // Next and previous button functionality
   const prevPage = () => {
     setCurrentPage(currentPage - 1);
+    setStartingIndex(startingIndex - itemsPerPage);
   };
   const nextPage = () => {
     setCurrentPage(currentPage + 1);
+    setStartingIndex(startingIndex + itemsPerPage);
   };
 
-  // handling edit changes
-  const handleChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
-  };
 
   const handleEdit = (productId) => {
+    const updatedProduct = {
+      name: formData.name,
+      price: formData.price,
+    };
+
     fetch(`http://127.0.0.1:3000/meals/${productId}`, {
       method: "PATCH",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(updatedProduct),
     })
       .then((res) => res.json())
       .then((data) => {
+        // Update the products state with the updated product information
         const updatedProducts = products.map((product) => {
           if (product.id === productId) {
-            return data;
+            return { ...product, ...updatedProduct };
           }
           return product;
         });
         setProducts(updatedProducts);
-      });
+      })
+      .catch((error) => console.log("Error:", error, error.status));
+  };
+
+   const handleCancelEdit = () => {
+     setEditing(null);
+   };
+
+   const handleEditFormSubmit = (event) => {
+     event.preventDefault();
+     handleEdit(editingProductId);
+     setEditing(null);
+   };
+
+  // handling edit changes
+  const handleChange = (event) => {
+    event.preventDefault()
+    setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
   const handleDelete = (productId) => {
@@ -79,27 +110,6 @@ const Products = () => {
   };
   console.log(products);
 
-
-  // delete
-  const deleteProduct = (productId) => {
-    fetch(`http://127.0.0.1:3000/meals/${productId}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        // Upon successful deletion, update the state of products to exclude the deleted product
-        const updatedProducts = products.filter(
-          (product) => product.id !== productId
-        );
-        setProducts(updatedProducts);
-      })
-      .catch((error) => console.log("Error:", error, error.status));
-  };
-
   
 
   return (
@@ -107,34 +117,70 @@ const Products = () => {
       {/* NAVBAR HERE */}
       <div className="products-container">
         <h2 className="text-left">PRODUCT LIST</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Product ID</th>
-              <th>Product Name</th>
-              <th>Status</th>
-              <th>Price</th>
-              <th>Edit</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentItems.map((product) => (
-              <tr key={product.id}>
-                <td>{product.id}</td>
-                <td className="name">{product.name}</td>
-                {/* <td>{product.status}</td> */}
-                <td>${product.price}</td>
-                <td>
-                  <FaEdit />
-                </td>
-                <td>
-                  <ImBin onClick={() => deleteProduct(product.id)} />
-                </td>
+        <form onSubmit={handleEditFormSubmit}>
+          <table>
+            <thead>
+              <tr>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Edit</th>
+                <th>Delete</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {currentItems.map((product, index) => (
+                <tr key={product.id}>
+                  <td>{startingIndex + index}</td>
+                  <td className="name">{product.name}</td>
+                  <td>${product.price}</td>
+                  <td>
+                  {/* logic to hide edit button on editing */}
+                    {editingProductId !== product.id ? (
+                      <FaEdit onClick={() => setEditing(product.id)} />
+                    ) : (
+                      <>
+                        <input
+                          className="form-input"
+                          type="text"
+                          required="required"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleChange}
+                          placeholder="Edit Name"
+                        />
+                        <input
+                          className="form-input"
+                          type="text"
+                          required="required"
+                          name="price"
+                          value={formData.price}
+                          onChange={handleChange}
+                          placeholder="Edit Price"
+                        />
+                        <button className="save-button" type="submit">
+                          Save
+                        </button>
+                        <button
+                          className="cancel-button"
+                          onClick={handleCancelEdit}
+                        >
+                          Cancel
+                        </button>
+                      </>
+                    )}
+                  </td>
+                  <td>
+                  {/* logic to hide delete icon on editing */}
+                    {editingProductId !== product.id ? (
+                      <ImBin onClick={() => handleDelete(product.id)} />
+                    ) : null}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </form>
         <div className="pagination">
           <div className="pagination-p">
             <p>
