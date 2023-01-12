@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaInstagram, FaFacebook, FaTwitter, FaWhatsapp} from "react-icons/fa";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 
 
@@ -43,11 +43,11 @@ function Login() {
       console.error(err);
     }
   }
- 
+
   return (
     <div className="Login">
-      
-    
+
+
       <div
         className="page-image"
         style={{
@@ -58,9 +58,9 @@ function Login() {
           height: "100vh",
           backgroundImage: "url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Zm9vZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60')",
           backgroundSize: "cover",
-          
+
         }}
-       
+
       ><div className="social-container"
       style={{
         backgroundColor: "transparent",
@@ -68,8 +68,8 @@ function Login() {
         justifyContent: "flex-end",
         marginRight: "4rem",
         marginTop: "1rem"
-        
-        
+
+
       }}>
       <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" style={{
             color: 'white',
@@ -91,10 +91,10 @@ function Login() {
             {/* <FontAwesomeIcon icon={faFacebook} size="2x" /> */}
             <FaFacebook size= "30px" />
         </a>
-      
+
       </div></div>
-      
-      
+
+
       <div className="login-form"
       style={{
         position: "absolute",
@@ -111,11 +111,11 @@ function Login() {
           color: "black",
           fontSize: "16px",
           fontWeight: "lighter",
-          
-          
+
+
         }}>
         <form onSubmit={handleSubmit}>
-          <h3 style={{color: "#990F02"}}>GrubHub</h3> 
+          <h3 style={{color: "#990F02"}}>GrubHub</h3>
           <br />
           <label
           style={{
@@ -135,7 +135,7 @@ function Login() {
               backgroundColor: "#E4E4E4",
               width: "100%",
               height: "30px",
-              
+
             }}
           />
           <br />
@@ -159,11 +159,11 @@ function Login() {
             }}
           />
           <br />
-        
+
           <a href="#" style={{color: "#990F02", textDecoration: "none"}}>Forgot Password?</a><br /><br />
-          <input 
-          type="submit" 
-          value="Login" 
+          <input
+          type="submit"
+          value="Login"
           style={{
             border: "0px",
             borderRadius: "30px",
@@ -181,8 +181,9 @@ function Login() {
             paddingTop: "8px",
             display: "flex",
             fontSize: "16px",
-            
-          }}> Don't have an account? <a href="#" style={{color: "#000", fontWeight: "normal"}}>Register</a></p>
+
+          }}> Don't have an account? <a href="/register" style={{color: "#000", fontWeight: "normal"}}>
+            <Link to="/register">Register </Link></a></p>
         </form>
       </div>
     </div>
@@ -191,4 +192,4 @@ function Login() {
 
 export default Login;
 
-  
+

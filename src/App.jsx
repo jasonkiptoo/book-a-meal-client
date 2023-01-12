@@ -1,5 +1,6 @@
 // import logo from "./logo.svg";
 import "./App.css";
+import { BrowserRouter as Router, Route, Routes, redirect } from "react-router-dom";
 // import Homepage from "./components/HomePage";
 import LoginForm from "./components/LoginForm/LoginForm.jsx";
 
@@ -13,11 +14,16 @@ function App() {
   return (
     <div className="App">
 
-       <NavBar />
+      <Routes>
+        <Route exact path="/register" element={<Register />} />
+        <Route exact path="/login" element={<LoginForm />} />
+      </Routes>
+
+       {/* <NavBar /> */}
 
 
       {/* <LoginForm /> */}
-      <Register />
+      {/* <Register /> */}
        {/* <Home /> */}
 
 
