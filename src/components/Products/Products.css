@@ -1,0 +1,97 @@
+.products-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 1rem;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+ th,
+td {
+  border: 1px solid #ffffff;
+  text-align: left;
+  padding: 8px;
+  font-size: 32px;
+}
+
+th {
+
+  background: #990F02;
+  color: #FFFFFF;
+
+;
+}
+
+td {
+  background: #FFFFFF;
+  justify-content: space-between;
+  text-align: center;
+
+} 
+.name{
+    text-align: left;
+    margin-right: 25px;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    line-height: 28px;
+    margin-top: 30px;
+    font-size: 24px;
+    
+}
+.pagination-buttons{
+    padding-right: 20px;
+}
+.pagination-buttons button{
+    padding: 8px 12px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: blue;
+    color: #fff;
+
+}
+.pagination-buttons button:hover {
+    background-color: #0069d9;
+}
+
+.pagination-buttons button:disabled {
+    background-color: #6c757d;
+    color: #fff;
+    cursor: not-allowed;
+}
+.pagination-p{
+    padding-left: 20px;
+}
+
+
+.form-input {
+    border: 1px solid #ccc;
+    padding: 8px;
+    width: 100%;
+}
+
+.cancel-button {
+    background-color: #e17055;
+    color: white;
+    padding: 8px;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+}
+
+.save-button {
+    background-color: #00b894;
+    color: white;
+    padding: 8px;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+}
