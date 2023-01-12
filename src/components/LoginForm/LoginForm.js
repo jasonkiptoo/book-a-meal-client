@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaInstagram, FaFacebook, FaTwitter, FaWhatsapp} from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 
 
@@ -11,7 +11,7 @@ document.body.style.backgroundColor = "#990F02";
 
 
 function Login() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -182,7 +182,7 @@ function Login() {
             display: "flex",
             fontSize: "16px",
             
-          }}> Don't have an account? <a href="#" style={{color: "#000", fontWeight: "normal"}}onClick = {navigate ("/registerform")}>Register</a></p>
+          }}> Don't have an account? <a href="#" style={{color: "#000", fontWeight: "normal"}}>Register</a></p>
         </form>
       </div>
     </div>
