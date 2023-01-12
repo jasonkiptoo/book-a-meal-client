@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { FaInstagram, FaFacebook, FaTwitter, FaWhatsapp } from "react-icons/fa";
 
@@ -6,35 +7,41 @@ document.body.style.backgroundColor = "#990F02";
 
 function Register() {
   const [username, setUsername] = useState("");
+
+
+  const [email, setEmail] = useState("");
+  const [first_name, setFirstName] = useState("");
+  const [last_name, setLastName] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState([]);
+  const navigate = useNavigate();
 
-  async function handleSubmit(event) {
-    event.preventDefault();
 
-    try {
-      // send a request to the server to authenticate the user
-      const response = await fetch("/authenticate", {
-        method: "POST",
-        body: JSON.stringify({ username, password }),
-        headers: { "Content-Type": "application/json" },
+  // const API = "http://localhost:3000";
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    fetch(`http://127.0.0.1:3000/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        first_name,
+        last_name,
+        password,
+      }),
+    })
+      .then((r) => {
+        // setIsLoading(false);
+        if (r.ok) {
+          r.json().then(() => navigate("/login"), console.log("success"));
+        } else {
+          r.json().then((err) => setErrors(err.errors));
+        }
       });
-
-      // parse the response from the server
-      const data = await response.json();
-
-      // check if the authentication was successful
-      if (data.token) {
-        // if the authentication was successful, store the token in the browser's local storage
-        localStorage.setItem("token", data.token);
-        // redirect the user to the protected page
-        window.location.href = "/protected";
-      } else {
-        // if the authentication was not successful, display an error message
-        alert("Invalid username or password");
-      }
-    } catch (err) {
-      console.error(err);
-    }
   }
 
   return (
