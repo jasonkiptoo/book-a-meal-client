@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { FaInstagram, FaFacebook, FaTwitter, FaWhatsapp} from "react-icons/fa";
-// import { useNavigate } from "react-router-dom";
 
 
 
@@ -10,8 +9,7 @@ import { FaInstagram, FaFacebook, FaTwitter, FaWhatsapp} from "react-icons/fa";
 document.body.style.backgroundColor = "#990F02";
 
 
-function Login() {
-  // const navigate = useNavigate("");
+function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -102,10 +100,10 @@ function Login() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-          top: "27%",
+          top: "17%",
           right: "60%",
           width: "25%",
-          height: "50%",
+          height: "70%",
           backgroundColor: "white",
           borderRadius: "30px",
           color: "black",
@@ -139,12 +137,56 @@ function Login() {
             }}
           />
           <br />
+          <label
+          style={{
+            display: "flex",
+            alignItems: "flex-start",
+            paddingTop: "5px",
+            marginBottom: "-22px",
+          }}>Email Address</label> <br />
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+            style={{
+              border: "0px",
+              borderRadius: "30px",
+              backgroundColor: "#E4E4E4",
+              width: "100%",
+              height: "30px",
+              
+            }}
+          />
+          <br />
+          <label
+          style={{
+            display: "flex",
+            alignItems: "flex-start",
+            paddingTop: "5px",
+            marginBottom: "-22px",
+          }}>Username</label> <br />
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+            style={{
+              border: "0px",
+              borderRadius: "30px",
+              backgroundColor: "#E4E4E4",
+              width: "100%",
+              height: "30px",
+              
+            }}
+          />
+          <br />
           <label style={{
             display: "flex",
             alignItems: "flex-start",
             paddingTop: "5px",
             marginBottom: "-22px",
-          }}>Enter Password</label><br />
+          }}>Password</label><br />
           <input
             type="password"
             value={password}
@@ -159,11 +201,34 @@ function Login() {
             }}
           />
           <br />
+          <label
+          style={{
+            display: "flex",
+            alignItems: "flex-start",
+            paddingTop: "5px",
+            marginBottom: "-22px",
+          }}>Confirm Password</label> <br />
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+            style={{
+              border: "0px",
+              borderRadius: "30px",
+              backgroundColor: "#E4E4E4",
+              width: "100%",
+              height: "30px",
+              
+            }}
+          />
+          <br />
+          <br />
         
-          <a href="#" style={{color: "#990F02", textDecoration: "none"}}>Forgot Password?</a><br /><br />
+          
           <input 
           type="submit" 
-          value="Login" 
+          value="Register" 
           style={{
             border: "0px",
             borderRadius: "30px",
@@ -182,13 +247,14 @@ function Login() {
             display: "flex",
             fontSize: "16px",
             
-          }}> Don't have an account? <a href="#" style={{color: "#000", fontWeight: "normal"}}>Register</a></p>
+          }}> Already have an account? <a href="#" style={{color: "#000", fontWeight: "normal"}}>Login</a></p>
         </form>
       </div>
+    
     </div>
   );
 }
 
-export default Login;
+export default Register;
 
   
