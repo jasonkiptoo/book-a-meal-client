@@ -41,11 +41,14 @@ const NavigationBar = () => {
                 Order History
               </Link>
             </li>
+
           </ul>
         </div>
       </div>
 
       <li className="navbar-nav ml-auto">
+
+        <i className="nav-link ">Hello Jayson</i>
         <i className="nav-link bi bi-instagram"></i>
         <i className="nav-link bi bi-facebook"> </i>
         <i className="nav-link bi bi-twitter"> </i>
