@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { FaInstagram, FaFacebook, FaTwitter, FaWhatsapp } from "react-icons/fa";
+import { FaInstagram, FaFacebook, FaTwitter } from "react-icons/fa";
 
 document.body.style.backgroundColor = "#990F02";
 
@@ -13,18 +13,8 @@ function Register() {
     password: "",
   });
 
-
-  // const [username, setUsername] = useState("");
-
-  // const [email, setEmail] = useState("");
-  // const [first_name, setFirstName] = useState("");
-  // const [last_name, setLastName] = useState("");
-  // const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
-
-
-  // const API = "http://localhost:3000";
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -55,29 +45,6 @@ function Register() {
       [e.target.name]: e.target.value,
     });
   };
-
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-
-  //   fetch(`https://grub-hub.onrender.com/register`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       email,
-  //       username,
-  //       password,
-  //     }),
-  //   }).then((r) => {
-  //     // setIsLoading(false);
-  //     if (r.ok) {
-  //       r.json().then(() => navigate("/login"), console.log("success"));
-  //     } else {
-  //       r.json().then((err) => setErrors(err.errors));
-  //     }
-  //   });
-  // }
 
   return (
     <div className="Login">
