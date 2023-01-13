@@ -11,6 +11,7 @@ import Register from "./components/LoginForm/RegisterForm.jsx";
 
 import Home from "./components/Home/Home.jsx";
 import AdminHomePage from "./components/HomeAdmin/HomeAdmin.jsx";
+import HomeAdmin from "./components/HomeAdmin/HomeAdmin.jsx";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -20,13 +21,11 @@ function App() {
   }
   return (
     <div>
-
-
       <Routes>
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/login"element={<LoginForm onLogin={handleLogin} />} />
         <Route exact path="/home" element={<Home user={user}  />} />
-        <Route exact path="/admin" element={<AdminHomePage />} />
+        <Route exact path="/admin" element={<HomeAdmin />} />
       </Routes>
 
     </div>
