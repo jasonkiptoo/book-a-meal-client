@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { FaInstagram, FaFacebook, FaTwitter } from "react-icons/fa";
 
-document.body.style.backgroundColor = "#990F02";
+// document.body.style.backgroundColor = "#990F02";
 
 function Register() {
   const [user, setUser] = useState({

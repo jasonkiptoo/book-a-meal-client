@@ -3,7 +3,7 @@ import { FaInstagram, FaFacebook, FaTwitter, FaWhatsapp } from "react-icons/fa";
 import { useNavigate, Link } from "react-router-dom";
 import axios from 'axios';
 
-document.body.style.backgroundColor = "#990F02";
+// document.body.style.backgroundColor = "#990F02";
 
 function Login({ onLogin}) {
   const navigate = useNavigate();
