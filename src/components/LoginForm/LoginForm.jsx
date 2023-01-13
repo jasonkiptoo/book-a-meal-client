@@ -1,67 +1,63 @@
 import React, { useState } from "react";
 import { FaInstagram, FaFacebook, FaTwitter, FaWhatsapp } from "react-icons/fa";
 import { useNavigate, Link } from "react-router-dom";
+import axios from 'axios';
 
 document.body.style.backgroundColor = "#990F02";
 
 function Login({ onLogin}) {
   const navigate = useNavigate();
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  const [email, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    fetch(`http://127.0.0.1:3000/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    }).then((res) => {
-      if (res.ok) {
-        res.json().then((user) => {
-          console.log({user})
-          onLogin(user.last_name)
-          return navigate("/home")
-        });
-      } else {
-        res.json().then((err) => setErrors(err.errors));
-      }
-    });
-  }
+  const [user, setUser] = useState({
+    username: "",
+    password: "",
+  });
 
-  // async function handleSubmit(event) {
-  //   event.preventDefault();
-
-  //   try {
-  //     // send a request to the server to authenticate the user
-  //     const response = await fetch("/login", {
-  //       method: "POST",
-  //       body: JSON.stringify({ username, password }),
-  //       headers: { "Content-Type": "application/json" },
-  //     });
-
-  //     // parse the response from the server
-  //     const data = await response.json();
-
-  //     // check if the authentication was successful
-  //     if (data.token) {
-  //       // if the authentication was successful, store the token in the browser's local storage
-  //       localStorage.setItem("token", data.token);
-  //       // redirect the user to the protected page
-  //       console.log("login");
-  //       // window.location.href = "/home";
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+  //   fetch(`http://127.0.0.1:3000/login`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${localStorage.getItem("token")}`
+  //     },
+  //     body: JSON.stringify({ email, password }),
+  //   }).then((res) => {
+  //     if (res.ok) {
+  //       res.json().then((user) => {
+  //         console.log({user})
+  //         onLogin(user.last_name)
+  //         return navigate("/home")
+  //       });
   //     } else {
-  //       // if the authentication was not successful, display an error message
-  //       alert("Invalid username or password");
+  //       res.json().then((err) => setErrors(err.errors));
   //     }
-  //   } catch (err) {
-  //     setErrors(err.errors)
-  //   }
+  //   });
   // }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .post("https://grub-hub.onrender.com/login", {
+        username: user.username,
+        password: user.password,
+      })
+      .then((response) => {
+        localStorage.setItem("token", response.data.jwt);
+        // redirect to the home page
+        navigate("/home");
+      })
+      .catch((error) => {
+        setErrors(error.response.data.errors);
+      });
+  };
+
+  const handleChange = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   return (
     <div className="Login">
@@ -146,6 +142,10 @@ function Login({ onLogin}) {
         }}
       >
         <form onSubmit={handleSubmit}>
+        {/* display errors */}
+          {/* {errors.map((error, index) => (
+            <p key={index}>{error}</p>
+          ))} */}
           <h3 style={{ color: "#990F02" }}>GrubHub</h3>
           <br />
           <label
@@ -156,13 +156,14 @@ function Login({ onLogin}) {
               marginBottom: "-22px",
             }}
           >
-            Enter Username
+            Username
           </label>{" "}
           <br />
           <input
             type="text"
-            value={email}
-            onChange={(e) => setUsername(e.target.value)}
+            name="username"
+            value={user.email}
+            onChange={handleChange}
             required
             style={{
               border: "0px",
@@ -181,13 +182,14 @@ function Login({ onLogin}) {
               marginBottom: "-22px",
             }}
           >
-            Enter Password
+            Password
           </label>
           <br />
           <input
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            value={user.password}
+            onChange={handleChange}
             required
             style={{
               border: "0px",
@@ -199,9 +201,9 @@ function Login({ onLogin}) {
           />
           <br />
           <h6 className="errorhead text-danger">
-                            {" "}
-                            {errors.map((error) => error)}{" "}
-                          </h6>
+            {" "}
+            {errors.map((error) => error)}{" "}
+          </h6>
           <a href="#" style={{ color: "#990F02", textDecoration: "none" }}>
             Forgot Password?
           </a>
