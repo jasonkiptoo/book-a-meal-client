@@ -53,6 +53,7 @@ const NavigationBar = () => {
         <button className="btn bg-light">Logout</button>
       </li>
     </nav>
+    
   );
 };
 
