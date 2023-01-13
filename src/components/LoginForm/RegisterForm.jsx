@@ -1,48 +1,83 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import { FaInstagram, FaFacebook, FaTwitter, FaWhatsapp } from "react-icons/fa";
 
 document.body.style.backgroundColor = "#990F02";
 
 function Register() {
-  const [username, setUsername] = useState("");
+  const [user, setUser] = useState({
+    email: "",
+    username: "",
+    password: "",
+  });
 
 
-  const [email, setEmail] = useState("");
-  const [first_name, setFirstName] = useState("");
-  const [last_name, setLastName] = useState("");
-  const [password, setPassword] = useState("");
+  // const [username, setUsername] = useState("");
+
+  // const [email, setEmail] = useState("");
+  // const [first_name, setFirstName] = useState("");
+  // const [last_name, setLastName] = useState("");
+  // const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
 
 
   // const API = "http://localhost:3000";
 
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    fetch(`http://127.0.0.1:3000/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        first_name,
-        last_name,
-        password,
-      }),
-    })
-      .then((r) => {
-        // setIsLoading(false);
-        if (r.ok) {
-          r.json().then(() => navigate("/login"), console.log("success"));
+    console.log(user);
+    axios
+      .post("https://grub-hub.onrender.com/register", {
+        email: user.email,
+        username: user.username,
+        password: user.password,
+      })
+      .then((response) => {
+        localStorage.setItem("token", response.data.jwt);
+        // redirect to the profile page
+        navigate("/login");
+      })
+      .catch((error) => {
+        if (error.response) {
+          setErrors(error.response.data.errors);
         } else {
-          r.json().then((err) => setErrors(err.errors));
+          setErrors(["Something went wrong, please try again later"]);
         }
       });
-  }
+  };
+
+  const handleChange = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+
+  //   fetch(`https://grub-hub.onrender.com/register`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       email,
+  //       username,
+  //       password,
+  //     }),
+  //   }).then((r) => {
+  //     // setIsLoading(false);
+  //     if (r.ok) {
+  //       r.json().then(() => navigate("/login"), console.log("success"));
+  //     } else {
+  //       r.json().then((err) => setErrors(err.errors));
+  //     }
+  //   });
+  // }
 
   return (
     <div className="Login">
@@ -127,6 +162,10 @@ function Register() {
         }}
       >
         <form onSubmit={handleSubmit}>
+        {/* display errors
+          {errors.map((error, index) => (
+            <p key={index}>{error}</p>
+          ))} */}
           <h3 style={{ color: "#990F02" }}>GrubHub</h3>
           <br />
           <label
@@ -137,13 +176,14 @@ function Register() {
               marginBottom: "-22px",
             }}
           >
-            Enter Username
+            Username
           </label>{" "}
           <br />
           <input
             type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            name="username"
+            value={user.name}
+            onChange={handleChange}
             required
             style={{
               border: "0px",
@@ -167,33 +207,9 @@ function Register() {
           <br />
           <input
             type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-            style={{
-              border: "0px",
-              borderRadius: "30px",
-              backgroundColor: "#E4E4E4",
-              width: "100%",
-              height: "30px",
-            }}
-          />
-          <br />
-          <label
-            style={{
-              display: "flex",
-              alignItems: "flex-start",
-              paddingTop: "5px",
-              marginBottom: "-22px",
-            }}
-          >
-            Username
-          </label>{" "}
-          <br />
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            name="email"
+            onChange={handleChange}
+            value={user.email}
             required
             style={{
               border: "0px",
@@ -217,8 +233,9 @@ function Register() {
           <br />
           <input
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            onChange={handleChange}
+            value={user.password}
             required
             style={{
               border: "0px",
@@ -229,7 +246,7 @@ function Register() {
             }}
           />
           <br />
-          <label
+          {/* <label
             style={{
               display: "flex",
               alignItems: "flex-start",
@@ -252,7 +269,7 @@ function Register() {
               width: "100%",
               height: "30px",
             }}
-          />
+          /> */}
           <br />
           <br />
           <input
