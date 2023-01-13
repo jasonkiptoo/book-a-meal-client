@@ -1,94 +1,127 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useSelector, useDispatch } from "react-redux";
-// import { addProduct } from "..components/HomeAdmin/ProductActions";
+import React, { useState } from 'react';
+import { Switch } from 'react-switch';
 
 
-const HomeAdmin = () => {
 
-    // const [productImage, setProductImage] = useState(null);
-    // const { register, handleSubmit, errors } = useForm();
-    // const categories = useSelector((state) => state.categories);
-    // const dispatch = useDispatch();
 
-    // const onSubmit = (data) => {
-    //   const formData = new FormData();
-    //   formData.append("productImage", productImage);
-    //   formData.append("name", data.name);
-    //   formData.append("price", data.price);
-    //   formData.append("description", data.description);
-    //   formData.append("categoryId", data.categoryId);
-    //   formData.append("special", data.special);
-    //   formData.append("availability", data.availability);
-    //   dispatch(addProduct(formData));
-    // };
 
-    return (
-      <h1>Home Admin</h1>
-      // <div>
-      //   <form>
-      //     <label>Product Name:</label>
-      //     <input
-      //       type="text"
-      //       name="name"
-      //       ref={register({ required: true })}
-      //     />
-      //     {errors.name && <p>Product name is required</p>}
+const AdminHomePage = () => {
+  const [productName, setProductName] = useState('');
+  const [price, setPrice] = useState('');
+  const [description, setDescription] = useState('');
+  const [productImage, setProductImage] = useState(null);
+  const [category, setCategory] = useState('');
+  const [todaySpecial, setTodaySpecial] = useState(false);
+  const [availability, setAvailability] = useState(true);
 
-      //     <label>Price:</label>
-      //     <input
-      //       type="text"
-      //       name="price"
-      //       ref={register({ required: true })}
-      //     />
-      //     {errors.price && <p>Price is required</p>}
+  const handleProductNameChange = (event) => {
+    setProductName(event.target.value);
+  };
 
-      //     <label>Description:</label>
-      //     <textarea
-      //       name="description"
-      //       ref={register({ required: true })}
-      //     />
-      //     {errors.description && <p>Description is required</p>}
+  const handlePriceChange = (event) => {
+    setPrice(event.target.value);
+  };
 
-      //     <label>Product Image:</label>
-      //     <input
-      //       type="file"
-      //       name="productImage"
-      //       onChange={(e) => setProductImage(e.target.files[0])}
-      //       ref={register({ required: true })}
-      //     />
-      //     {errors.productImage && <p>Product image is required</p>}
+  const handleDescriptionChange = (event) => {
+    setDescription(event.target.value);
+  };
 
-      //     <label>Category:</label>
-      //     <select name="categoryId" ref={register({ required: true })}>
-      //       {categories.map((category) => (
-      //         <option key={category.id} value={category.id}>
-      //           {category.name}
-      //         </option>
-      //       ))}
-      //     </select>
-      //     {errors.categoryId && <p>Category is required</p>}
+  const handleProductImageChange = (event) => {
+    setProductImage(event.target.files[0]);
+  };
 
-      //     <label>Today's Special:</label>
-      //     <input
-      //       type="checkbox"
-      //       name="special"
-      //       ref={register}
-      //     />
+  const handleCategoryChange = (event) => {
+    setCategory(event.target.value);
+  };
 
-      //     <label>Availability:</label>
-      //     <input
-      //       type="checkbox"
-      //       name="availability"
-      //       ref={register}
-      //     />
+  const handleTodaySpecialChange = (event) => {
+    setTodaySpecial(event.target.checked);
+  };
 
-      //     <input type="submit" value="Save Product" />
-      //   </form>
-      //   {productImage && (
-      //    <img src={URL.createObjectURL(productImage)} alt="Product Image" width="200" height="200" />
-      //    )}
-      //  </div>
+  const handleAvailabilityChange = (event) => {
+    setAvailability(event.target.checked);
+  };
 
-    )}
-      export default HomeAdmin;
+  const handleSaveProduct = () => {
+    // Save product to database or API here
+  };
+
+  return (
+    <div style={{ display: 'flex', justifyContent: 'space-between', backgroundColor: '#EDEEF2', width: "100vw", height: "100vh" }}>
+      <div style={{ width: '40%', backgroundColor: "white", height: "75%" }}>
+        <form>
+          <p>ADD PRODUCT FORM</p>
+          <hr />
+          <label>
+            Product Name
+            <br />
+            <input type="text" value={productName} onChange={handleProductNameChange} />
+          </label>
+          <br />
+          <label>
+            Select Category 
+            <select value={category} onChange={handleCategoryChange}>
+              <option value="">Select a category</option>
+              <option value="category1">Main Meals</option>
+              <option value="category2">Drinks</option>
+              <option value="category3">Dessert</option>
+              <option value="category3">Salads</option>
+              <option value="category3">Light Bites</option>
+            </select>
+          </label>
+          <label>
+            Price:
+            <input type="text" value={price} onChange={handlePriceChange} />
+          </label>
+          <br />
+          <label>
+            Description<br />
+            <textarea value={description} onChange={handleDescriptionChange} />
+          </label>
+          <br />
+          
+          <br />
+          
+          <label>
+          Product Image:
+          <input type="file" onChange={handleProductImageChange} />
+        </label>
+        </form>
+      </div>
+      <div style={{ width: '40%', display: 'flex', flexDirection: 'column', backgroundColor: "white", height: "75%" }}>
+      <p>PRODUCT</p>
+          <hr />
+        <img src={productImage} alt="Uploaded product image" style={{ width: '200px', height: '200px' }} />
+        <label>
+          Status Available
+          <input type="checkbox" checked={availability} onChange={handleAvailabilityChange} />
+        </label>
+        
+
+        <hr />
+          <label>
+            Today's Special
+            <input type="checkbox" checked={todaySpecial} onChange={handleTodaySpecialChange} />
+          </label>
+          <hr />
+          <br />
+          <div style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            width: '50%',
+            
+
+          }}>
+          <button onClick={handleSaveProduct}>Save</button>
+          <button onClick={handleSaveProduct}>Save and Add</button>
+          </div>
+      </div>
+    </div>
+  );
+};
+
+export default AdminHomePage;
+
+
