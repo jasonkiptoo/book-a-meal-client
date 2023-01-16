@@ -14,6 +14,7 @@ import Register from "./components/LoginForm/RegisterForm.jsx";
 import Home from "./components/Home/Home.jsx";
 import AdminHomePage from "./components/HomeAdmin/HomeAdmin.jsx";
 import HomeAdmin from "./components/HomeAdmin/HomeAdmin.jsx";
+import Menu from "./components/HomePage/Menu.jsx";
 
 function App() {
   const [user, setUser] = useState(null);
