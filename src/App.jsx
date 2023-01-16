@@ -16,24 +16,34 @@ import AdminHomePage from "./components/HomeAdmin/HomeAdmin.jsx";
 import HomeAdmin from "./components/HomeAdmin/HomeAdmin.jsx";
 import Menu from "./components/HomePage/Menu.jsx";
 
+
 function App() {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
 
   // function handleLogin(user) {
   //   setUser(user)
   // }
 
-  const currentUser = () => {
-    useEffect(() => {
-      fetch('http://127.0.0.1:3000/profile', {
-        headers : {
-          "Authorization": `Bearer ${localStorage.getItem('token')}`
-        }
-      })
-      .then(res => res.json())
-      .then(data => setUser(data))
-      .catch(err => alert(err))
-    }, [])
+  useEffect(() => {
+    fetch("http://127.0.0.1:3000/profile",{
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+    .then((response) => {
+      if (response.ok) {
+        response.json()
+        .then((user) => setUser(user.user.username));
+      }
+    });
+  }, []);
+
+  function handleLogin(user) {
+    setUser(user);
+  }
+
+  function handleLogout() {
+    setUser(null);
   }
 
   console.log(user)
@@ -42,13 +52,22 @@ function App() {
       <Routes>
         <Route exact path="/register" element={<Register />} />
         {/* <Route exact path="/login"element={<LoginForm onLogin={handleLogin} />} /> */}
-        <Route exact path="/login"element={<LoginForm />} />
-        <Route exact path="/home" element={<Home user={user}  />} />
+        <Route
+          exact
+          path="/login"
+          element={<LoginForm onLogin={handleLogin} />}
+        />
+        <Route exact path="/home" element={<Home />} />
         <Route exact path="/admin" element={<HomeAdmin />} />
-        <Route exact path="/menu" element={<Menu/>} />
-        <Route exact path="/navbar" element={<Navbar user={user} current={currentUser}/>} />
+        <Route exact path="/menu" element={<Menu />} />
+        <Route
+          exact
+          path="/navbar"
+          element={
+            <Navbar user={user} onLogout={handleLogout} onLogin={handleLogin} />
+          }
+        />
       </Routes>
-
     </div>
   );
 }
