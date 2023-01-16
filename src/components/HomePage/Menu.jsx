@@ -4,6 +4,7 @@ import Specials from '../Specials/Specials';
 import RenderMeals from './RenderMeals'
 
 
+
 // import './Menu.css'
 
 const Menu = () => {
@@ -27,12 +28,18 @@ const Menu = () => {
     <div className="menu" style={{backgroundColor: "#EDEEF2", height: "100vh"}}>
       
       <div><Navbar/></div>
-      <div style={{backgroundColor: "green", height: "35%", margin: "50px"}}>
+      <div 
+      // style={{backgroundColor: "yellow", height: "25%", margin: "50px", width: "25%", marginLeft: "550px", borderRadius: "50px"}}
+      >
         <Specials />
       </div>
+      
       {/* <div className="d-flex row justify-content-between"> */}
        <div className="row row-cols-5 mt-5" style={{
         margin: "50px",
+        
+        
+        
        }}>
         {menu &&
           menu.map((item) => (
