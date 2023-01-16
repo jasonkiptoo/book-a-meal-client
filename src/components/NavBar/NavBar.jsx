@@ -4,7 +4,8 @@ import { FaInstagram, FaFacebook, FaTwitter, FaWhatsapp } from "react-icons/fa";
 
 const NavigationBar = () => {
   return (
-    <nav className="navbar navbar-custom navbar-expand-sm navbar-dark  py-2 sticky-top navigation">
+    
+    <nav className="navbar navbar-custom navbar-expand-sm navbar-dark  py-2 sticky-top navigation" >
       <div className="container px-lg-2">
         {/* <Link className="navbar-brand mb-2 ms-auto mb-2 mb-lg-0" to="/dashboard">
           GrubHub
@@ -103,7 +104,7 @@ const NavigationBar = () => {
           <button className="btn bg-light" style={{width: "100px", color: "#990F02", backgroundColor: "white", marginLeft: "1rem", marginTop: "-5px", fontSize: "16px", fontWeight: "bold"}}>LOGOUT</button>
         </div>
     </nav>
-    
+  
   );
 };
 
