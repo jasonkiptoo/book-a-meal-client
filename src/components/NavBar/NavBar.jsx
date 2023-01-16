@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import { FaInstagram, FaFacebook, FaTwitter,  } from "react-icons/fa";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const Navbar = ({ user, activePage }) => {
+const Navbar = ({ user, activePage, current }) => {
+  console.log(current)
+  console.log(user)
   return (
     <nav style={{ backgroundColor: "#990F02", display: "flex", flexDirection: "row", justifyContent: "space-around", height: "70px"}}>
       <div className="nav-left" style={{

@@ -38,14 +38,15 @@ function Login({ onLogin}) {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("https://grub-hub.onrender.com/login", {
+      // .post("https://grub-hub.onrender.com/login", {
+      .post("http://127.0.0.1:3000/login", {
         username: user.username,
         password: user.password,
       })
       .then((response) => {
         localStorage.setItem("token", response.data.jwt);
         // redirect to the home page
-        navigate("/home");
+        navigate("/menu");
       })
       .catch((error) => {
         setErrors(error.response.data.errors);
@@ -142,7 +143,6 @@ function Login({ onLogin}) {
         }}
       >
         <form onSubmit={handleSubmit}>
-        {/* display errors */}
           {/* {errors.map((error, index) => (
             <p key={index}>{error}</p>
           ))} */}
