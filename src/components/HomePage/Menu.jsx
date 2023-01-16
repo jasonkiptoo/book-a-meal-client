@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import Navbar from '../NavBar/NavBar';
 import Specials from '../Specials/Specials';
 import RenderMeals from './RenderMeals'
-// import NavigationBar from './components/Navbar/Navbar'
+
+
 // import './Menu.css'
 
 const Menu = () => {
@@ -23,6 +25,8 @@ const Menu = () => {
 
   return (
     <div className="menu" style={{backgroundColor: "#EDEEF2", height: "100vh"}}>
+      
+      <div><Navbar/></div>
       <div style={{backgroundColor: "green", height: "35%", margin: "50px"}}>
         <Specials />
       </div>
