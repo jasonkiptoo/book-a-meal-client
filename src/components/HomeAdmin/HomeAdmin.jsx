@@ -57,10 +57,11 @@ const AdminHomePage = () => {
  const inputRef = useRef(null);
 
   return (
+    
     <div style={{ display: 'flex', justifyContent: 'flex-start', backgroundColor: '#EDEEF2', width: "100vw", height: "100vh" }}>
       <div style={{ width: '46.5%', backgroundColor: "yellow", height: "85%", margin: "auto", marginLeft: "40px"}}>
         
-          <p>ADD PRODUCT FORM</p>
+          <p style={{marginTop:"20px", marginLeft: "20px"}}>ADD PRODUCT FORM</p>
           <hr style={{width: "100%", marginLeft: "0px"}}/>
           <form style={{
           marginTop: '20px',
@@ -70,32 +71,33 @@ const AdminHomePage = () => {
           justifyContent: 'space-between',
           height: '85%',
         }}>
-          <label>
+          <label style={{marginBottom: "10px"}}>
             Product Name
             <br />
             <input type="text" value={productName} onChange={handleProductNameChange} />
           </label>
           <br />
-          <label>
-            Select Category 
-            <select value={category} onChange={handleCategoryChange}>
-              <option value="">Select a category</option>
-              <option value="category1">Main Meals</option>
-              <option value="category2">Drinks</option>
-              <option value="category3">Dessert</option>
-              <option value="category3">Salads</option>
-              <option value="category3">Light Bites</option>
-            </select>
-          </label>
-          <label>
-            Price:
-            <input type="text" value={price} onChange={handlePriceChange} />
-          </label>
-          <br />
-          <label>
-            Description<br />
-            <textarea value={description} onChange={handleDescriptionChange} />
-          </label>
+<div style={{ display: 'flex', justifyContent: 'space-between', width: "95%"}}>
+  <label style={{marginBottom: "10px", border: "#D9D9D9", borderRadius: "5px"}}>
+    Select Category 
+    <select value={category} onChange={handleCategoryChange}>
+      <option value="">Select a category</option>
+      <option value="category1">Main Meals</option>
+      <option value="category2">Drinks</option>
+      <option value="category3">Dessert</option>
+      <option value="category3">Salads</option>
+      <option value="category3">Light Bites</option>
+    </select>
+  </label>
+  <label style={{marginBottom: "10px"}}>
+    Price
+    <input style={{marginLeft: "20px", border: "#D9D9D9", borderRadius: "5px"}} type="text" value={price} onChange={handlePriceChange} />
+  </label>
+</div>
+<label style={{marginBottom: "1px"}}>
+  Description<br />
+  <textarea style={{height: "300px", width: "95%", border: "#D9D9D9", borderRadius: "5px"}} value={description} onChange={handleDescriptionChange} />
+</label>
           <br />
           
           <br />
