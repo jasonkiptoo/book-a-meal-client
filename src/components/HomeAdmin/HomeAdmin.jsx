@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Switch } from 'react-switch';
+import { useRef } from 'react';
+
 
 
 
@@ -46,12 +48,28 @@ const AdminHomePage = () => {
     // Save product to database or API here
   };
 
+  function handleChange(event) {
+    // access the selected file through event.target.files
+    const selectedFile = event.target.files[0];
+    // do something with the selected file, such as uploading it to a server
+  };
+
+ const inputRef = useRef(null);
+
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', backgroundColor: '#EDEEF2', width: "100vw", height: "100vh" }}>
-      <div style={{ width: '40%', backgroundColor: "white", height: "75%" }}>
-        <form>
+    <div style={{ display: 'flex', justifyContent: 'flex-start', backgroundColor: '#EDEEF2', width: "100vw", height: "100vh" }}>
+      <div style={{ width: '46.5%', backgroundColor: "yellow", height: "85%", margin: "auto", marginLeft: "40px"}}>
+        
           <p>ADD PRODUCT FORM</p>
-          <hr />
+          <hr style={{width: "100%", marginLeft: "0px"}}/>
+          <form style={{
+          marginTop: '20px',
+          marginLeft: '20px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          height: '85%',
+        }}>
           <label>
             Product Name
             <br />
@@ -83,12 +101,21 @@ const AdminHomePage = () => {
           <br />
           
           <label>
-          Product Image:
-          <input type="file" onChange={handleProductImageChange} />
+          Product Image
+          <br />
+          <input type="file" style={{display: "none"}} ref={inputRef} onChange={handleChange}/>
+          <input placeholder="Upload image..."/>
+          <button style={{backgroundColor: "#D9D9D9", border: "0px", borderRadiusLeft: "5px"}} onClick={() => inputRef.current.click()}>Browse</button>
+          
         </label>
         </form>
       </div>
-      <div style={{ width: '40%', display: 'flex', flexDirection: 'column', backgroundColor: "white", height: "75%" }}>
+      <div style={{ width: '46.5%', display: 'flex', flexDirection: 'column', backgroundColor: "green", height: "85%", margin: "auto", marginRight: "40px"}}>
+        <form style={{
+          marginTop: '20px',
+          marginLeft: '20px',
+          
+        }}>
       <p>PRODUCT</p>
           <hr />
         <img src={productImage} alt="Uploaded product image" style={{ width: '200px', height: '200px' }} />
@@ -114,9 +141,27 @@ const AdminHomePage = () => {
             
 
           }}>
-          <button onClick={handleSaveProduct}>Save</button>
-          <button onClick={handleSaveProduct}>Save and Add</button>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '120px',
+              width: '80%',
+              margin: "auto",
+              // borderRadius: "5px",
+              // border: "0px solid #990F02",
+              // flexDirection: 'row',
+              // justifyContent: 'space-between',
+              // alignItems: 'center',
+              // width: '80%',
+              marginTop: '210px',
+              
+            }}>
+        
+          <button onClick={handleSaveProduct} style={{display: 'inline-block', backgroundColor: '#990F02', color: 'white', width: "250px", height: "35px", border: "0px", borderRadius: "5px"}}>Save</button>
+          <button onClick={handleSaveProduct} style={{display: 'inline-block', backgroundColor: '#990F02', color: 'white', width: "250px", height: "35px", border: "0px", borderRadius: "5px"}}>Save and Add</button>
           </div>
+          </div>
+        </form>
       </div>
     </div>
   );
