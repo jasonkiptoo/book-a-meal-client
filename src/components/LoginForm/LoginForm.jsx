@@ -200,10 +200,9 @@ function Login({ onLogin}) {
             }}
           />
           <br />
-          <h6 className="errorhead text-danger">
-            {" "}
-            {errors.map((error) => error)}{" "}
-          </h6>
+          {/* {errors.map((error, index) => (
+            <h6 key={index}>{error}</h6>
+          ))} */}
           <a href="#" style={{ color: "#990F02", textDecoration: "none" }}>
             Forgot Password?
           </a>

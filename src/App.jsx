@@ -28,6 +28,7 @@ function App() {
         <Route exact path="/login"element={<LoginForm onLogin={handleLogin} />} />
         <Route exact path="/home" element={<Home user={user}  />} />
         <Route exact path="/admin" element={<HomeAdmin />} />
+        <Route exact path="/menu" element={< Menu/>} />
       </Routes>
 
     </div>
