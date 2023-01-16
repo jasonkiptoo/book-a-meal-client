@@ -16,6 +16,7 @@ import AdminHomePage from "./components/HomeAdmin/HomeAdmin.jsx";
 import HomeAdmin from "./components/HomeAdmin/HomeAdmin.jsx";
 import Menu from "./components/HomePage/Menu.jsx";
 import MyOrders from "./components/Orders/MyOrders.jsx";
+import MyCart from "./components/Orders/MyCart.jsx";
 
 function App() {
   const [user, setUser] = useState();
@@ -48,6 +49,7 @@ function App() {
         <Route exact path="/admin" element={<HomeAdmin />} />
         <Route exact path="/menu" element={<Menu/>} />
         <Route exact path="/my-orders" element={<MyOrders/>} />
+        <Route exact path="/cart" element={<MyCart/>} />
         <Route exact path="/navbar" element={<Navbar user={user} />} />
       </Routes>
 

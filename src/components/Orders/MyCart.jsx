@@ -21,15 +21,15 @@ const MyOrders = () => {
 
   return (
     <div
-      className="menu-page"
-      style={{ backgroundColor: "#F5F5F5;", height: "100vh" }}
+      className="orders"
+      style={{ backgroundColor: "#EDJEF2", height: "100vh" }}
     >
       <div>
         <Navbar />
       </div>
-      {/* <div style={{ backgroundColor: "green", height: "35%", margin: "50px" }}>
+      <div style={{ backgroundColor: "green", height: "35%", margin: "50px" }}>
         <Specials />
-      </div> */}
+      </div>
       <div
         className="orders row row-cols-3 mt-5"
         style={{
@@ -44,11 +44,11 @@ const MyOrders = () => {
                 style={{ backgroundColor: "transparent", border: "none" }}
               >
                 <div
-                    className="card"
-                    style={{
+                  className="card"
+                  style={{
                     backgroundColor: "#D9D9D9",
                     borderRadius: "30px",
-                    padding: "5%",
+                    padding: "10%",
                   }}
                 >
                   <img
@@ -57,20 +57,14 @@ const MyOrders = () => {
                     className="img-fluid me-5 mt-3 mb-3"
                     style={{
                       height: "250px",
-                      width: "254px",
+                      width: "200px",
                       borderRadius: "30px",
                       margin: "auto",
                     }}
-
                   ></img>
-                  </div>
                   <p
                     className="product-name"
-                    style={{
-                      color: "#990F02",
-                      padding: "15%",
-                      marginLeft:"10%"
-                     }}
+                    style={{ color: "#990F02", paddingLeft: "15%" }}
                   >
                     {item.name}
                   </p>
@@ -92,14 +86,14 @@ const MyOrders = () => {
                     flexDirection: "row",
                   }}
                 >
-
-                  <button className="btn text-white "style={{flex: "1"}}>Ksh {item.id}</button>
+                  
+                  <button className="btn text-white "style={{flex: "1"}}>2 Glasses</button>
 
                   <button
                     class="btn btn-light "
                     id="subtract"
                     style={{
-                      borderRadius: "50px",
+                      borderRadius: "40px",
                       flex: "0.4",
                       border: "none",
                       color: "#990F02",
@@ -110,7 +104,7 @@ const MyOrders = () => {
                   </button>
                 </div>
               </div>
-
+            </div>
           ))}
         <div
           className=" col-2 col-md-8 col-lg-12"
