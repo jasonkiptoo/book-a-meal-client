@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route, Routes, redirect } from "react-router-d
 // import Homepage from "./components/HomePage";
 import LoginForm from "./components/LoginForm/LoginForm.jsx";
 
-import NavigationBar from "./components/NavBar/NavBar.jsx";
+import Navbar from "./components/NavBar/NavBar.jsx";
 
 import Register from "./components/LoginForm/RegisterForm.jsx";
 
@@ -30,7 +30,7 @@ function App() {
         <Route exact path="/home" element={<Home user={user}  />} />
         <Route exact path="/admin" element={<HomeAdmin />} />
         <Route exact path="/menu" element={< Menu/>} />
-        <Route exact path="/navbar" element={< NavigationBar />} />
+        <Route exact path="/navbar" element={< Navbar />} />
       </Routes>
 
     </div>
