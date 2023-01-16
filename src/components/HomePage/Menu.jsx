@@ -8,10 +8,16 @@ const Menu = () => {
     const [selectedProduct, setSelectedProduct] = useState(null);
 
     useEffect(() => {
-        fetch("http://127.0.0.1:3000/categories")
+        fetch("http://127.0.0.1:3000/categories", {
+          headers: {
+         Authorization: `Bearer ${localStorage.getItem("token")}`,
+       },
+        })
         .then(res => res.json())
         .then(data => setMenu(data))
     }, [])
+
+    console.log(menu);
 
     return (
       <div>
@@ -19,17 +25,23 @@ const Menu = () => {
           <Specials />
         </div>
         Menu
-        {menu.map((item) => (
-          <div key={item.id} className="menu-item">
-            <div className="card">
+        {menu && menu.map((item) => (
+          <div key={item.id} className="menu-item">  
+          <div class="container">
+            <div class="card">     
+        <div class="row d-flex justify-content-between">
+        <div class="col-sm-4">
               <img src={item.image_url} alt="piktcha"></img>
             </div>
-            <button onClick={() => setSelectedProduct(item)}>View Meals</button>
+            <button onClick={() => setSelectedProduct(item)}>View {""} {item.name}</button>
           </div>
+          </div>
+         </div>
+        </div>          
         ))}
         {selectedProduct && <RenderMeals meals={selectedProduct.meals} />}
-      </div>
+      </div> 
     );
-}
+ }
 
 export default Menu
