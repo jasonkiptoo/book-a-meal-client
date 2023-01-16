@@ -21,8 +21,8 @@ const MyOrders = () => {
 
   return (
     <div
-      className="menu"
-      style={{ backgroundColor: "#EDEEF2", height: "100vh" }}
+      className="orders"
+      style={{ backgroundColor: "#EDJEF2", height: "100vh" }}
     >
       <div>
         <Navbar />
@@ -31,7 +31,7 @@ const MyOrders = () => {
         <Specials />
       </div>
       <div
-        className="row row-cols-5 mt-5"
+        className="orders row row-cols-3 mt-5"
         style={{
           margin: "50px",
         }}
@@ -76,21 +76,23 @@ const MyOrders = () => {
                   </p>
                 </div>
                 <div
-                  className="card mt-3"
+                  className="card mt-3 mb-3"
                   style={{
                     backgroundColor: "#990F02",
                     border: "none",
-                    borderRadius: "60px",
-                    display: "flex",
+                    borderRadius: "40px",
+                    margin: "20%",
+
                     flexDirection: "row",
                   }}
                 >
                   <button
-                    class="btn btn-light btn-lg"
+                    class="btn btn-light"
                     id="add"
                     style={{
-                      borderRadius: "400px",
-                      flex: "1",
+                      borderRadius: "40px",
+                      marginRight: "10%",
+                      flex: "0.4",
                       border: "none",
                       color: "#990F02",
                       fontSize: "30px",
@@ -98,14 +100,14 @@ const MyOrders = () => {
                   >
                     +
                   </button>
-                  <button className="btn text-white ">2 Glasses</button>
+                  <button className="btn text-white "style={{flex: "1"}}>2 Glasses</button>
 
                   <button
-                    class="btn btn-light btn-lg"
+                    class="btn btn-light "
                     id="subtract"
                     style={{
-                      borderRadius: "400px",
-                      flex: "1",
+                      borderRadius: "40px",
+                      flex: "0.4",
                       border: "none",
                       color: "#990F02",
                       fontSize: "30px",
