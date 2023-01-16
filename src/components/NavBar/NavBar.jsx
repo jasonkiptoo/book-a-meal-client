@@ -4,11 +4,11 @@ import { FaInstagram, FaFacebook, FaTwitter, FaWhatsapp } from "react-icons/fa";
 
 const NavigationBar = () => {
   return (
-    <nav className="navbar navbar-custom navbar-expand-lg navbar-dark  py-2 sticky-top navigation">
+    <nav className="navbar navbar-custom navbar-expand-sm navbar-dark  py-2 sticky-top navigation">
       <div className="container px-lg-2">
-        <Link className="navbar-brand mb-2 ms-auto mb-2 mb-lg-0" to="/dashboard">
+        {/* <Link className="navbar-brand mb-2 ms-auto mb-2 mb-lg-0" to="/dashboard">
           GrubHub
-        </Link>
+        </Link> */}
         <button
           className="navbar-toggler"
           type="button"
@@ -46,7 +46,7 @@ const NavigationBar = () => {
         </div>
       </div>
 
-      <li className="navbar-nav ml-auto">
+      {/* <li className="navbar-nav ml-auto">
 
         <i className="nav-link ">Hello Jayson</i>
         <i className="nav-link bi bi-instagram"></i>
@@ -54,7 +54,54 @@ const NavigationBar = () => {
         <i className="nav-link bi bi-twitter"> </i>
 
         <button className="btn bg-light">Logout</button>
-      </li>
+      </li> */}
+      <div
+          className="social-container"
+          style={{
+            backgroundColor: "transparent",
+            display: "flex",
+            justifyContent: "flex-end",
+            marginRight: "4rem",
+            marginTop: "1rem",
+          }}
+        >
+          <a
+            href="https://twitter.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: "white",
+              marginRight: "1rem",
+            }}
+          >
+            {/* <FontAwesomeIcon icon={faTwitter} size="2x" /> */}
+            <FaTwitter size="30px" />
+          </a>
+          <a
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: "white",
+              marginRight: "1rem",
+            }}
+          >
+            {/* <FontAwesomeIcon icon={faInstagram} size="2x" /> */}
+            <FaInstagram size="30px" />
+          </a>
+          <a
+            href="https://facebook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: "white",
+            }}
+          >
+            {/* <FontAwesomeIcon icon={faFacebook} size="2x" /> */}
+            <FaFacebook size="30px" />
+          </a>
+          <button className="btn bg-light" style={{width: "100px", color: "#990F02", backgroundColor: "white", marginLeft: "1rem", marginTop: "-5px", fontSize: "16px", fontWeight: "bold"}}>LOGOUT</button>
+        </div>
     </nav>
     
   );

@@ -7,13 +7,14 @@ import { BrowserRouter as Router, Route, Routes, redirect } from "react-router-d
 // import Homepage from "./components/HomePage";
 import LoginForm from "./components/LoginForm/LoginForm.jsx";
 
-import NavBar from "./components/NavBar/NavBar.jsx";
+import NavigationBar from "./components/NavBar/NavBar.jsx";
 
 import Register from "./components/LoginForm/RegisterForm.jsx";
 
 import Home from "./components/Home/Home.jsx";
 import AdminHomePage from "./components/HomeAdmin/HomeAdmin.jsx";
 import HomeAdmin from "./components/HomeAdmin/HomeAdmin.jsx";
+import Menu from "./components/HomePage/Menu.jsx";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -29,6 +30,7 @@ function App() {
         <Route exact path="/home" element={<Home user={user}  />} />
         <Route exact path="/admin" element={<HomeAdmin />} />
         <Route exact path="/menu" element={< Menu/>} />
+        <Route exact path="/navbar" element={< NavigationBar />} />
       </Routes>
 
     </div>

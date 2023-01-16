@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Specials from '../Specials/Specials';
 import RenderMeals from './RenderMeals'
+// import NavigationBar from './components/Navbar/Navbar'
+// import './Menu.css'
 
 const Menu = () => {
 
@@ -19,29 +21,46 @@ const Menu = () => {
 
     console.log(menu);
 
-    return (
-      <div>
-        <div>
-          <Specials />
-        </div>
-        Menu
-        {menu && menu.map((item) => (
-          <div key={item.id} className="menu-item">  
-          <div class="container">
-            <div class="card">     
-        <div class="row d-flex justify-content-between">
-        <div class="col-sm-4">
-              <img src={item.image_url} alt="piktcha"></img>
+  return (
+    <div className="menu" style={{backgroundColor: "#EDEEF2", height: "100vh"}}>
+      <div style={{backgroundColor: "green", height: "35%", margin: "50px"}}>
+        <Specials />
+      </div>
+      {/* <div className="d-flex row justify-content-between"> */}
+       <div className="row row-cols-5 mt-5" style={{
+        margin: "50px",
+       }}>
+        {menu &&
+          menu.map((item) => (
+            <div key={item.id} className="menu-item">
+              <div className="card" style={{backgroundColor: "transparent", border: "none", }}>
+                <img
+                  src={item.image_url} 
+                  alt="piktcha"
+                  className="img-fluid"
+                  style={{height: "250px", width: "200px", borderRadius: "30px", margin: "25px"}}
+                ></img>
+                <button
+                  style={{ backgroundColor: "#990F02", borderRadius: "50px", border: "none",}}
+                  onClick={() => setSelectedProduct(item)}
+                  className="btn btn-primary m-3"
+                >
+                  View {item.name}
+                </button>
+              </div>
             </div>
-            <button onClick={() => setSelectedProduct(item)}>View {""} {item.name}</button>
-          </div>
-          </div>
-         </div>
-        </div>          
-        ))}
-        {selectedProduct && <RenderMeals meals={selectedProduct.meals} />}
-      </div> 
-    );
+          ))}
+      </div>
+      {selectedProduct && <RenderMeals meals={selectedProduct.meals} />}
+    </div>
+  );
  }
 
 export default Menu
+
+
+/* <div key={item.id} className="menu-item">  
+          <div class="container">
+            <div class="card">     
+        <div class="row d-flex justify-content-between">
+        <div class="col-sm-4"> */
