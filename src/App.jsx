@@ -49,6 +49,7 @@ function App() {
         <Route exact path="/menu" element={<Menu/>} />
         <Route exact path="/navbar" element={<Navbar user={user} current={currentUser}/>} />
         <Route exact path="/specials" element={<Specials />} />
+        <Route exact path="/homeadmin" element={<AdminHomePage />} />
       </Routes>
 
     </div>
