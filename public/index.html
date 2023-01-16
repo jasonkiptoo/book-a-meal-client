@@ -62,12 +62,28 @@
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
-
       You can add webfonts, meta tags, or analytics to this file.
       The build step will place the bundled scripts into the <body> tag.
-
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <style>
+      .footer {
+         position: fixed;
+         left: 0;
+         bottom: 0;
+         width: 100%;
+         background-color: white;
+         color: red;
+         text-align: center;
+      }
+      </style>
+    <div class="footer">
+      <script>
+        let currentYear = new Date().getFullYear();
+        document.write("<p>Copyright  &copy; " + currentYear + " All rights reserved</p>");
+      </script>
+    </div>
+
   </body>
 </html>
