@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { FaInstagram, FaFacebook, FaTwitter } from "react-icons/fa";
 
-document.body.style.backgroundColor = "#990F02";
+// document.body.style.backgroundColor = "#990F02";
 
 function Register() {
   const [user, setUser] = useState({
@@ -20,7 +20,8 @@ function Register() {
     e.preventDefault();
     console.log(user);
     axios
-      .post("https://grub-hub.onrender.com/register", {
+      // .post("https://grub-hub.onrender.com/register", {
+      .post("http://127.0.0.1:3000/register", {
         email: user.email,
         username: user.username,
         password: user.password,
@@ -129,10 +130,10 @@ function Register() {
         }}
       >
         <form onSubmit={handleSubmit}>
-        {/* display errors
+        display errors
           {errors.map((error, index) => (
             <p key={index}>{error}</p>
-          ))} */}
+          ))}
           <h3 style={{ color: "#990F02" }}>GrubHub</h3>
           <br />
           <label

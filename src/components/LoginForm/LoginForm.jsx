@@ -3,7 +3,7 @@ import { FaInstagram, FaFacebook, FaTwitter, FaWhatsapp } from "react-icons/fa";
 import { useNavigate, Link } from "react-router-dom";
 import axios from 'axios';
 
-document.body.style.backgroundColor = "#990F02";
+// document.body.style.backgroundColor = "#990F02";
 
 function Login({ onLogin}) {
   const navigate = useNavigate();
@@ -38,14 +38,15 @@ function Login({ onLogin}) {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("https://grub-hub.onrender.com/login", {
+      // .post("https://grub-hub.onrender.com/login", {
+      .post("http://127.0.0.1:3000/login", {
         username: user.username,
         password: user.password,
       })
       .then((response) => {
         localStorage.setItem("token", response.data.jwt);
         // redirect to the home page
-        navigate("/home");
+        navigate("/menu");
       })
       .catch((error) => {
         setErrors(error.response.data.errors);
@@ -142,7 +143,6 @@ function Login({ onLogin}) {
         }}
       >
         <form onSubmit={handleSubmit}>
-        {/* display errors */}
           {/* {errors.map((error, index) => (
             <p key={index}>{error}</p>
           ))} */}
@@ -200,10 +200,9 @@ function Login({ onLogin}) {
             }}
           />
           <br />
-          <h6 className="errorhead text-danger">
-            {" "}
-            {errors.map((error) => error)}{" "}
-          </h6>
+          {/* {errors.map((error, index) => (
+            <h6 key={index}>{error}</h6>
+          ))} */}
           <a href="#" style={{ color: "#990F02", textDecoration: "none" }}>
             Forgot Password?
           </a>
