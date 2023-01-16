@@ -15,7 +15,7 @@ import Home from "./components/Home/Home.jsx";
 import AdminHomePage from "./components/HomeAdmin/HomeAdmin.jsx";
 import HomeAdmin from "./components/HomeAdmin/HomeAdmin.jsx";
 import Menu from "./components/HomePage/Menu.jsx";
-import MyOrders from "./components/Orders/MyOrders.jsx";
+import MenuPage from "./components/HomePage/MenuPage.jsx";
 import MyCart from "./components/Orders/MyCart.jsx";
 
 function App() {
@@ -47,8 +47,7 @@ function App() {
         <Route exact path="/login"element={<LoginForm />} />
         <Route exact path="/home" element={<Home user={user}  />} />
         <Route exact path="/admin" element={<HomeAdmin />} />
-        <Route exact path="/menu" element={<Menu/>} />
-        <Route exact path="/my-orders" element={<MyOrders/>} />
+        <Route exact path="/menu" element={<MenuPage/>} />
         <Route exact path="/cart" element={<MyCart/>} />
         <Route exact path="/navbar" element={<Navbar user={user} />} />
       </Routes>
