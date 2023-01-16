@@ -15,6 +15,7 @@ import Home from "./components/Home/Home.jsx";
 import AdminHomePage from "./components/HomeAdmin/HomeAdmin.jsx";
 import HomeAdmin from "./components/HomeAdmin/HomeAdmin.jsx";
 import Menu from "./components/HomePage/Menu.jsx";
+import MyOrders from "./components/Orders/MyOrders.jsx";
 
 function App() {
   const [user, setUser] = useState();
@@ -23,18 +24,18 @@ function App() {
   //   setUser(user)
   // }
 
-  const currentUser = () => {
-    useEffect(() => {
-      fetch('http://127.0.0.1:3000/profile', {
-        headers : {
-          "Authorization": `Bearer ${localStorage.getItem('token')}`
-        }
-      })
-      .then(res => res.json())
-      .then(data => setUser(data))
-      .catch(err => alert(err))
-    }, [])
-  }
+  // const currentUser = () => {
+  //   useEffect(() => {
+  //     fetch('http://127.0.0.1:3000/profile', {
+  //       headers : {
+  //         "Authorization": `Bearer ${localStorage.getItem('token')}`
+  //       }
+  //     })
+  //     .then(res => res.json())
+  //     .then(data => setUser(data))
+  //     .catch(err => alert(err))
+  //   }, [])
+  // }
 
   console.log(user)
   return (
@@ -46,7 +47,8 @@ function App() {
         <Route exact path="/home" element={<Home user={user}  />} />
         <Route exact path="/admin" element={<HomeAdmin />} />
         <Route exact path="/menu" element={<Menu/>} />
-        <Route exact path="/navbar" element={<Navbar user={user} current={currentUser}/>} />
+        <Route exact path="/my-orders" element={<MyOrders/>} />
+        <Route exact path="/navbar" element={<Navbar user={user} />} />
       </Routes>
 
     </div>
