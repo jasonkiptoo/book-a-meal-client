@@ -12,18 +12,15 @@ import Navbar from "./components/NavBar/NavBar.jsx";
 import Register from "./components/LoginForm/RegisterForm.jsx";
 
 import Home from "./components/Home/Home.jsx";
-import AdminHomePage from "./components/HomeAdmin/HomeAdmin.jsx";
+
 import HomeAdmin from "./components/HomeAdmin/HomeAdmin.jsx";
-<<<<<<< HEAD
-import Menu from "./components/HomePage/Menu.jsx";
+
 import MenuPage from "./components/HomePage/MenuPage.jsx";
 import MyCart from "./components/Orders/MyCart.jsx";
-=======
 import HomePage from "./components/HomePage/HomePage.jsx";
 import Specials from "./components/Specials/Specials.jsx";
 
 
->>>>>>> login-signup-page
 
 function App() {
   const [user, setUser] = useState(null);
@@ -32,7 +29,7 @@ function App() {
   //   setUser(user)
   // }
 
-<<<<<<< HEAD
+
   // const currentUser = () => {
   //   useEffect(() => {
   //     fetch('http://127.0.0.1:3000/profile', {
@@ -45,7 +42,7 @@ function App() {
   //     .catch(err => alert(err))
   //   }, [])
   // }
-=======
+
   useEffect(() => {
     fetch("http://127.0.0.1:3000/profile",{
       headers: {
@@ -67,7 +64,6 @@ function App() {
   function handleLogout() {
     setUser(null);
   }
->>>>>>> login-signup-page
 
   console.log(user)
   return (
@@ -82,16 +78,12 @@ function App() {
         />
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/admin" element={<HomeAdmin />} />
-<<<<<<< HEAD
         <Route exact path="/menu" element={<MenuPage/>} />
         <Route exact path="/cart" element={<MyCart/>} />
         <Route exact path="/navbar" element={<Navbar user={user} />} />
-      </Routes>
-=======
         <Route exact path="/homepage" element={<HomePage/>} />
         {/* <Route exact path="/navbar" element={<Navbar user={user} current={currentUser}/>} /> */}
         <Route exact path="/specials" element={<Specials />} />
->>>>>>> login-signup-page
 
         <Route
           exact
@@ -101,6 +93,8 @@ function App() {
           }
         />
       </Routes>
+
+
     </div>
   );
 }

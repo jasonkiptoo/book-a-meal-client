@@ -27,9 +27,9 @@ const MyOrders = () => {
       <div>
         <Navbar />
       </div>
-      <div style={{ backgroundColor: "green", height: "35%", margin: "50px" }}>
+      {/* <div style={{ backgroundColor: "green", height: "35%", margin: "50px" }}> */}
         <Specials />
-      </div>
+      {/* </div> */}
       <div
         className="orders row row-cols-3 mt-5"
         style={{
