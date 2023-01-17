@@ -103,7 +103,7 @@ const MyOrders = ({ item }) => {
                       >
                         Remove item
                       </button>
-                    </td>
+                      </td>
                   </tr>
                 );
               })}
@@ -116,37 +116,33 @@ const MyOrders = ({ item }) => {
                 </td>
               </tr>
             </tbody>
-            <tr>
-              <td></td>
-              <td>
-                {" "}
-                <h5 className="text-end">Total price: $ {cartTotal}</h5>
-              </td>
-              <td></td>
-
-                <button
-                  className="btn btn-danger mt-2 ms-3"
-                  onClick={() => emptyCart()}
-                >
-                  Clear cart
-                </button>
-
-               <td> <button
-          className="btn btn-primary  mb-10"
-          style={{
-            backgroundColor: "#990F02",
-            borderRadius: "50px",
-            border: "none",
-          }}
-        >
-          Proceed to place order
-        </button></td>
-
-            </tr>
           </table>
+        </div>
+        <div className="col ms-auto">
+          <h5 className="text-end ms-5"> Total price: $ {cartTotal}</h5>
+        </div>
+        <div className="col-auto">
+          <button className="btn btn-danger  ms-3" onClick={() => emptyCart()}>
+            Clear cart
+          </button>
+        </div>
+
+        <div className="col-auto">
+          <button
+            className="btn btn-primary  mb-10"
+            style={{
+              backgroundColor: "#990F02",
+              borderRadius: "50px",
+              border: "none",
+            }}
+            // onClick={() => setCart(items)}
+          >
+            Proceed to place order
+          </button>
         </div>
       </div>
 
+      {/* {cart && <OrderSummary cartItems={cart.items}  />} */}
     </div>
   );
 };

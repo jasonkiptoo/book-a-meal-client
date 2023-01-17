@@ -1,52 +1,93 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { FaInstagram, FaFacebook, FaTwitter,  } from "react-icons/fa";
+import React from "react";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { FaInstagram, FaFacebook, FaTwitter } from "react-icons/fa";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const Navbar = ({ user, activePage, current }) => {
-  console.log(current)
-  console.log(user)
+const Navbar = ({ user, current }) => {
+  const [activePage, setActivePage] = useState("homepage");
+  let homepage = activePage === "homepage" ? "active" : "homepage";
+  let myorders = activePage === "myorders" ? "active" : "";
+  let orderhistory = activePage === "orderhistory" ? "active" : "";
+  console.log(current);
+  console.log(user);
   return (
-    <nav style={{ backgroundColor: "#990F02", display: "flex", flexDirection: "row", justifyContent: "space-around", height: "70px"}}>
-      <div className="nav-left" style={{
+    <nav
+      style={{
+        backgroundColor: "#990F02",
         display: "flex",
-        alignItems: "center",
-        marginLeft: "-5rem",
-      }}>
+        flexDirection: "row",
+        justifyContent: "space-around",
+        height: "70px",
+      }}
+    >
+      <div
+        className="nav-left"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          marginLeft: "-5rem",
+        }}
+      >
         <Link
           to="/homepage"
-          style={{ color: activePage === 'menu' ? 'black' : 'white', textDecoration: "none", padding: "20px"}}
+          className={homepage}
+          onClick={() => setActivePage("homepage")}
+          style={{
+            color: activePage === "homepage" ? "black" : "white",
+            textDecoration: "none",
+            padding: "20px",
+          }}
         >
           Menu
         </Link>
+
         <Link
           to="/my-orders"
-          style={{ color: activePage === 'my-orders' ? 'black' : 'white', textDecoration: "none", padding: "20px" }}
+          className={myorders}
+          onClick={() => setActivePage("myorders")}
+          style={{
+            color: activePage === "myorders" ? "black" : "white",
+            textDecoration: "none",
+            padding: "20px",
+          }}
         >
-          My Orders
+          My orders
         </Link>
         <Link
           to="/order-history"
-          style={{ color: activePage === 'order-history' ? 'black' : 'white', textDecoration: "none", padding: "20px" }}
+          className={orderhistory}
+          onClick={() => setActivePage("orderhistory")}
+          style={{
+            color: activePage === "orderhistory" ? "black" : "white",
+            textDecoration: "none",
+            padding: "20px",
+          }}
         >
           Order History
         </Link>
       </div>
-      <div className="nav-center" style={{
-        display: "flex",
-        alignItems: "center",
-        color: "white",
-        marginLeft: "-7rem",
-      }}>
+      <div
+        className="nav-center"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          color: "white",
+          marginLeft: "-7rem",
+        }}
+      >
         Hello Jayson {user} &#128522;
       </div>
-      <div className="nav-right" style={{
-        display: "flex",
-        alignItems: "center",
-        marginRight: "-7rem",
-      }}>
+      <div
+        className="nav-right"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          marginRight: "-7rem",
+        }}
+      >
         <div className="social-icons">
-        <a
+          <a
             href="https://twitter.com"
             target="_blank"
             rel="noopener noreferrer"
@@ -82,19 +123,19 @@ const Navbar = ({ user, activePage, current }) => {
             <FaFacebook size="30px" />
           </a>
           <button
-          className="btn bg-light"
-          style={{
-            width: "100px",
-            color: "#990F02",
-            backgroundColor: "white",
-            marginLeft: "1rem",
-            marginTop: "-5px",
-            fontSize: "16px",
-            fontWeight: "bold",
-          }}
-        >
-          LOGOUT
-        </button>
+            className="btn bg-light"
+            style={{
+              width: "100px",
+              color: "#990F02",
+              backgroundColor: "white",
+              marginLeft: "1rem",
+              marginTop: "-5px",
+              fontSize: "16px",
+              fontWeight: "bold",
+            }}
+          >
+            LOGOUT
+          </button>
         </div>
       </div>
     </nav>
