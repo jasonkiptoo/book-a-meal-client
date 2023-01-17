@@ -5,8 +5,8 @@ import Specials from "../Specials/Specials";
 import { useCart } from "react-use-cart";
 
 const MyOrders = ({ item }) => {
-  const [menu, setMenu] = useState([]);
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  // const [menu, setMenu] = useState([]);
+  // const [selectedProduct, setSelectedProduct] = useState(null);
 
   const {
     isEmpty,
@@ -50,7 +50,13 @@ const MyOrders = ({ item }) => {
             Orders ({totalUniqueItems}) Total items: ({totalItems}){" "}
           </h5>
 
-          <table className="table table-light">
+          <table className="table table-light table-bordered">
+            <th>Image</th>
+            <th>Item</th>
+            <th className="text-center">Unit Price</th>
+            <th className="text-center">Quantity</th>
+            <th className="text-center">Total Price</th>
+            <th className="text-center mb-2">Action</th>
             <tbody>
               {items.map((item, index) => {
                 return (
@@ -58,28 +64,41 @@ const MyOrders = ({ item }) => {
                     <td>
                       {<img src={item.image_url} style={{ height: "3rem" }} />}
                     </td>
-                    <td>{item.name}</td>
-                    <td>{item.price}</td>
-                    <td>Quantity ({item.quantity})</td>
+                    <td >{item.name}</td>
+                    <td className="text-center">{item.price}</td>
+                    <td style={{ width: "10%" }}>
+                      <div className="input-group">
+                        <button
+                          type="button"
+                          className="input-group-text"
+                          onClick={() =>
+                            updateItemQuantity(item.id, item.quantity - 1)
+                          }
+                        >
+                          -
+                        </button>
+                        <div className="form-control text-center">
+                          {item.quantity}
+                        </div>
+                        <button
+                          type="button"
+                          className="input-group-text"
+                          onClick={() =>
+                            updateItemQuantity(item.id, item.quantity + 1)
+                          }
+                        >
+                          +
+                        </button>
+                      </div>
+                    </td>
+
+
+                    <td className="text-center">{(item.price)*(item.quantity)}</td>
+
                     <td>
+                      {" "}
                       <button
-                        className="btn btn-info ms-2"
-                        onClick={() =>
-                          updateItemQuantity(item.id, item.quantity - 1)
-                        }
-                      >
-                        -
-                      </button>
-                      <button
-                        className="btn btn-info ms-2"
-                        onClick={() =>
-                          updateItemQuantity(item.id, item.quantity + 1)
-                        }
-                      >
-                        +
-                      </button>
-                      <button
-                        className="btn btn-warning ms-2"
+                        className="btn btn-warning "
                         onClick={() => removeItem(item.id)}
                       >
                         Remove item
@@ -88,6 +107,14 @@ const MyOrders = ({ item }) => {
                   </tr>
                 );
               })}
+              <tr>
+                <td colspan="4" className="text-end fw-bold">
+                 Grand Total
+                </td>
+                <td colspan="1" className="text-center fw-bold">
+                  $ {cartTotal}
+                </td>
+              </tr>
             </tbody>
             <tr>
               <td></td>
