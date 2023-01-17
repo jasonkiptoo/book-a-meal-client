@@ -16,10 +16,11 @@ import Home from "./components/Home/Home.jsx";
 import HomeAdmin from "./components/HomeAdmin/HomeAdmin.jsx";
 
 import MenuPage from "./components/HomePage/MenuPage.jsx";
-import MyCart from "./components/Orders/MyCart.jsx";
+
 import HomePage from "./components/HomePage/HomePage.jsx";
 import Specials from "./components/Specials/Specials.jsx";
 import {CartProvider} from "react-use-cart"
+import MyOrders from './components/Orders/MyOrders.jsx';
 
 
 
@@ -81,7 +82,7 @@ function App() {
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/admin" element={<HomeAdmin />} />
         <Route exact path="/menu" element={<MenuPage/>} />
-        <Route exact path="/cart" element={<MyCart/>} />
+        <Route exact path="/my-orders" element={<MyOrders/>} />
         <Route exact path="/navbar" element={<Navbar user={user} />} />
         <Route exact path="/homepage" element={<HomePage/>} />
         {/* <Route exact path="/navbar" element={<Navbar user={user} current={currentUser}/>} /> */}

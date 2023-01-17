@@ -14,7 +14,7 @@ const Navbar = ({ user, activePage, current }) => {
         marginLeft: "-5rem",
       }}>
         <Link
-          to="/menu"
+          to="/homepage"
           style={{ color: activePage === 'menu' ? 'black' : 'white', textDecoration: "none", padding: "20px"}}
         >
           Menu

@@ -86,20 +86,7 @@ const MyOrders = () => {
                     flexDirection: "row",
                   }}
                 >
-                  <button
-                    class="btn btn-light"
-                    id="add"
-                    style={{
-                      borderRadius: "40px",
-                      marginRight: "10%",
-                      flex: "0.4",
-                      border: "none",
-                      color: "#990F02",
-                      fontSize: "30px",
-                    }}
-                  >
-                    +
-                  </button>
+
                   <button className="btn text-white "style={{flex: "1"}}>2 Glasses</button>
 
                   <button
@@ -113,7 +100,7 @@ const MyOrders = () => {
                       fontSize: "30px",
                     }}
                   >
-                    -
+                    +
                   </button>
                 </div>
               </div>
