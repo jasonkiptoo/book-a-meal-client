@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../NavBar/NavBar';
+import MyOrders from '../Orders/MyOrders';
 import Specials from '../Specials/Specials';
 import MenuCard from './MenuCard';
 import RenderMeals from './RenderMeals'
@@ -63,7 +64,8 @@ const HomePage = () => {
             </div>
           ))}
       </div>
-      {selectedProduct && <RenderMeals meals={selectedProduct.meals} />}
+      {selectedProduct && <MenuCard meals={selectedProduct.meals}  />}
+      {/* <MyOrders/> */}
     </div>
   );
  }
