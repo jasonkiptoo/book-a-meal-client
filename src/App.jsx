@@ -14,8 +14,9 @@ import Register from "./components/LoginForm/RegisterForm.jsx";
 import Home from "./components/Home/Home.jsx";
 import AdminHomePage from "./components/HomeAdmin/HomeAdmin.jsx";
 import HomeAdmin from "./components/HomeAdmin/HomeAdmin.jsx";
-import Menu from "./components/HomePage/Menu.jsx";
+import HomePage from "./components/HomePage/HomePage.jsx";
 import Specials from "./components/Specials/Specials.jsx";
+
 
 
 function App() {
@@ -60,10 +61,10 @@ function App() {
         />
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/admin" element={<HomeAdmin />} />
-        <Route exact path="/menu" element={<Menu/>} />
-        <Route exact path="/navbar" element={<Navbar user={user} current={currentUser}/>} />
+        <Route exact path="/homepage" element={<HomePage/>} />
+        {/* <Route exact path="/navbar" element={<Navbar user={user} current={currentUser}/>} /> */}
         <Route exact path="/specials" element={<Specials />} />
-        <Route exact path="/menu" element={<Menu />} />
+
         <Route
           exact
           path="/navbar"
