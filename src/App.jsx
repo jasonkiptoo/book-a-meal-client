@@ -12,8 +12,11 @@ import Navbar from "./components/NavBar/NavBar.jsx";
 import Register from "./components/LoginForm/RegisterForm.jsx";
 
 import Home from "./components/Home/Home.jsx";
-import AdminHomePage from "./components/HomeAdmin/HomeAdmin.jsx";
+
 import HomeAdmin from "./components/HomeAdmin/HomeAdmin.jsx";
+
+import MenuPage from "./components/HomePage/MenuPage.jsx";
+import MyCart from "./components/Orders/MyCart.jsx";
 import HomePage from "./components/HomePage/HomePage.jsx";
 import Specials from "./components/Specials/Specials.jsx";
 
@@ -24,6 +27,20 @@ function App() {
 
   // function handleLogin(user) {
   //   setUser(user)
+  // }
+
+
+  // const currentUser = () => {
+  //   useEffect(() => {
+  //     fetch('http://127.0.0.1:3000/profile', {
+  //       headers : {
+  //         "Authorization": `Bearer ${localStorage.getItem('token')}`
+  //       }
+  //     })
+  //     .then(res => res.json())
+  //     .then(data => setUser(data))
+  //     .catch(err => alert(err))
+  //   }, [])
   // }
 
   useEffect(() => {
@@ -61,6 +78,9 @@ function App() {
         />
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/admin" element={<HomeAdmin />} />
+        <Route exact path="/menu" element={<MenuPage/>} />
+        <Route exact path="/cart" element={<MyCart/>} />
+        <Route exact path="/navbar" element={<Navbar user={user} />} />
         <Route exact path="/homepage" element={<HomePage/>} />
         {/* <Route exact path="/navbar" element={<Navbar user={user} current={currentUser}/>} /> */}
         <Route exact path="/specials" element={<Specials />} />
@@ -73,6 +93,8 @@ function App() {
           }
         />
       </Routes>
+
+
     </div>
   );
 }
