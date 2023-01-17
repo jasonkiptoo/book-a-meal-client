@@ -21,25 +21,31 @@ const MyOrders = ({ item }) => {
 
   console.log(item);
 
-  if (isEmpty) return <p>Your have no orders</p>;
+  if (isEmpty)
+    return (
+      <div>
+        <Navbar />
+        <p className="text-center">You have no Items in cart</p>
+      </div>
+    );
   return (
     <div
-      className="orders"
-      style={{ backgroundColor: "#EDJEF2", height: "100vh" }}
+      className="orders  mb-10"
+      style={{ backgroundColor: "#EDJEF2", height: "100% " }}
     >
       <div>
         <Navbar />
       </div>
-      {/* <div style={{ backgroundColor: "green", height: "35%", margin: "50px" }}>
+      <div >
         <Specials />
-      </div> */}
+      </div>
       <div
-        className="orders row row-cols-3 mt-5"
+        className="orders row row-cols-3 mt-5  mb-10"
         style={{
           margin: "50px",
         }}
       >
-        <div className="col-12">
+        <div className="col-12  mb-10 ">
           <h5>
             Orders ({totalUniqueItems}) Total items: ({totalItems}){" "}
           </h5>
@@ -49,7 +55,6 @@ const MyOrders = ({ item }) => {
               {items.map((item, index) => {
                 return (
                   <tr key={index}>
-                    {/* <td>{<img src={item.image_url}}</td> */}
                     <td>
                       {<img src={item.image_url} style={{ height: "3rem" }} />}
                     </td>
@@ -74,7 +79,7 @@ const MyOrders = ({ item }) => {
                         +
                       </button>
                       <button
-                        className="btn btn-info ms-2"
+                        className="btn btn-warning ms-2"
                         onClick={() => removeItem(item.id)}
                       >
                         Remove item
@@ -84,30 +89,37 @@ const MyOrders = ({ item }) => {
                 );
               })}
             </tbody>
-          </table>
-          <div className="col-auto ms-auto">
-            <button className="btn btn-info ms-2" onClick={() => emptyCart()}>
-              Clear cart
-            </button>
-            <h3>Total price: $ {cartTotal} </h3>
-          </div>
-        </div>
-        <div
-          className=" col-2 col-md-8 col-lg-12"
-          style={{ paddingLeft: "40%" }}
+            <tr>
+              <td></td>
+              <td>
+                {" "}
+                <h5 className="text-end">Total price: $ {cartTotal}</h5>
+              </td>
+              <td></td>
+
+                <button
+                  className="btn btn-danger mt-2 ms-3"
+                  onClick={() => emptyCart()}
+                >
+                  Clear cart
+                </button>
+
+               <td> <button
+          className="btn btn-primary  mb-10"
+          style={{
+            backgroundColor: "#990F02",
+            borderRadius: "50px",
+            border: "none",
+          }}
         >
-          <button
-            className="btn btn-primary m-3"
-            style={{
-              backgroundColor: "#990F02",
-              borderRadius: "50px",
-              border: "none",
-            }}
-          >
-            Proceed to place order
-          </button>
+          Proceed to place order
+        </button></td>
+
+            </tr>
+          </table>
         </div>
       </div>
+
     </div>
   );
 };
