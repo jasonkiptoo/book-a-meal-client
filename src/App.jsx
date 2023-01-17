@@ -19,6 +19,7 @@ import MenuPage from "./components/HomePage/MenuPage.jsx";
 import MyCart from "./components/Orders/MyCart.jsx";
 import HomePage from "./components/HomePage/HomePage.jsx";
 import Specials from "./components/Specials/Specials.jsx";
+import {CartProvider} from "react-use-cart"
 
 
 
@@ -68,6 +69,7 @@ function App() {
   console.log(user)
   return (
     <div>
+      <CartProvider>
       <Routes>
         <Route exact path="/register" element={<Register />} />
         {/* <Route exact path="/login"element={<LoginForm onLogin={handleLogin} />} /> */}
@@ -93,7 +95,7 @@ function App() {
           }
         />
       </Routes>
-
+      </CartProvider>
 
     </div>
   );

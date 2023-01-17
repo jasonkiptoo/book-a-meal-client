@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../NavBar/NavBar';
 import Specials from '../Specials/Specials';
+import MenuCard from './MenuCard';
 import RenderMeals from './RenderMeals'
 
 

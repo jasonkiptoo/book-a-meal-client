@@ -1,6 +1,8 @@
 import React from "react";
+import { useCart } from "react-use-cart";
 
-const MenuCard = ({ item, setSelectedProduct }) => {
+const MenuCard = ({ item }) => {
+    const {addItem} = useCart();
   return (
     <div>
       <div
@@ -59,7 +61,7 @@ const MenuCard = ({ item, setSelectedProduct }) => {
             border: "none",
             color: "#990F02",
             fontSize: "30px",
-          }}
+          }} onClick={() => addItem(item)}
         >
           +
         </button>

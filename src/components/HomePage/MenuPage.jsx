@@ -36,7 +36,10 @@ const MyOrders = () => {
           {menu.map((item, index) => {
             return <MenuCard key={index} item={item} />;
           })}
+
+
         </div>
+        
 
         <div
           className=" col-2 col-md-8 col-lg-12"
@@ -54,7 +57,7 @@ const MyOrders = () => {
           </button>
         </div>
       </div>
-    
+
   );
 };
 
