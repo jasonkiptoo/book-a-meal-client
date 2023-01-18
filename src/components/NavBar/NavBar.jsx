@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { FaInstagram, FaFacebook, FaTwitter, FaShoppingCart } from "react-icons/fa";
+import { useCart } from "react-use-cart";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Navbar = ({ current }) => {
@@ -11,6 +12,7 @@ const Navbar = ({ current }) => {
   let orderhistory = activePage === "orderhistory" ? "active" : "";
 
   const [user, setUser] = useState(null);
+  const { totalItems } = useCart();
 
   useEffect(() => {
     fetch("http://127.0.0.1:3000/profile", {
@@ -65,6 +67,9 @@ const Navbar = ({ current }) => {
           }}
         >
           My orders
+
+         <span class="badge badge-light text-dark ms-2" style={{backgroundColor: "white"}}>{totalItems}</span>
+
         </Link>
         <Link
           to="/order-history"

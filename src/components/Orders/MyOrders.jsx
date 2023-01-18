@@ -4,7 +4,7 @@ import Navbar from "../NavBar/NavBar";
 import Specials from "../Specials/Specials";
 import { useCart } from "react-use-cart";
 
-const MyOrders = ({ item }) => {
+const MyOrders = ({ item}) => {
   // const [menu, setMenu] = useState([]);
   // const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -21,13 +21,45 @@ const MyOrders = ({ item }) => {
 
   console.log(item);
 
-  if (isEmpty)
-    return (
+  if(isEmpty)
+  return(
+    <div
+      className="orders  mb-10"
+      style={{ backgroundColor: "#EDJEF2", height: "100% " }}
+    >
       <div>
         <Navbar />
-        <p className="text-center">You have no Items in cart</p>
       </div>
-    );
+      <div >
+        <Specials />
+      </div>
+      <div
+        className="orders row row-cols-3 mt-5  mb-10"
+        style={{
+          margin: "50px",
+        }}
+      >
+        <div className="col-12  mb-10 ">
+          <h5>
+            Orders ({totalUniqueItems}) Total items: ({totalItems}){" "}
+          </h5>
+
+          <table className="table table-light table-bordered">
+            <th>Image</th>
+            <th>Item</th>
+            <th className="text-center">Unit Price</th>
+            <th className="text-center">Quantity</th>
+            <th className="text-center">Total Price</th>
+            <th className="text-center mb-2">Action</th>
+            <tr><th colSpan="6" className="text-center">Your Cart is empty</th></tr>
+
+            </table>
+            </div>
+            </div>
+            </div>
+
+  )
+
   return (
     <div
       className="orders  mb-10"

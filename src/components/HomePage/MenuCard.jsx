@@ -50,6 +50,7 @@ const MenuCard = ({ meals }) => {
                   style={{ color: "black", paddingLeft: "15%" }}
                 >
                   {item.description}
+
                 </p>
               </div>
               <div
