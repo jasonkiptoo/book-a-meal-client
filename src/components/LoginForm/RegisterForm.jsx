@@ -130,9 +130,9 @@ function Register() {
         }}
       >
         <form onSubmit={handleSubmit}>
-        display errors
+
           {errors.map((error, index) => (
-            <p key={index}>{error}</p>
+            <p style={{color: "red"}} key={index}>{error}</p>
           ))}
           <h3 style={{ color: "#990F02" }}>GrubHub</h3>
           <br />

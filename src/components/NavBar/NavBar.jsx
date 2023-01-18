@@ -1,18 +1,30 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import { FaInstagram, FaFacebook, FaTwitter } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import { FaInstagram, FaFacebook, FaTwitter, FaShoppingCart } from "react-icons/fa";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const Navbar = ({ user, current }) => {
+const Navbar = ({ current }) => {
   const [activePage, setActivePage] = useState("homepage");
   let homepage = activePage === "homepage" ? "active" : "homepage";
   let myorders = activePage === "myorders" ? "active" : "";
   let orderhistory = activePage === "orderhistory" ? "active" : "";
-  console.log(current);
-  console.log(user);
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:3000/profile", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }).then((response) => {
+      if (response.ok) {
+        response.json().then((user) => setUser(user.user.username));
+      }
+    });
+  }, []);
   return (
-    <nav
+    <nav className="fixed-top"
       style={{
         backgroundColor: "#990F02",
         display: "flex",
@@ -76,7 +88,7 @@ const Navbar = ({ user, current }) => {
           marginLeft: "-7rem",
         }}
       >
-        Hello Jayson {user} &#128522;
+        Hello {user} &#128522;
       </div>
       <div
         className="nav-right"
@@ -87,6 +99,17 @@ const Navbar = ({ user, current }) => {
         }}
       >
         <div className="social-icons">
+        <a
+            href="https://twitter.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: "white",
+              marginRight: "1rem",
+            }}
+          >
+            <FaShoppingCart size="30px" />
+          </a>
           <a
             href="https://twitter.com"
             target="_blank"
@@ -97,6 +120,7 @@ const Navbar = ({ user, current }) => {
             }}
           >
             {/* <FontAwesomeIcon icon={faTwitter} size="2x" /> */}
+
             <FaTwitter size="30px" />
           </a>
           <a
@@ -134,7 +158,17 @@ const Navbar = ({ user, current }) => {
               fontWeight: "bold",
             }}
           >
-            LOGOUT
+            <Link
+              to="/login"
+              className={orderhistory}
+              onClick={() => setActivePage("orderhistory")}
+              style={{
+                color: "black",
+                textDecoration: "none",
+              }}
+            >
+              LOGOUT
+            </Link>
           </button>
         </div>
       </div>

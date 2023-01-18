@@ -46,12 +46,17 @@ function Login({ onLogin}) {
       .then((response) => {
         localStorage.setItem("token", response.data.jwt);
         // redirect to the home page
-        navigate("/menu");
+        navigate("/homepage");
       })
       .catch((error) => {
-        setErrors(error.response.data.errors);
+        if (error.response) {
+          setErrors(error.response.data.errors);
+        } else {
+          setErrors(["Something went wrong, please try again later"]);
+        }
       });
   };
+  
 
   const handleChange = (e) => {
     setUser({
@@ -143,9 +148,9 @@ function Login({ onLogin}) {
         }}
       >
         <form onSubmit={handleSubmit}>
-          {/* {errors.map((error, index) => (
-            <p key={index}>{error}</p>
-          ))} */}
+        {errors && errors.map((error, index) => (
+            <p style={{color: "red"}} key={index}>{error}</p>
+          ))}
           <h3 style={{ color: "#990F02" }}>GrubHub</h3>
           <br />
           <label

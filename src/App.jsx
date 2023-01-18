@@ -27,6 +27,7 @@ import Specials from "./components/Specials/Specials.jsx";
 import { CartProvider } from "react-use-cart";
 import MyOrders from "./components/Orders/MyOrders.jsx";
 import OrderHistory from "./components/Orders/OrderHistory";
+import Footer from "./components/Footer/Footer";
 
 
 function App() {
@@ -103,7 +104,9 @@ function App() {
             }
           />
         </Routes>
+        {/* <Footer/> */}
       </CartProvider>
+
     </div>
   );
 }

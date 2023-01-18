@@ -45,6 +45,12 @@ const MenuCard = ({ meals }) => {
                 >
                   Ksh {item.price}
                 </p>
+                <p
+                  className="product-name"
+                  style={{ color: "black", paddingLeft: "15%" }}
+                >
+                  {item.description}
+                </p>
               </div>
               <div
                 className="card mt-3 mb-3"
