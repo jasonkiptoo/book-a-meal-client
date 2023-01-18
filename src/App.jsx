@@ -2,7 +2,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import "./App.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { BrowserRouter as Router, Route, Routes, redirect } from "react-router-dom";
 // import Homepage from "./components/HomePage";
 import LoginForm from "./components/LoginForm/LoginForm.jsx";
@@ -25,52 +25,40 @@ function App() {
   //   setUser(user)
   // }
 
-  useEffect(() => {
-    fetch("http://127.0.0.1:3000/profile",{
-      headers: {
-        "Authorization": `Bearer ${localStorage.getItem('token')}`
-      }
-    })
-    .then((response) => {
-      if (response.ok) {
-        response.json()
-        .then((user) => setUser(user.user.username));
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   fetch("http://127.0.0.1:3000/profile",{
+  //     headers: {
+  //       "Authorization": `Bearer ${localStorage.getItem('token')}`
+  //     }
+  //   })
+  //   .then((response) => {
+  //     if (response.ok) {
+  //       response.json()
+  //       .then((user) => setUser(user.user.username));
+  //     }
+  //   });
+  // }, []);
 
-  function handleLogin(user) {
-    setUser(user);
-  }
+  // function handleLogin(user) {
+  //   setUser(user);
+  // }
 
-  function handleLogout() {
-    setUser(null);
-  }
+  // function handleLogout() {
+  //   setUser(null);
+  // }
 
-  console.log(user)
+  // console.log(user)
   return (
     <div>
       <Routes>
         <Route exact path="/register" element={<Register />} />
-        {/* <Route exact path="/login"element={<LoginForm onLogin={handleLogin} />} /> */}
-        <Route
-          exact
-          path="/login"
-          element={<LoginForm onLogin={handleLogin} />}
-        />
+        <Route exact path="/login"element={<LoginForm />} />
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/admin" element={<HomeAdmin />} />
         <Route exact path="/menu" element={<Menu/>} />
-        <Route exact path="/navbar" element={<Navbar user={user} current={currentUser}/>} />
+        <Route exact path="/navbar" element={<Navbar />} />
         <Route exact path="/specials" element={<Specials />} />
         <Route exact path="/menu" element={<Menu />} />
-        <Route
-          exact
-          path="/navbar"
-          element={
-            <Navbar user={user} onLogout={handleLogout} onLogin={handleLogin} />
-          }
-        />
       </Routes>
     </div>
   );
