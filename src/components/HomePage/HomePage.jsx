@@ -48,7 +48,7 @@ const HomePage = () => {
               <div className="card" style={{backgroundColor: "transparent", border: "none", }}>
                 <img
                   src={item.image_url}
-                  alt="piktcha"
+                  alt={item.name}
                   className="img-fluid"
                   style={{height: "250px", width: "200px", borderRadius: "30px", margin: "25px"}}
                 ></img>
