@@ -74,7 +74,7 @@ const HomePage = ({}) => {
                   className="btn btn-primary m-3"
                 >
                   View {item.name}
-                </button>
+                </button> 
               </div>
             </div>
           ))}
