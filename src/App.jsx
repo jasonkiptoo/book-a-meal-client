@@ -11,32 +11,20 @@ import {
 } from "react-router-dom";
 // import Homepage from "./components/HomePage";
 import LoginForm from "./components/LoginForm/LoginForm.jsx";
-
 import Navbar from "./components/NavBar/NavBar.jsx";
-
 import Register from "./components/LoginForm/RegisterForm.jsx";
-
 import Home from "./components/Home/Home.jsx";
-
 import HomeAdmin from "./components/HomeAdmin/HomeAdmin.jsx";
-
 import MenuPage from "./components/HomePage/MenuPage.jsx";
-
 import HomePage from "./components/HomePage/HomePage.jsx";
 import Specials from "./components/Specials/Specials.jsx";
 import { CartProvider } from "react-use-cart";
 import MyOrders from "./components/Orders/MyOrders.jsx";
-import OrderHistory from "./components/Orders/OrderHistory";
-import Footer from "./components/Footer/Footer";
-
-
 function App() {
   const [user, setUser] = useState(null);
-
   // function handleLogin(user) {
   //   setUser(user)
   // }
-
   // const currentUser = () => {
   //   useEffect(() => {
   //     fetch('http://127.0.0.1:3000/profile', {
@@ -49,7 +37,6 @@ function App() {
   //     .catch(err => alert(err))
   //   }, [])
   // }
-
   useEffect(() => {
     fetch("http://127.0.0.1:3000/profile", {
       headers: {
@@ -61,29 +48,15 @@ function App() {
       }
     });
   }, []);
-
   function handleLogin(user) {
     setUser(user);
   }
-
   function handleLogout() {
     setUser(null);
   }
-
   console.log(user);
   return (
     <div>
-      <Routes>
-        <Route exact path="/register" element={<Register />} />
-        {/* <Route exact path="/login"element={<LoginForm onLogin={handleLogin} />} /> */}
-        <Route exact path="/login"element={<LoginForm />} />
-        <Route exact path="/home" element={<Home user={user}  />} />
-        <Route exact path="/admin" element={<HomeAdmin />} />
-        <Route exact path="/menu" element={<Menu/>} />
-        <Route exact path="/navbar" element={<Navbar user={user} current={currentUser}/>} />
-        <Route exact path="/specials" element={<Specials />} />
-        <Route exact path="/homeadmin" element={<AdminHomePage />} />
-      </Routes>
       <CartProvider>
         <Routes>
           <Route exact path="/register" element={<Register />} />
@@ -97,12 +70,10 @@ function App() {
           <Route exact path="/admin" element={<HomeAdmin />} />
           <Route exact path="/menu" element={<MenuPage />} />
           <Route exact path="/my-orders" element={<MyOrders />} />
-          <Route exact path="/order-history" element={<OrderHistory/> }/>
           <Route exact path="/navbar" element={<Navbar user={user} />} />
           <Route exact path="/homepage" element={<HomePage />} />
           {/* <Route exact path="/navbar" element={<Navbar user={user} current={currentUser}/>} /> */}
           <Route exact path="/specials" element={<Specials />} />
-
           <Route
             exact
             path="/navbar"
@@ -115,11 +86,8 @@ function App() {
             }
           />
         </Routes>
-        {/* <Footer/> */}
       </CartProvider>
-
     </div>
   );
 }
-
 export default App;
