@@ -172,6 +172,7 @@ const MyOrders = ({ item}) => {
             Proceed to place order
           </button>
         </div>
+
       </div>
 
       {/* {cart && <OrderSummary cartItems={cart.items}  />} */}

@@ -67,8 +67,10 @@ const Navbar = ({ current }) => {
           }}
         >
           My orders
+          <span class="badge badge-light text-dark ms-2" style={{backgroundColor: "yellow", borderRadius: "95%"}}>{totalItems}</span>
 
-         <span class="badge badge-light text-dark ms-2" style={{backgroundColor: "white"}}>{totalItems}</span>
+
+
 
         </Link>
         <Link

@@ -39,7 +39,7 @@ const MyOrders = () => {
 
 
         </div>
-        
+
 
         <div
           className=" col-2 col-md-8 col-lg-12"

@@ -12,7 +12,6 @@ const HomePage = ({}) => {
   const [menu, setMenu] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-  const { totalItems } = useCart();
 
   useEffect(() => {
     fetch("http://127.0.0.1:3000/categories", {
@@ -74,7 +73,7 @@ const HomePage = ({}) => {
                   onClick={() => setSelectedProduct(item)}
                   className="btn btn-primary m-3"
                 >
-                  View {item.name} 
+                  View {item.name}
                 </button>
               </div>
             </div>
