@@ -26,6 +26,8 @@ import HomePage from "./components/HomePage/HomePage.jsx";
 import Specials from "./components/Specials/Specials.jsx";
 import { CartProvider } from "react-use-cart";
 import MyOrders from "./components/Orders/MyOrders.jsx";
+import AdminOrderPage from "./components/Admin/AdminOrderHistory"
+import AdminOrderHistory from "./components/Admin/AdminOrderHistory";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -81,6 +83,7 @@ function App() {
           />
           <Route exact path="/home" element={<Home />} />
           <Route exact path="/admin" element={<HomeAdmin />} />
+          <Route exact path="/adminorderhistory" element={<AdminOrderHistory />} />
           <Route exact path="/menu" element={<MenuPage />} />
           <Route exact path="/my-orders" element={<MyOrders />} />
           <Route exact path="/navbar" element={<Navbar user={user} />} />

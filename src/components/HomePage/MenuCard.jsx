@@ -10,7 +10,7 @@ const MenuCard = ({ meals }) => {
   return (
     <div>
       <div className="orders row row-cols-3 mt-5">
-        {meals.map((item, index) => {
+        {meals && meals.map((item, index) => {
           return (
             <div>
               <div
@@ -18,24 +18,27 @@ const MenuCard = ({ meals }) => {
                 className="card"
                 style={{
                   backgroundColor: "#D9D9D9",
-                  borderRadius: "30px",
-                  padding: "10%",
+                  borderRadius: "15px",
+                  height: "400px",
+                  width: "450px",
+                  padding: "5%",
                 }}
               >
                 <img
                   src={item.image_url}
-                  alt="piktcha"
+                  alt={item.name}
                   className="img-fluid me-5 mt-3 mb-3"
                   style={{
                     height: "250px",
                     width: "200px",
                     borderRadius: "30px",
-                    margin: "auto",
+                    margin: "25px",
+                   
                   }}
                 ></img>
                 <p
                   className="product-name"
-                  style={{ color: "#990F02", paddingLeft: "15%" }}
+                  style={{ color: "#990F02", paddingLeft: "15%", flexDirection: "row", }}
                 >
                   {item.name}
                 </p>
@@ -51,8 +54,9 @@ const MenuCard = ({ meals }) => {
                 style={{
                   backgroundColor: "#990F02",
                   border: "none",
-                  borderRadius: "40px",
-                  margin: "20%",
+                  borderRadius: "50px",
+                  margin: "25%",
+                  marginLeft: "8px",
 
                   flexDirection: "row",
                 }}
