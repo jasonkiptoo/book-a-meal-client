@@ -83,6 +83,7 @@ const MenuCard = ({ meals }) => {
                   +
                 </button>
               </div>
+              
             </div>
           );
         })}

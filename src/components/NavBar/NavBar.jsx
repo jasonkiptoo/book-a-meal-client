@@ -14,6 +14,11 @@ const Navbar = ({ current }) => {
   const [user, setUser] = useState(null);
   const { totalItems } = useCart();
 
+  function handleDelete(){
+    localStorage.removeItem( "token")
+    localStorage.removeItem( "react-use-cart")
+  }
+
   useEffect(() => {
     fetch("http://127.0.0.1:3000/profile", {
       headers: {
@@ -26,7 +31,7 @@ const Navbar = ({ current }) => {
     });
   }, []);
   return (
-    <nav className="fixed-top"
+    <nav className="fixed-top mb-4"
       style={{
         backgroundColor: "#990F02",
         display: "flex",
@@ -168,7 +173,7 @@ const Navbar = ({ current }) => {
             <Link
               to="/login"
               className={orderhistory}
-              onClick={() => setActivePage("orderhistory")}
+              onClick={() => {handleDelete()}}
               style={{
                 color: "black",
                 textDecoration: "none",

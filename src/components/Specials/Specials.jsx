@@ -58,8 +58,8 @@ function Specials() {
       </div>
       <div
         style={{
-          position: "absolute",
-          zIndex: "1",
+
+
           backgroundColor: "#990F02",
           color: "white",
           borderRadius: "50px",

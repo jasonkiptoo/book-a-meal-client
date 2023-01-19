@@ -3,11 +3,10 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../NavBar/NavBar";
 import Specials from "../Specials/Specials";
 import { useCart } from "react-use-cart";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const MyOrders = ({ item }) => {
-  const [show, setShow] = useState(false);
-  // const [selectedProduct, setSelectedProduct] = useState(null);
-
   const {
     isEmpty,
     totalUniqueItems,
@@ -18,9 +17,20 @@ const MyOrders = ({ item }) => {
     removeItem,
     emptyCart,
   } = useCart();
+  const [show, setShow] = useState(false);
 
-  console.log(item);
+  function handleCheckout(e) {}
+  // e.preventDefault();
+  //   axios
+  //     .post("http://localhost:3000/customerorders", {
 
+  //     })
+  //     .then((response) => {})
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+
+  // conditional sttatement to check if cart is empty? return an empty table
   if (isEmpty)
     return (
       <div
@@ -56,6 +66,15 @@ const MyOrders = ({ item }) => {
                   Your Cart is empty
                 </th>
               </tr>
+              <button className="btn btn-danger btn-sm">
+                <Link
+                  to="/homepage"
+                  style={{ textDecoration: "none", color: "white" }}
+                >
+                  {" "}
+                  Continue Shopping
+                </Link>
+              </button>{" "}
             </table>
           </div>
         </div>
@@ -155,6 +174,14 @@ const MyOrders = ({ item }) => {
                     <td colspan="1" className="text-center fw-bold">
                       $ {cartTotal}
                     </td>
+                    <td colspan="1" className="text-center fw-bold">
+                      <button
+                        className="btn btn-danger  ms-3"
+                        onClick={() => emptyCart()}
+                      >
+                        Clear cart
+                      </button>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -170,9 +197,9 @@ const MyOrders = ({ item }) => {
                 }}
               >
                 <div className="col-12 ">
-                  <h5>
+                  {/* <h5>
                     Orders ({totalUniqueItems}) Total items: ({totalItems}){" "}
-                  </h5>
+                  </h5> */}
 
                   <div class="container-fluid bg-trasparent my-2">
                     {" "}
@@ -181,28 +208,33 @@ const MyOrders = ({ item }) => {
                       <div class="col">
                         {" "}
                         <div
-                          class="card h-80 shadow"
+                          class="card h-80  pt-5"
                           style={{
-                            backgroundColor: "#D9D9D9",
+                            backgroundColor: "transparent",
+                            border: "none",
                           }}
                         >
-                          {" "}
-                          <div class="card-body">
-                            {" "}
-                            <div class="clearfix mb-3">
+                          {/* orders surmary card */}{" "}
+                          <div
+                            className="card pt-5"
+                            style={{ backgroundColor: "#D9D9D9" }}
+                          >
+                            <div class="clearfix ">
                               {" "}
-                              <h4>Order Summary</h4>
+                              <h4 className="ms-3 text-center">
+                                Order Summary
+                              </h4>
                               <hr WIDTH="100%" COLOR="#990F02" SIZE="5" />
                             </div>
                             <div
-                              className="card h-20 shadow-sm"
+                              className="card h-20 shadow-sm ms-3 me-3 mb-2 rounded"
                               style={{ backgroundColor: "#D9D9D9" }}
                             >
                               <h5 class="card-title">
-                                <span class="float-start price-hp">
+                                <span class="float-start price-hp ms-3 mt-3">
                                   Orders ({totalUniqueItems}){" "}
                                 </span>{" "}
-                                <span class="float-end price-hp">
+                                <span class="float-end price-hp me-5 mt-3">
                                   Price &euro;
                                 </span>
                               </h5>
@@ -210,151 +242,165 @@ const MyOrders = ({ item }) => {
                               <div class="col">
                                 {" "}
                                 <ol>
-                                  {items.map((item, index) => (
-                                    <li>
+                                  {items.map((item) => (
+                                    <li className="ms-3">
                                       {" "}
-                                      <span class="float-start price-hp">
+                                      <span class="float-start price-hp me-3">
                                         {item.name} {""}({item.quantity})
                                       </span>{" "}
-                                      <span class="float-end price-hp me-3">
+                                      <span class="float-end price-hp me-5">
                                         $ {item.price * item.quantity}
                                       </span>
                                     </li>
                                   ))}
                                 </ol>
                               </div>
-
-                              <ul>
-                                <li>
+                              <hr></hr>
+                              <ul
+                                className="subtotals-list ms-3 "
+                                style={{
+                                  textDecoration: "none",
+                                  listStyleType: "circle",
+                                }}
+                              >
+                                <li className="subtotals me-5 ">
                                   {" "}
-                                  <span class="float-start price-hp fw-bold">
+                                  <span class="float-start price-hp fw-bold ">
                                     Sub Totals
                                   </span>{" "}
                                   <span class="float-end price-hp fw-bold">
-                                $  {cartTotal}
+                                    $ {cartTotal}
                                   </span>
                                 </li>
                                 <li>
                                   {" "}
-                                  <span class="float-start price-hp">
+                                  <span class="float-start price-hp me-5">
                                     Delivery
                                   </span>{" "}
-                                  <span class="float-end price-hp">Free </span>
+                                  <span class="float-end price-hp me-5">
+                                    Free{" "}
+                                  </span>
                                 </li>
                                 <li>
                                   {" "}
                                   <span class="float-start price-hp fw-bold">
                                     Grand Total
                                   </span>{" "}
-                                  <span class="float-end price-hp fw-bold">
+                                  <span class="float-end price-hp fw-bold me-5">
                                     ${cartTotal}
                                   </span>
                                 </li>
                               </ul>
-                                                        </div>
+                            </div>
                           </div>{" "}
                         </div>{" "}
-                      </div>{" "}
-                      <div class="col">
+                      </div>
+                      {/* payment checkout card card */}{" "}
+                      <div
+                        class="card h-80 mt-5 shadow-sm"
+                        style={{
+                          backgroundColor: "#D9D9D9",
+                        }}
+                      >
                         {" "}
-                        <div
-                          class="card h-80 shadow-sm"
-                          style={{
-                            backgroundColor: "#D9D9D9",
-                          }}
-                        >
+                        <div class="card-body">
                           {" "}
-                          <div class="card-body">
+                          <div class="clearfix mb-3">
                             {" "}
-                            <div class="clearfix mb-3">
-                              {" "}
-                              <h4>Select Payment Method</h4>
-                              <hr WIDTH="100%" COLOR="#990F02" SIZE="5" />
-                            </div>
-                            <div
-                              className="card h-20 shadow-sm mb-2"
-                              style={{ backgroundColor: "#D9D9D9" }}
-                            >
-                              <div class="form-check">
-                                <input
-                                  class="form-check-input"
-                                  type="radio"
-                                  name="flexRadioDefault"
-                                  id="checkoutForm3"
-                                  checked
-                                />
-                                <h5 class="mb-2">Credit card or Debit card</h5>
-                                <div class="row mb-1">
-                                  <div class="col-9 mb-2">
-                                    <div class="form-outline">
-                                      <input
-                                        type="text"
-                                        id="formNameOnCard"
-                                        class="form-control"
-                                        placeholder="0000 1111 2222 3333"
-                                      />
-                                    </div>
-                                  </div>
-                                  <div class="col-5 mb-2"></div>
-                                </div>
-                                <div class="row mb-4">
-                                  <div class="col-5">
-                                    <div class="form-outline">
-                                      <input
-                                        type="text"
-                                        id="formNameOnCard"
-                                        class="form-control"
-                                        placeholder="01 / 12"
-                                      />
-                                    </div>
-                                  </div>
-                                  <div class="col-4 mb-2">
-                                    <div class="form-outline">
-                                      <input
-                                        type="text"
-                                        id="formCVV"
-                                        class="form-control"
-                                        placeholder="CVV"
-                                      />
-                                    </div>
-                                  </div>
-                                  <div class="col-8">
+                            <h4>Select Payment Method</h4>
+                            <hr WIDTH="100%" COLOR="#990F02" SIZE="5" />
+                          </div>
+                          <div
+                            className="card h-20 shadow-sm m-2"
+                            style={{ backgroundColor: "#D9D9D9" }}
+                          >
+                            <div class="form-check m-2">
+                              <input
+                                class="form-check-input"
+                                type="radio"
+                                name="flexRadioDefault"
+                                id="checkoutForm3"
+                                checked
+                              />
+                              <h5 class="mb-2">Credit card or Debit card</h5>
+                              <div class="row mb-1">
+                                <div class="col-9 mb-2">
+                                  <div class="form-outline">
                                     <input
                                       type="text"
-                                      id="formCardNumber"
+                                      id="formNameOnCard"
                                       class="form-control"
-                                      placeholder="Billing address"
+                                      placeholder="0000 1111 2222 3333"
                                     />
                                   </div>
                                 </div>
+                                <div class="col-5 mb-2"></div>
                               </div>
-
-                              <div class="form-check">
-                                <input
-                                  class="form-check-input"
-                                  type="radio"
-                                  name="flexRadioDefault"
-                                  id="checkoutForm4"
-                                />
-                                <h5 class="mb-2">Mobile Payment</h5>
-                                <div class="form-outline">
+                              <div class="row mb-4">
+                                <div class="col-5">
+                                  <div class="form-outline">
+                                    <input
+                                      type="text"
+                                      id="formNameOnCard"
+                                      class="form-control"
+                                      placeholder="01 / 12"
+                                    />
+                                  </div>
+                                </div>
+                                <div class="col-4 mb-2">
+                                  <div class="form-outline">
+                                    <input
+                                      type="text"
+                                      id="formCVV"
+                                      class="form-control"
+                                      placeholder="CVV"
+                                    />
+                                  </div>
+                                </div>
+                                <div class="col-8">
                                   <input
-                                    type="number"
+                                    type="text"
                                     id="formCardNumber"
-                                    class="form-control mb-4"
-                                    placeholder="Mobile number"
+                                    class="form-control"
+                                    placeholder="Billing address"
                                   />
                                 </div>
                               </div>
                             </div>
-                            <button
-                              class="btn btn-primary btn-lg btn-block mb-2 ml-auto"
-                              style={{ backgroundColor: "#990F02" }}
-                              type="submit"
-                            >
-                              Make Payment
-                            </button>
+
+                            <div class="form-check ms-3">
+                              <input
+                                class="form-check-input"
+                                type="radio"
+                                name="flexRadioDefault"
+                                id="checkoutForm3"
+                                checked
+                              />
+                              <h5 class="mb-2">Mobile Payment</h5>
+                              <div class="form-outline me-5">
+                                <input
+                                  type="number"
+                                  id="formCardNumber"
+                                  class="form-control mb-4"
+                                  placeholder="Mobile number"
+                                  checked
+                                />
+                              </div>
+                            </div>
                           </div>
+                          {/* <button onClick={pay}>hallel</button> */}
+                          <button
+                            className="btn btn-primary  mb-10"
+                            style={{
+                              backgroundColor: "#990F02",
+                              borderRadius: "50px",
+                              border: "none",
+                            }}
+                            onClick={() => handleCheckout(items)}
+                          >
+                            {/* {show === true ? "Proceed to checkout" : "Back to cart"} */}
+                            Make Payment
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -364,16 +410,8 @@ const MyOrders = ({ item }) => {
             </div>
           )}
         </div>
-        <div className="col ms-auto">
-          <h5 className="text-end ms-5"> Total price: $ {cartTotal}</h5>
-        </div>
-        <div className="col-auto">
-          <button className="btn btn-danger  ms-3" onClick={() => emptyCart()}>
-            Clear cart
-          </button>
-        </div>
 
-        <div className="col-auto">
+        <div className="col ms-auto">
           <button
             className="btn btn-primary  mb-10"
             style={{
