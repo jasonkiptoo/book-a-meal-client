@@ -1,17 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Modal, Form, Input } from 'antd';
 import axios from 'axios';
+import { color } from '@mui/system';
+import NavBar from "../NavBar/NavBar"
 
 const AdminOrderHistory = () => {
 const [orders, setOrders] = useState([]);
 const [visible, setVisible] = useState(false);
 const [form] = Form.useForm();
+const [currentPage, setCurrentPage] = useState(1); // Initialize state for current page
+  const [pageSize, setPageSize] = useState(10); // Initialize state for page size
 
 useEffect(() => {
 axios.get('http://localhost:3000/orders')
 .then(res => setOrders(res.data))
 .catch(err => console.log(err));
 }, []);
+const handlePageChange = page => {
+  setCurrentPage(page);
+};
+
+// Handle page size change
+const handlePageSizeChange = (current, size) => {
+  setPageSize(size);
+  setCurrentPage(1); // Reset current page to 1 on page size change
+};
+
 
 const columns = [
 {
@@ -82,9 +96,13 @@ console.log('Validate Failed:', info);
 };
 
 return (
+  <>
+  <div>
+    <NavBar />
+  </div>
 <div>
 <h4>Order History</h4>
-<h4>Ordered By Date</h4>
+<h5>Ordered By Date</h5>
 <Table dataSource={orders} columns={columns} />
 <Modal
     title="Edit Order"
@@ -92,6 +110,15 @@ return (
     onOk={handleUpdate}
     onCancel={() => setVisible(false)}
   >
+    <Table
+        
+        pagination={{
+          pageSize: pageSize,
+          onChange: handlePageChange,
+          showSizeChanger: true,
+          onShowSizeChange: handlePageSizeChange,
+        }}
+        >
     <Form form={form}>
       <Form.Item name="order_id" label="Order ID">
         <Input disabled />
@@ -104,13 +131,11 @@ return (
 
       </Form.Item>
       </Form>
+      </Table>
       </Modal>
       </div>
+      </>
 );
 }
     
  export default AdminOrderHistory;
-
-
-
-
