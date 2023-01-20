@@ -8,16 +8,13 @@ import { useCart } from "react-use-cart";
 const Navbar = ({ current }) => {
   const [activePage, setActivePage] = useState("homepage");
   let homepage = activePage === "homepage" ? "active" : "homepage";
-  let myorders = activePage === "myorders" ? "active" : "";
+  let menupage = activePage === "menupage" ? "active" : "menupage";
+  let orders = activePage === "orders" ? "active" : "orders";
   let orderhistory = activePage === "orderhistory" ? "active" : "";
 
   const [user, setUser] = useState(null);
-  const { totalItems } = useCart();
-
-  function handleDelete(){
-    localStorage.removeItem( "token")
-    localStorage.removeItem( "react-use-cart")
-  }
+  
+  ;
 
   useEffect(() => {
     fetch("http://127.0.0.1:3000/profile", {
@@ -31,7 +28,7 @@ const Navbar = ({ current }) => {
     });
   }, []);
   return (
-    <nav className="fixed-top mb-4"
+    <nav className="fixed-top"
       style={{
         backgroundColor: "#990F02",
         display: "flex",
@@ -58,21 +55,33 @@ const Navbar = ({ current }) => {
             padding: "20px",
           }}
         >
-          Menu
+          Home
         </Link>
-
         <Link
-          to="/my-orders"
-          className={myorders}
-          onClick={() => setActivePage("myorders")}
+          to="/menupage"
+          className={menupage}
+          onClick={() => setActivePage("menupage")}
           style={{
-            color: activePage === "myorders" ? "black" : "white",
+            color: activePage === "homepage" ? "black" : "white",
             textDecoration: "none",
             padding: "20px",
           }}
         >
-          My orders
-          <span class="badge badge-light text-dark ms-2" style={{backgroundColor: "yellow", borderRadius: "95%"}}>{totalItems}</span>
+          Menu
+        </Link>
+
+        <Link
+          to="/orders"
+          className={orders}
+          onClick={() => setActivePage("orders")}
+          style={{
+            color: activePage === "orders" ? "black" : "white",
+            textDecoration: "none",
+            padding: "20px",
+          }}
+        >
+          Orders
+          
 
 
 
@@ -111,17 +120,7 @@ const Navbar = ({ current }) => {
         }}
       >
         <div className="social-icons">
-        {/* <a
-            href="https://twitter.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              color: "white",
-              marginRight: "1rem",
-            }}
-          >
-            <FaShoppingCart size="30px" />
-          </a> */}
+        
           <a
             href="https://twitter.com"
             target="_blank"
@@ -173,7 +172,7 @@ const Navbar = ({ current }) => {
             <Link
               to="/login"
               className={orderhistory}
-              onClick={() => {handleDelete()}}
+              onClick={() => setActivePage("orderhistory")}
               style={{
                 color: "black",
                 textDecoration: "none",
