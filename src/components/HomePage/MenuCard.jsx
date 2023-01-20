@@ -2,91 +2,83 @@ import React from "react";
 import { useCart } from "react-use-cart";
 import { useState } from "react";
 import RenderOrder from "./RenderOrder";
-
 const MenuCard = ({ meals }) => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const { addItem } = useCart();
-
   return (
-    <div>
-      <div className="orders row row-cols-3 mt-5">
-        {meals.map((item, index) => {
-          return (
-            <div>
+    <div style= {{backgroundColor: "#EDEEF2"}}>
+      <div className="orders row row-cols-3 mt-5" style={{marginLeft: "53px"}} >
+      {meals &&
+          meals.map((item) => (
+            <div key={item.id} className="menu-item" >
               <div
-                key={index}
                 className="card"
-                style={{
-                  backgroundColor: "#D9D9D9",
-                  borderRadius: "30px",
-                  padding: "10%",
-                }}
+                style={{ backgroundColor: "transparent", border: "none" }}
               >
                 <img
                   src={item.image_url}
                   alt="piktcha"
-                  className="img-fluid me-5 mt-3 mb-3"
+                  className="img-fluid"
                   style={{
                     height: "250px",
                     width: "200px",
                     borderRadius: "30px",
-                    margin: "auto",
+                    margin: "25px",
                   }}
                 ></img>
-                <p
-                  className="product-name"
-                  style={{ color: "#990F02", paddingLeft: "15%" }}
-                >
-                  {item.name}
-                </p>
-                <p
-                  className="product-name"
-                  style={{ color: "#990F02", paddingLeft: "15%" }}
-                >
-                  Ksh {item.price}
-                </p>
-                <p
-                  className="product-name"
-                  style={{ color: "black", paddingLeft: "15%" }}
-                >
-                  {item.description}
-
-                </p>
-              </div>
-              <div
-                className="card mt-3 mb-3"
-                style={{
-                  backgroundColor: "#990F02",
-                  border: "none",
-                  borderRadius: "40px",
-                  margin: "20%",
-
-                  flexDirection: "row",
-                }}
-              >
-                <button className="btn text-white " style={{ flex: "1" }}>
-                  Add to Cart
-                </button>
-
                 <button
-                  class="btn btn-light "
-                  id="subtract"
+                  style={{
+                    backgroundColor: "#990F02",
+                    borderRadius: "50px",
+                    border: "none",
+                    width: "200px",
+
+                  }}
+                  onClick={() => setSelectedProduct(item)}
+                  className="btn btn-primary m-3"
+                >
+                  ${item.price}
+                </button>
+                <button
+                  // id="subtract"
                   style={{
                     borderRadius: "40px",
                     flex: "0.4",
                     border: "none",
                     color: "#990F02",
-                    fontSize: "30px",
+                    fontSize: "24px",
+                    marginTop: "-52.7px",
+                    // height: "-10px",
+                    width: "50px",
+                    backgroundColor: "white",
+                    color: "#990F02",
+                    marginLeft: "167px",
                   }}
                   onClick={() => addItem(item)}
                 >
                   +
                 </button>
+
               </div>
-              
+
+              <div style={{
+                backgroundColor: "white",
+                width:"15%",
+                height: "15%",
+                position: "absolute",
+                zIndex: "1",
+                color: "black",
+                fontWeight: "normal",
+                marginLeft: "225px",
+                marginTop: "-200px",
+                display: "flex",
+
+                fontSize: "14px",
+
+                }}> {item.description}</div>
             </div>
-          );
-        })}
+
+          ))}
       </div>
     </div>
   );

@@ -30,7 +30,7 @@ function Specials() {
           justifyContent: "center",
         }}
       >
-        <img src={specials[currentImage] ? specials[currentImage].meal.image_url: ""} alt="Today's Special" style={{ height: "25vh", borderRadius: "50px", marginTop: "20px" }} />
+        <img src={specials[currentImage] ? specials[currentImage].meal.image_url: ""} alt="Today's Special" style={{ height: "25vh", borderRadius: "50px", marginTop: "80px" }} />
       </div>
       <div
         style={{

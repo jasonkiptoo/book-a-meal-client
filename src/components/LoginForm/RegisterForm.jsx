@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { FaInstagram, FaFacebook, FaTwitter } from "react-icons/fa";
+import { useEffect } from "react";
 
 // document.body.style.backgroundColor = "#990F02";
 
@@ -15,6 +16,12 @@ function Register() {
 
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
+  useEffect(() => {
+    document.body.style.backgroundColor = "#990F02";
+    return () => {
+      document.body.style.backgroundColor = "";
+    };
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -134,7 +141,7 @@ function Register() {
           {errors.map((error, index) => (
             <p style={{color: "red"}} key={index}>{error}</p>
           ))}
-          <h3 style={{ color: "#990F02" }}>GrubHub</h3>
+          <h3 style={{ color: "#990F02", textAlign: "center" }}>GrubHub</h3>
           <br />
           <label
             style={{
@@ -265,7 +272,7 @@ function Register() {
             {" "}
             Already have an account?{" "}
             <a style={{ color: "#000", fontWeight: "normal" }}>
-              <Link to="/login">Login</Link>
+              <Link to="/login" style={{ color: "#000", fontWeight: "normal",  }}>Login</Link>
             </a>
           </p>
         </form>

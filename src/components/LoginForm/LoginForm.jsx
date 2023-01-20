@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FaInstagram, FaFacebook, FaTwitter, FaWhatsapp } from "react-icons/fa";
 import { useNavigate, Link } from "react-router-dom";
 import axios from 'axios';
+import { useEffect } from "react";
 
 // document.body.style.backgroundColor = "#990F02";
 
@@ -13,28 +14,13 @@ function Login({ onLogin}) {
     username: "",
     password: "",
   });
+  useEffect(() => {
+    document.body.style.backgroundColor = "#990F02";
+    return () => {
+      document.body.style.backgroundColor = "";
+    };
+  }, []);
 
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  //   fetch(`http://127.0.0.1:3000/login`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${localStorage.getItem("token")}`
-  //     },
-  //     body: JSON.stringify({ email, password }),
-  //   }).then((res) => {
-  //     if (res.ok) {
-  //       res.json().then((user) => {
-  //         console.log({user})
-  //         onLogin(user.last_name)
-  //         return navigate("/home")
-  //       });
-  //     } else {
-  //       res.json().then((err) => setErrors(err.errors));
-  //     }
-  //   });
-  // }
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
@@ -66,7 +52,7 @@ function Login({ onLogin}) {
   };
 
   return (
-    <div className="Login">
+    <div className="Login" style={{backgroundColor: "#990F02"}}>
       <div
         className="page-image"
         style={{
@@ -151,7 +137,7 @@ function Login({ onLogin}) {
         {errors && errors.map((error, index) => (
             <p style={{color: "red"}} key={index}>{error}</p>
           ))}
-          <h3 style={{ color: "#990F02" }}>GrubHub</h3>
+          <h3 style={{ color: "#990F02", textAlign: "center" }}>GrubHub</h3>
           <br />
           <label
             style={{
@@ -208,7 +194,7 @@ function Login({ onLogin}) {
           {/* {errors.map((error, index) => (
             <h6 key={index}>{error}</h6>
           ))} */}
-          <a href="#" style={{ color: "#990F02", textDecoration: "none" }}>
+          <a  style={{ color: "#990F02", marginLeft: "70px", textDecoration: "none"}} href="#" >
             Forgot Password?
           </a>
           <br />
@@ -237,12 +223,13 @@ function Login({ onLogin}) {
           >
             {" "}
             Don't have an account?{" "}
-            <a href="/register" style={{ color: "#000", fontWeight: "normal" }}>
-              <Link to="/register">Register </Link>
+            <a href="/register" style={{ color: "#000", fontWeight: "normal",  }}>
+              <Link to="/register" style={{ color: "#000", fontWeight: "normal",  }}>Register </Link>
             </a>
           </p>
         </form>
       </div>
+      
     </div>
   );
 }
