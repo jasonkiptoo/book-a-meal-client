@@ -36,7 +36,7 @@ function Register() {
       .then((response) => {
         localStorage.setItem("token", response.data.jwt);
         // redirect to the profile page
-        navigate("/login");
+        navigate("/");
       })
       .catch((error) => {
         if (error.response) {

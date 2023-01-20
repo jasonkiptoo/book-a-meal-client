@@ -64,16 +64,16 @@ function App() {
           {/* <Route exact path="/login"element={<LoginForm onLogin={handleLogin} />} /> */}
           <Route
             exact
-            path="/login"
+            path="/"
             element={<LoginForm onLogin={handleLogin} />}
           />
-          <Route exact path="/home" element={<Home />} />
+          {/* <Route exact path="/" element={<Home />} /> */}
           <Route exact path="/admin" element={<AdminHomePage />} />
           <Route exact path="/menu" element={<MenuPage />} />
           <Route exact path="/my-orders" element={<MyOrders />} />
           <Route exact path="/order-history" element={<OrderHistory />} />
           <Route exact path="/navbar" element={<Navbar user={user} />} />
-          <Route exact path="/" element={<HomePage />} />
+          <Route exact path="/home" element={<HomePage />} />
           {/* <Route exact path="/navbar" element={<Navbar user={user} current={currentUser}/>} /> */}
           <Route exact path="/specials" element={<Specials />} />
           <Route

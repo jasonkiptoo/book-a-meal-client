@@ -32,7 +32,7 @@ function Login({ onLogin}) {
       .then((response) => {
         localStorage.setItem("token", response.data.jwt);
         // redirect to the home page
-        navigate("/");
+        navigate("/home");
       })
       .catch((error) => {
         if (error.response) {

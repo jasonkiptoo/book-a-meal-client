@@ -17,7 +17,7 @@ const MyOrders = ({ item }) => {
     removeItem,
     emptyCart,
   } = useCart();
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
   const [phone, setPhone] = useState("");
   const [order, setOrder] = useState({
     phone: "",
@@ -76,7 +76,7 @@ const MyOrders = ({ item }) => {
               </tr>
               <button className="btn btn-danger btn-sm">
                 <Link
-                  to="/homepage"
+                  to="/home"
                   style={{ textDecoration: "none", color: "white" }}
                 >
                   {" "}

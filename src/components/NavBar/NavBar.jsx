@@ -49,7 +49,7 @@ const Navbar = ({ current }) => {
         }}
       >
         <Link
-          to="/"
+          to="/home"
           className={homepage}
           onClick={() => setActivePage("homepage")}
           style={{
@@ -71,7 +71,7 @@ const Navbar = ({ current }) => {
             padding: "20px",
           }}
         >
-          My orders
+          My Cart
           <span class="badge badge-light text-dark ms-2" style={{backgroundColor: "yellow", borderRadius: "95%"}}>{totalItems}</span>
 
 
@@ -171,7 +171,7 @@ const Navbar = ({ current }) => {
             }}
           >
             <Link
-              to="/login"
+              to="/"
               className={orderhistory}
               onClick={() => {handleDelete()}}
               style={{
