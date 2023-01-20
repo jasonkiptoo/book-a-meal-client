@@ -1,40 +1,85 @@
 import React, { useEffect, useState } from "react";
-import Carousel from "react-bootstrap/Carousel";
-import './Specials.css'
 
-const Specials = () => {
+function Specials() {
+
   const [specials, setSpecials] = useState([]);
+  const [currentImage, setCurrentImage] = useState(0);
 
   useEffect(() => {
-     fetch("http://127.0.0.1:3000/favourites", {
-       headers: {
-         Authorization: `Bearer ${localStorage.getItem("token")}`,
-       },
-     })
-       .then((res) => res.json())
-       .then((data) => setSpecials(data));
+    fetch("http://127.0.0.1:3000/favourites", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setSpecials(data));
   }, []);
 
+  console.log(specials);
+
+  const handleClick = index => {
+    setCurrentImage(index);
+  };
+
   return (
-    <div className="carousel-container">
-      <Carousel className="carousel-component">
-        {specials.map((special) => (
-          <Carousel.Item key={special.meal_id}>
-            <img
-              className="d-block w-100 h-25"
-              src={special.meal.image_url}
-              alt={special.meal.name}
-            />
-            <Carousel.Caption>
-              <h3>{special.meal.name}</h3>
-              <p>{special.meal.description}</p>
-              <p> <em>Price: ${special.meal.price}</em></p>
-            </Carousel.Caption>
-          </Carousel.Item>
+    <div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <img src={specials[currentImage] ? specials[currentImage].meal.image_url: ""} alt="Today's Special" style={{ height: "25vh", borderRadius: "50px", marginTop: "80px" }} />
+      </div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {specials.map((special, index) => (
+          <button
+            key={index}
+            onClick={() => handleClick(index)}
+            style={{
+              backgroundColor: currentImage === index ? "maroon" : "#D9D9D9",
+              margin: "15px",
+              marginBottom: "-40px",
+              height: "20px",
+              width: "80px",
+              border: "none",
+              borderRadius: "25px",
+            }}
+          >
+          </button>
         ))}
-      </Carousel>
+      </div>
+      <div
+        style={{
+
+
+          backgroundColor: "#990F02",
+          color: "white",
+          borderRadius: "50px",
+          fontWeight: "bold",
+          width: "100px",
+          height: "100px",
+          marginLeft: "810px",
+          marginTop: "-100px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: "16px",
+          textAlign: "center",
+        }}
+      >
+        Today's Special
+      </div>
     </div>
   );
-};
+}
 
 export default Specials;
+
