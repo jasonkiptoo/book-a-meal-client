@@ -32,7 +32,7 @@ function Login({ onLogin}) {
       .then((response) => {
         localStorage.setItem("token", response.data.jwt);
         // redirect to the home page
-        navigate("/homepage");
+        navigate("/");
       })
       .catch((error) => {
         if (error.response) {
@@ -42,7 +42,7 @@ function Login({ onLogin}) {
         }
       });
   };
-  
+
 
   const handleChange = (e) => {
     setUser({
@@ -229,7 +229,7 @@ function Login({ onLogin}) {
           </p>
         </form>
       </div>
-      
+
     </div>
   );
 }
