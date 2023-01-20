@@ -49,7 +49,7 @@ const Navbar = ({ current }) => {
         }}
       >
         <Link
-          to="/homepage"
+          to="/"
           className={homepage}
           onClick={() => setActivePage("homepage")}
           style={{

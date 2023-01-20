@@ -73,7 +73,7 @@ function App() {
           <Route exact path="/my-orders" element={<MyOrders />} />
           <Route exact path="/order-history" element={<OrderHistory />} />
           <Route exact path="/navbar" element={<Navbar user={user} />} />
-          <Route exact path="/homepage" element={<HomePage />} />
+          <Route exact path="/" element={<HomePage />} />
           {/* <Route exact path="/navbar" element={<Navbar user={user} current={currentUser}/>} /> */}
           <Route exact path="/specials" element={<Specials />} />
           <Route
