@@ -14,7 +14,7 @@ import LoginForm from "./components/LoginForm/LoginForm.jsx";
 import Navbar from "./components/NavBar/NavBar.jsx";
 import Register from "./components/LoginForm/RegisterForm.jsx";
 import Home from "./components/Home/Home.jsx";
-import HomeAdmin from "./components/HomeAdmin/HomeAdmin.jsx";
+import AdminHomePage from "./components/HomeAdmin/HomeAdmin.jsx";
 import MenuPage from "./components/HomePage/MenuPage.jsx";
 import HomePage from "./components/HomePage/HomePage.jsx";
 import Specials from "./components/Specials/Specials.jsx";
@@ -67,7 +67,7 @@ function App() {
             element={<LoginForm onLogin={handleLogin} />}
           />
           <Route exact path="/home" element={<Home />} />
-          <Route exact path="/admin" element={<HomeAdmin />} />
+          <Route exact path="/admin" element={<AdminHomePage />} />
           <Route exact path="/menu" element={<MenuPage />} />
           <Route exact path="/my-orders" element={<MyOrders />} />
           <Route exact path="/navbar" element={<Navbar user={user} />} />
