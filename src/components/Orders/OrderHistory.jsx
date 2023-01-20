@@ -22,13 +22,7 @@ const OrderHistory = ({ item }) => {
 
   console.log(item);
 
-  if (isEmpty)
-    return (
-      <div>
-        <Navbar />
-        <p className="text-center">You have no Items in cart</p>
-      </div>
-    );
+  
   return (
     <div
       className="orders  mb-10"
