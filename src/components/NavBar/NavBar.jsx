@@ -111,7 +111,7 @@ const Navbar = ({ current }) => {
         }}
       >
         <div className="social-icons">
-        <a
+        {/* <a
             href="https://twitter.com"
             target="_blank"
             rel="noopener noreferrer"
@@ -121,7 +121,7 @@ const Navbar = ({ current }) => {
             }}
           >
             <FaShoppingCart size="30px" />
-          </a>
+          </a> */}
           <a
             href="https://twitter.com"
             target="_blank"

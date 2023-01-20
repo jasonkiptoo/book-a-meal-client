@@ -78,7 +78,7 @@ const OrderHistory = ({ item }) => {
         </div>
       </div>
 
-      {cart && <OrderSummary cartItems={cart.items}  />}
+      {/* {cart && <OrderSummary cartItems={cart.items}  />} */}
     </div>
   );
 };

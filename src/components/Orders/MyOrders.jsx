@@ -18,9 +18,15 @@ const MyOrders = ({ item }) => {
     emptyCart,
   } = useCart();
   const [show, setShow] = useState(false);
+  const [phone, setPhone] = useState("");
+  const [order, setOrder] = useState({
+    phone: "",
+    items: [],
+  });
 
-  function handleCheckout(items) {
-    console.log(items);
+  function handleCheckout(items, e) {
+    e.preventDefault();
+    console.log({phone},{items});
   }
   // e.preventDefault();
   //   axios
@@ -91,7 +97,7 @@ const MyOrders = ({ item }) => {
       <div>
         <Navbar />
       </div>
-      {/* <div> <Specials /> </div> */}
+      <div> <Specials /> </div>
       <div
         className="orders row row-cols-3 mt-5  mb-10"
         style={{
@@ -378,34 +384,37 @@ const MyOrders = ({ item }) => {
                                 id="checkoutForm3"
                                 checked
                               />
+
                               <h5 class="mb-2">Mobile Payment</h5>
-                              <div class="form-outline me-5">
-                                <input
-
-                                  type="number"
-                                  id="formCardNumber"
-                                  class="form-control mb-4"
-                                  placeholder="Mobile number"
-                                  name="phone"
-                                  checked
-
-                                />
-                              </div>
+                              <form onSubmit={(e) => handleCheckout(items, e)}>
+                                <div class="form-outline me-5">
+                                  <input
+                                  onChange={(e) => setPhone(e.target.value)}
+                                    type="number"
+                                    id="formCardNumber"
+                                    class="form-control mb-4"
+                                    placeholder="Mobile number"
+                                    name="phone"
+                                    required
+                                    checked
+                                  />
+                                  <button
+                                    type="submit"
+                                    className="btn btn-primary  mb-10"
+                                    style={{
+                                      backgroundColor: "#990F02",
+                                      borderRadius: "50px",
+                                      border: "none",
+                                    }}
+                                  >
+                                    {/* {show === true ? "Proceed to checkout" : "Back to cart"} */}
+                                    Make Payment
+                                  </button>
+                                </div>
+                              </form>
                             </div>
                           </div>
                           {/* <button onClick={pay}>hallel</button> */}
-                          <button type="submit"
-                            className="btn btn-primary  mb-10"
-                            style={{
-                              backgroundColor: "#990F02",
-                              borderRadius: "50px",
-                              border: "none",
-                            }}
-                            onSubmit={() => handleCheckout(items)}
-                          >
-                            {/* {show === true ? "Proceed to checkout" : "Back to cart"} */}
-                            Make Payment
-                          </button>
                         </div>
                       </div>
                     </div>
