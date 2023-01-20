@@ -3,7 +3,7 @@ import { FaInstagram, FaFacebook, FaTwitter, FaWhatsapp } from "react-icons/fa";
 import { useNavigate, Link } from "react-router-dom";
 import axios from 'axios';
 
-// document.body.style.backgroundColor = "#990F02";
+document.body.style.backgroundColor = "#990F02";
 
 function Login({ onLogin}) {
   const navigate = useNavigate();
@@ -14,27 +14,6 @@ function Login({ onLogin}) {
     password: "",
   });
 
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  //   fetch(`http://127.0.0.1:3000/login`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${localStorage.getItem("token")}`
-  //     },
-  //     body: JSON.stringify({ email, password }),
-  //   }).then((res) => {
-  //     if (res.ok) {
-  //       res.json().then((user) => {
-  //         console.log({user})
-  //         onLogin(user.last_name)
-  //         return navigate("/home")
-  //       });
-  //     } else {
-  //       res.json().then((err) => setErrors(err.errors));
-  //     }
-  //   });
-  // }
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
@@ -66,7 +45,7 @@ function Login({ onLogin}) {
   };
 
   return (
-    <div className="Login">
+    <div className="Login" style={{backgroundColor: "#990F02"}}>
       <div
         className="page-image"
         style={{
