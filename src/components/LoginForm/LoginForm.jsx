@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { FaInstagram, FaFacebook, FaTwitter, FaWhatsapp } from "react-icons/fa";
 import { useNavigate, Link } from "react-router-dom";
 import axios from 'axios';
+import { useEffect } from "react";
 
-document.body.style.backgroundColor = "#990F02";
+// document.body.style.backgroundColor = "#990F02";
 
 function Login({ onLogin}) {
   const navigate = useNavigate();
@@ -13,6 +14,12 @@ function Login({ onLogin}) {
     username: "",
     password: "",
   });
+  useEffect(() => {
+    document.body.style.backgroundColor = "#990F02";
+    return () => {
+      document.body.style.backgroundColor = "";
+    };
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -222,6 +229,7 @@ function Login({ onLogin}) {
           </p>
         </form>
       </div>
+      
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { FaInstagram, FaFacebook, FaTwitter } from "react-icons/fa";
+import { useEffect } from "react";
 
 // document.body.style.backgroundColor = "#990F02";
 
@@ -15,6 +16,12 @@ function Register() {
 
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
+  useEffect(() => {
+    document.body.style.backgroundColor = "#990F02";
+    return () => {
+      document.body.style.backgroundColor = "";
+    };
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
