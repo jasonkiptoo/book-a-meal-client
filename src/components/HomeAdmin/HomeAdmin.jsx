@@ -1,7 +1,8 @@
 import React from 'react';
 import { NavItem } from 'react-bootstrap';
-import Navbar from '../NavBar/NavBar';
-import { Switch } from 'react-switch';
+import NavbarAdmin from './NavbarAdmin';
+
+
 
 // const [image, setImage] = useState(null);
 
@@ -74,7 +75,7 @@ const AdminHomePage = () => {
           <button style={{ backgroundColor: '#990F02', marginTop: "30px", width: "35%", border: "none", borderRadius: "5px", color: "white", height: "35px" }}>Save and Add</button>
         </div>
       </div>
-      <div><Navbar/></div>
+      <div><NavbarAdmin/></div>
     </div>
 
   );
