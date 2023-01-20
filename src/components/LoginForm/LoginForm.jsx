@@ -137,7 +137,7 @@ function Login({ onLogin}) {
         {errors && errors.map((error, index) => (
             <p style={{color: "red"}} key={index}>{error}</p>
           ))}
-          <h3 style={{ color: "#990F02" }}>GrubHub</h3>
+          <h3 style={{ color: "#990F02", textAlign: "center" }}>GrubHub</h3>
           <br />
           <label
             style={{
@@ -194,7 +194,7 @@ function Login({ onLogin}) {
           {/* {errors.map((error, index) => (
             <h6 key={index}>{error}</h6>
           ))} */}
-          <a href="#" style={{ color: "#990F02", textDecoration: "none" }}>
+          <a  style={{ color: "#990F02", marginLeft: "70px", textDecoration: "none"}} href="#" >
             Forgot Password?
           </a>
           <br />
@@ -223,8 +223,8 @@ function Login({ onLogin}) {
           >
             {" "}
             Don't have an account?{" "}
-            <a href="/register" style={{ color: "#000", fontWeight: "normal" }}>
-              <Link to="/register">Register </Link>
+            <a href="/register" style={{ color: "#000", fontWeight: "normal",  }}>
+              <Link to="/register" style={{ color: "#000", fontWeight: "normal",  }}>Register </Link>
             </a>
           </p>
         </form>

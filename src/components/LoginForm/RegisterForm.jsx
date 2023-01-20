@@ -141,7 +141,7 @@ function Register() {
           {errors.map((error, index) => (
             <p style={{color: "red"}} key={index}>{error}</p>
           ))}
-          <h3 style={{ color: "#990F02" }}>GrubHub</h3>
+          <h3 style={{ color: "#990F02", textAlign: "center" }}>GrubHub</h3>
           <br />
           <label
             style={{
@@ -272,7 +272,7 @@ function Register() {
             {" "}
             Already have an account?{" "}
             <a style={{ color: "#000", fontWeight: "normal" }}>
-              <Link to="/login">Login</Link>
+              <Link to="/login" style={{ color: "#000", fontWeight: "normal",  }}>Login</Link>
             </a>
           </p>
         </form>
