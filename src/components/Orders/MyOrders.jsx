@@ -10,7 +10,7 @@ const MyOrders = ({ item }) => {
   const {
     isEmpty,
     totalUniqueItems,
-    items,
+    items = {},
     totalItems,
     cartTotal,
     updateItemQuantity,
@@ -19,7 +19,9 @@ const MyOrders = ({ item }) => {
   } = useCart();
   const [show, setShow] = useState(false);
 
-  function handleCheckout(e) {}
+  function handleCheckout(items) {
+    console.log(items);
+  }
   // e.preventDefault();
   //   axios
   //     .post("http://localhost:3000/customerorders", {
@@ -379,24 +381,27 @@ const MyOrders = ({ item }) => {
                               <h5 class="mb-2">Mobile Payment</h5>
                               <div class="form-outline me-5">
                                 <input
+
                                   type="number"
                                   id="formCardNumber"
                                   class="form-control mb-4"
                                   placeholder="Mobile number"
+                                  name="phone"
                                   checked
+
                                 />
                               </div>
                             </div>
                           </div>
                           {/* <button onClick={pay}>hallel</button> */}
-                          <button
+                          <button type="submit"
                             className="btn btn-primary  mb-10"
                             style={{
                               backgroundColor: "#990F02",
                               borderRadius: "50px",
                               border: "none",
                             }}
-                            onClick={() => handleCheckout(items)}
+                            onSubmit={() => handleCheckout(items)}
                           >
                             {/* {show === true ? "Proceed to checkout" : "Back to cart"} */}
                             Make Payment
