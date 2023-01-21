@@ -1,447 +1,469 @@
-import { display } from "@mui/system";
-import React, { useEffect, useState } from "react";
-import Navbar from "../NavBar/NavBar";
-import Specials from "../Specials/Specials";
+import React, { useState } from "react";
 import { useCart } from "react-use-cart";
-import axios from "axios";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+// import { useAuthContext } from "../hooks/useAuthContext";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Navbar from "../NavBar/NavBar";
 
-const MyOrders = ({ item }) => {
+const MyOrders = () => {
+  // show cart and checkout
+  const [checkout, setcheckout] = useState(true);
+  // state to get mobile numebr
+  const [mobile_number, setMobile] = useState(null);
   const {
-    isEmpty,
-    totalUniqueItems,
-    items = {},
     totalItems,
+    items,
     cartTotal,
+    emptyCart,
     updateItemQuantity,
     removeItem,
-    emptyCart,
   } = useCart();
-  const [show, setShow] = useState(true);
-  const [phone, setPhone] = useState("");
-  const [order, setOrder] = useState({
-    phone: "",
-    items: [],
-  });
+  const [stkCheck, setStkCheck] = useState();
+  // const { user } = useAuthContext();
+  const [user, setUser] = useState(null);
 
-  function handleCheckout(items, e) {
-    e.preventDefault();
-    console.log({phone},{items});
-  }
-  // e.preventDefault();
-  //   axios
-  //     .post("http://localhost:3000/customerorders", {
+  // useEffect(() => {
+  //   , []);
 
-  //     })
-  //     .then((response) => {})
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
+  useEffect(() => {
+    fetch("http://127.0.0.1:3000/profile", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }).then((response) => {
+      if (response.ok) {
+        response.json().then((userr) => setUser(userr));
+      }
+    });
+  }, []);
+  const navigate = useNavigate();
+  // console.log([user]);
+  const [show, setShow] = useState(false);
 
-  // conditional sttatement to check if cart is empty? return an empty table
-  if (isEmpty)
-    return (
-      <div
-        className="orders  mb-10"
-        style={{ backgroundColor: "#EDJEF2", height: "100% " }}
-      >
-        <div>
-          <Navbar />
-        </div>
-        <div>
-          <Specials />
-        </div>
-        <div
-          className="orders row row-cols-3 mt-5  mb-10"
-          style={{
-            margin: "50px",
-          }}
-        >
-          <div className="col-12  mb-10 ">
-            <h5>
-              Orders ({totalUniqueItems}) Total items: ({totalItems}){" "}
-            </h5>
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
-            <table className="table table-light table-bordered">
-              <th>Image</th>
-              <th>Item</th>
-              <th className="text-center">Unit Price</th>
-              <th className="text-center">Quantity</th>
-              <th className="text-center">Total Price</th>
-              <th className="text-center mb-2">Action</th>
-              <tr>
-                <th colSpan="6" className="text-center">
-                  Your Cart is empty
-                </th>
-              </tr>
-              <button className="btn btn-danger btn-sm">
-                <Link
-                  to="/home"
-                  style={{ textDecoration: "none", color: "white" }}
-                >
-                  {" "}
-                  Continue Shopping
-                </Link>
-              </button>{" "}
-            </table>
-          </div>
-        </div>
-      </div>
-    );
+  const handlePayment = () => {
+    // handleShow();
+    // PostOrder()
+    // console.log(items);
+
+    // add
+    // add mobile number to the items
+    let newArr = items.map(function (item) {
+      return { ...item, phoneNumber: mobile_number };
+    });
+    let newArrr=newArr.map((itemm)=>itemm)
+// merging the two arrays the two arrays
+    let array = [{ user_id: user.user.id }];
+    let array1 = [newArrr ];
+    let merged =  Object.assign( ...array, ...array1);
+
+    // console.log({ "itemskkk": items.quantity });
+    // console.log({ user_id: user.user.id });
+    // console.log({ phoneNumber: mobile_number });
+
+// console.log(array1)
+
+    fetch("http://127.0.0.1:3000/customerorders", {
+
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(merged)
+        })
+        .then(res => res.json())
+        .then(data => console.log(merged))
+
+
+    // const cred = {
+    //   "phoneNumber": user.user.contact,
+    //   "amount": cartTotal
+    // };
+
+    // fetch("https://6183-196-101-71-81.ngrok.io/stkpush", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify(cred)
+    // })
+    // .then(res => res.json())
+    // .then(data => setStkCheck(data))
+  };
+
+// function PostOrder(merged){
+
+
+
+
+
+// }
+
+
+
+
+
+
+  const handleClick = () => {
+    // const queryParams = {
+    //   "checkoutRequestID": `${stkCheck[1].CheckoutRequestID}`
+    // }
+    // fetch("https://6183-196-101-71-81.ngrok.io/stkquery", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json"},
+    //   body: JSON.stringify(queryParams)
+    // })
+    // .then(res => res.json())
+    // .then(queryMessage => console.log(queryMessage))
+    // .then(handleClose())
+    // .then(() => {
+    //   emptyCart();
+    //   navigate("/")
+    // .then(() => {
+    //   if(query[1].ResultCode === "0") {
+    //     alert("Payment received, order processing")
+    //     emptyCart();
+    //     navigate("/")
+    //   } else {
+    //     alert("Invalid response, please try again")
+    //   }
+    // })
+  };
+
+  // console.log(query[1].ResultCode)
 
   return (
-    <div
-      className="orders  mb-10"
-      style={{ backgroundColor: "#EDJEF2", height: "100% " }}
-    >
+    <div className="container w-75">
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton className="bg-light">
+          <Modal.Title>Payment Confirmation</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="bg-light">
+          A payment push has been sent to your device, click confirm once the
+          payment is made.
+        </Modal.Body>
+        <Modal.Footer className="bg-light">
+          <Button variant="primary" onClick={handleClick}>
+            Confirm
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <div>
         <Navbar />
       </div>
-      <div> <Specials /> </div>
-      <div
-        className="orders row row-cols-3 mt-5  mb-10"
-        style={{
-          margin: "50px",
-        }}
+      {/* buttton to switch between checkout and cart */}
+      <button
+        className="btn btn-danger pt-5 mt-5"
+        onClick={() => setcheckout(!checkout)}
       >
-        <div className="col-12  mb-10 ">
-          <h5>
-            Orders ({totalUniqueItems}) Total items: ({totalItems}){" "}
-          </h5>
-
-          {show && (
-            <div className=" table-responsive">
-              <table className="table table-light table-bordered">
-                <th>Image</th>
-                <th>Item</th>
-                <th className="text-center">Unit Price</th>
-                <th className="text-center">Quantity</th>
-                <th className="text-center">Total Price</th>
-                <th className="text-center mb-2">Action</th>
-                <tbody>
-                  {items.map((item, index) => {
-                    return (
-                      <tr key={index}>
-                        <td>
-                          {
-                            <img
-                              src={item.image_url}
-                              style={{ height: "3rem" }}
-                            />
+        {checkout === true ? "checkout" : "Back to cart"}
+      </button>
+      {/* {cart page display} */}
+      {!checkout && (
+        <div className="table-responsive">
+          <table className="table table-light table-bordered">
+            <th>Image</th>
+            <th>Item</th>
+            <th className="text-center">Unit Price</th>
+            <th className="text-center">Quantity</th>
+            <th className="text-center">Total Price</th>
+            <th className="text-center mb-2">Action</th>
+            <tbody>
+              {items.map((item, index) => {
+                return (
+                  <tr key={index}>
+                    <td>
+                      {<img src={item.image_url} style={{ height: "3rem" }} />}
+                    </td>
+                    <td>{item.name}</td>
+                    <td className="text-center">{item.price}</td>
+                    <td style={{ width: "15%" }}>
+                      <div className="input-group">
+                        <button
+                          type="button"
+                          className="input-group-text"
+                          onClick={() =>
+                            updateItemQuantity(item.id, item.quantity - 1)
                           }
-                        </td>
-                        <td>{item.name}</td>
-                        <td className="text-center">{item.price}</td>
-                        <td style={{ width: "10%" }}>
-                          <div className="input-group">
-                            <button
-                              type="button"
-                              className="input-group-text"
-                              onClick={() =>
-                                updateItemQuantity(item.id, item.quantity - 1)
-                              }
-                            >
-                              -
-                            </button>
-                            <div className="form-control text-center">
-                              {item.quantity}
-                            </div>
-                            <button
-                              type="button"
-                              className="input-group-text"
-                              onClick={() =>
-                                updateItemQuantity(item.id, item.quantity + 1)
-                              }
-                            >
-                              +
-                            </button>
-                          </div>
-                        </td>
-
-                        <td className="text-center">
-                          {item.price * item.quantity}
-                        </td>
-
-                        <td>
-                          {" "}
-                          <button
-                            className="btn btn-warning "
-                            onClick={() => removeItem(item.id)}
-                          >
-                            Remove item
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-
-                  <tr>
-                    <td colspan="4" className="text-end fw-bold">
-                      Grand Total
+                        >
+                          -
+                        </button>
+                        <div className="form-control text-center">
+                          {item.quantity}
+                        </div>
+                        <button
+                          type="button"
+                          className="input-group-text"
+                          onClick={() =>
+                            updateItemQuantity(item.id, item.quantity + 1)
+                          }
+                        >
+                          +
+                        </button>
+                      </div>
                     </td>
-                    <td colspan="1" className="text-center fw-bold">
-                      $ {cartTotal}
+
+                    <td className="text-center">
+                      {item.price * item.quantity}
                     </td>
-                    <td colspan="1" className="text-center fw-bold">
+
+                    <td className="text-center">
+                      {" "}
                       <button
-                        className="btn btn-danger  ms-3"
-                        onClick={() => emptyCart()}
+                        className="btn btn-danger "
+                        onClick={() => removeItem(item.id)}
                       >
-                        Clear cart
+                        X
                       </button>
                     </td>
                   </tr>
-                </tbody>
-              </table>
+                );
+              })}
+
+              <tr>
+                <td colspan="4" className="text-end fw-bold">
+                  Grand Total
+                </td>
+                <td colspan="1" className="text-center fw-bold">
+                  $ {cartTotal}
+                </td>
+                <td colspan="1" className="text-center fw-bold">
+                  <button
+                    className="btn btn-danger  ms-3"
+                    onClick={() => emptyCart()}
+                  >
+                    Clear cart
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {/* checkout div */}
+      {checkout && (
+        <div>
+          <div className=" pt-5 text-center mt-5">
+            <h2>Checkout Form</h2>
+
+            <p className="lead">Confirm cart details and make payment</p>
+          </div>
+
+          <div className="row">
+            <div
+              className="col-md-4 order-md-2 mb-4 p-3"
+              style={{ backgroundColor: "#990F02" }}
+            >
+              <h4 className="d-flex justify-content-between align-items-center mb-3 text-white text-center">
+                <span>My cart</span>
+                <span className="badge badge-pill">{totalItems}</span>
+              </h4>
+              <ul className="list-group mb-3">
+                {items.map((item) => {
+                  return (
+                    <li
+                      className="list-group-item d-flex justify-content-between lh-condensed"
+                      key={item.id}
+                    >
+                      <div>
+                        <h6 className="my-0">
+                          {item.name} ({item.quantity})
+                        </h6>
+                        <small className="text-muted">{item.description}</small>
+                      </div>
+                      <span className="text-muted">
+                        {item.price * item.quantity}
+                      </span>
+                    </li>
+                  );
+                })}
+                <hr />
+                <li className="list-group-item d-flex justify-content-between text-success fs-3">
+                  <span>Total (KES)</span>
+                  <strong>{cartTotal}</strong>
+                </li>
+              </ul>
             </div>
-          )}
-          {/* display checkout page when button is clicked */}
-          {!show && (
-            <div className="checkout-page">
-              <div
-                className="orders"
-                style={{
-                  margin: "10px",
-                }}
-              >
-                <div className="col-12 ">
-                  {/* <h5>
-                    Orders ({totalUniqueItems}) Total items: ({totalItems}){" "}
-                  </h5> */}
 
-                  <div class="container-fluid bg-trasparent my-2">
-                    {" "}
-                    <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 mx-auto me-5 ms-4">
-                      {" "}
-                      <div class="col">
-                        {" "}
-                        <div
-                          class="card h-80  pt-5"
-                          style={{
-                            backgroundColor: "transparent",
-                            border: "none",
-                          }}
-                        >
-                          {/* orders surmary card */}{" "}
-                          <div
-                            className="card pt-5"
-                            style={{ backgroundColor: "#D9D9D9" }}
-                          >
-                            <div class="clearfix ">
-                              {" "}
-                              <h4 className="ms-3 text-center">
-                                Order Summary
-                              </h4>
-                              <hr WIDTH="100%" COLOR="#990F02" SIZE="5" />
-                            </div>
-                            <div
-                              className="card h-20 shadow-sm ms-3 me-3 mb-2 rounded"
-                              style={{ backgroundColor: "#D9D9D9" }}
-                            >
-                              <h5 class="card-title">
-                                <span class="float-start price-hp ms-3 mt-3">
-                                  Orders ({totalUniqueItems}){" "}
-                                </span>{" "}
-                                <span class="float-end price-hp me-5 mt-3">
-                                  Price &euro;
-                                </span>
-                              </h5>
+            <div className="card col-md-8 order-md-1">
+              <h4 className="mb-3">Shipping address</h4>
 
-                              <div class="col">
-                                {" "}
-                                <ol>
-                                  {items.map((item) => (
-                                    <li className="ms-3">
-                                      {" "}
-                                      <span class="float-start price-hp me-3">
-                                        {item.name} {""}({item.quantity})
-                                      </span>{" "}
-                                      <span class="float-end price-hp me-5">
-                                        $ {item.price * item.quantity}
-                                      </span>
-                                    </li>
-                                  ))}
-                                </ol>
-                              </div>
-                              <hr></hr>
-                              <ul
-                                className="subtotals-list ms-3 "
-                                style={{
-                                  textDecoration: "none",
-                                  listStyleType: "circle",
-                                }}
-                              >
-                                <li className="subtotals me-5 ">
-                                  {" "}
-                                  <span class="float-start price-hp fw-bold ">
-                                    Sub Totals
-                                  </span>{" "}
-                                  <span class="float-end price-hp fw-bold">
-                                    $ {cartTotal}
-                                  </span>
-                                </li>
-                                <li>
-                                  {" "}
-                                  <span class="float-start price-hp me-5">
-                                    Delivery
-                                  </span>{" "}
-                                  <span class="float-end price-hp me-5">
-                                    Free{" "}
-                                  </span>
-                                </li>
-                                <li>
-                                  {" "}
-                                  <span class="float-start price-hp fw-bold">
-                                    Grand Total
-                                  </span>{" "}
-                                  <span class="float-end price-hp fw-bold me-5">
-                                    ${cartTotal}
-                                  </span>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>{" "}
-                        </div>{" "}
-                      </div>
-                      {/* payment checkout card card */}{" "}
-                      <div
-                        class="card h-80 mt-5 shadow-sm"
-                        style={{
-                          backgroundColor: "#D9D9D9",
+              {user ? (
+                <div>
+                  <div className="mb-3">
+                    <label htmlFor="name">Full name</label>
+                    <p className="fs-4">{user.user.username}</p>
+                  </div>
+
+                  <div className="mb-3">
+                    <label htmlFor="username">Username</label>
+                    <p className="fs-4">{user.user.username}</p>
+                  </div>
+
+                  <div className="mb-3">
+                    <label htmlFor="email">Email</label>
+                    <p className="fs-4">{user.user.email}</p>
+                  </div>
+
+                  <div className="mb-3">
+                    <label htmlFor="address">Address</label>
+                    <p className="fs-4">{user.user.email}</p>
+                  </div>
+                  <hr className="mb-4" />
+
+                  <h4 className="mb-3">M-pesa Payment</h4>
+                  <div className="row">
+                    <div className="col-md-6 mb-3">
+                      <label htmlFor="cc-name">Registered Name</label>
+                      <p className="fs-4">{user.user.username}</p>
+                      <small className="text-muted">{mobile_number}</small>
+                    </div>
+
+                    <div className="col-md-6 mb-3">
+                      <label htmlFor="cc-number">Phone Number</label>
+                      <input
+                        onChange={(e) => {
+                          setMobile(e.target.value);
                         }}
-                      >
-                        {" "}
-                        <div class="card-body">
-                          {" "}
-                          <div class="clearfix mb-3">
-                            {" "}
-                            <h4>Select Payment Method</h4>
-                            <hr WIDTH="100%" COLOR="#990F02" SIZE="5" />
-                          </div>
-                          <div
-                            className="card h-20 shadow-sm m-2"
-                            style={{ backgroundColor: "#D9D9D9" }}
-                          >
-                            <div class="form-check m-2">
-                              <input
-                                class="form-check-input"
-                                type="radio"
-                                name="flexRadioDefault"
-                                id="checkoutForm3"
-                                checked
-                              />
-                              <h5 class="mb-2">Credit card or Debit card</h5>
-                              <div class="row mb-1">
-                                <div class="col-9 mb-2">
-                                  <div class="form-outline">
-                                    <input
-                                      type="text"
-                                      id="formNameOnCard"
-                                      class="form-control"
-                                      placeholder="0000 1111 2222 3333"
-                                    />
-                                  </div>
-                                </div>
-                                <div class="col-5 mb-2"></div>
-                              </div>
-                              <div class="row mb-4">
-                                <div class="col-5">
-                                  <div class="form-outline">
-                                    <input
-                                      type="text"
-                                      id="formNameOnCard"
-                                      class="form-control"
-                                      placeholder="01 / 12"
-                                    />
-                                  </div>
-                                </div>
-                                <div class="col-4 mb-2">
-                                  <div class="form-outline">
-                                    <input
-                                      type="text"
-                                      id="formCVV"
-                                      class="form-control"
-                                      placeholder="CVV"
-                                    />
-                                  </div>
-                                </div>
-                                <div class="col-8">
-                                  <input
-                                    type="text"
-                                    id="formCardNumber"
-                                    class="form-control"
-                                    placeholder="Billing address"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="form-check ms-3">
-                              <input
-                                class="form-check-input"
-                                type="radio"
-                                name="flexRadioDefault"
-                                id="checkoutForm3"
-                                checked
-                              />
-
-                              <h5 class="mb-2">Mobile Payment</h5>
-                              <form onSubmit={(e) => handleCheckout(items, e)}>
-                                <div class="form-outline me-5">
-                                  <input
-                                  onChange={(e) => setPhone(e.target.value)}
-                                    type="number"
-                                    id="formCardNumber"
-                                    class="form-control mb-4"
-                                    placeholder="Mobile number"
-                                    name="phone"
-                                    required
-                                    checked
-                                  />
-                                  <button
-                                    type="submit"
-                                    className="btn btn-primary  mb-10"
-                                    style={{
-                                      backgroundColor: "#990F02",
-                                      borderRadius: "50px",
-                                      border: "none",
-                                    }}
-                                  >
-                                    {/* {show === true ? "Proceed to checkout" : "Back to cart"} */}
-                                    Make Payment
-                                  </button>
-                                </div>
-                              </form>
-                            </div>
-                          </div>
-                          {/* <button onClick={pay}>hallel</button> */}
-                        </div>
-                      </div>
+                        type="number"
+                        className="form-control"
+                        id="cc-number"
+                        placeholder=""
+                        required
+                        name="mobile_number"
+                      />
                     </div>
                   </div>
+                  <div className="row">
+                    <div className="col-md-6 mb-3">
+                      <button
+                        className="btn btn-warning btn-lg btn-block"
+                        type="button"
+                        onClick={() => navigate("/")}
+                      >
+                        Continue Shopping
+                      </button>
+                    </div>
+
+                    <div className="col-md-6 mb-3">
+                      <button
+                        className="btn btn-warning btn-lg btn-block"
+                        type="submit"
+                        onClick={() => handlePayment()}
+                      >
+                        Make Payment
+                      </button>
+                    </div>
+                  </div>
+                  <hr className="mb-4" />
                 </div>
-              </div>
+              ) : (
+                <form className="needs-validation">
+                  <div className="mb-3">
+                    <label htmlFor="name">Full name</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="name"
+                      placeholder="John Doe"
+                    />
+                  </div>
+
+                  <div className="mb-3">
+                    <label htmlFor="username">Username</label>
+                    <div className="input-group">
+                      <div className="input-group-prepend">
+                        <span className="input-group-text">@</span>
+                      </div>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="username"
+                        placeholder="Username"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mb-3">
+                    <label htmlFor="email">Email</label>
+                    <input
+                      type="email"
+                      className="form-control"
+                      id="email"
+                      placeholder="you@example.com"
+                    />
+                  </div>
+
+                  <div className="mb-3">
+                    <label htmlFor="address">Address</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="address"
+                      placeholder="1234 Kwenu St"
+                      required
+                    />
+                  </div>
+                  <hr className="mb-4" />
+
+                  <h4 className="mb-3">M-pesa Payment</h4>
+                  <div className="row">
+                    <div className="col-md-6 mb-3">
+                      <label htmlFor="cc-name">Registered Name</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="cc-name"
+                        placeholder=""
+                        required
+                      />
+                      <small className="text-muted"></small>
+                    </div>
+                    <div className="col-md-6 mb-3">
+                      <label htmlFor="cc-number">Phone Number</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="cc-number"
+                        placeholder=""
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-6 mb-3">
+                      <button
+                        className="btn btn-warning btn-lg btn-block"
+                        type="button"
+                        onClick={() => navigate("/")}
+                      >
+                        Continue Shopping
+                      </button>
+                    </div>
+                    <div className="col-md-6 mb-3">
+                      <button
+                        className="btn btn-warning btn-lg btn-block"
+                        type="button"
+                        onClick={() => handlePayment()}
+                      >
+                        Make Payment
+                      </button>
+                    </div>
+                  </div>
+                  <hr className="mb-4" />
+                </form>
+              )}
             </div>
-          )}
+          </div>
         </div>
-
-        <div className="col ms-auto">
-          <button
-            className="btn btn-primary  mb-10"
-            style={{
-              backgroundColor: "#990F02",
-              borderRadius: "50px",
-              border: "none",
-            }}
-            onClick={() => setShow(!show)}
-          >
-            {show === true ? "Proceed to checkout" : "Back to cart"}
-            {/* Proceed to place order */}
-          </button>
-        </div>
-      </div>
-
-      {/* {cart && <OrderSummary cartItems={cart.items}  />} */}
+      )}
     </div>
   );
 };
