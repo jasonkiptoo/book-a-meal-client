@@ -55,27 +55,25 @@ const MyOrders = () => {
     let newArr = items.map(function (item) {
       return { ...item, phoneNumber: mobile_number };
     });
-    let newArrr=newArr.map((itemm)=>itemm)
-// merging the two arrays the two arrays
+    let newArrr = newArr.map((itemm) => itemm);
+    // merging the two arrays the two arrays
     let array = [{ user_id: user.user.id }];
-    let array1 = [newArrr ];
-    let merged =  Object.assign( ...array, ...array1);
+    let array1 = [{ items: newArrr }];
+    let merged = Object.assign({}, ...array, ...array1);
 
     // console.log({ "itemskkk": items.quantity });
     // console.log({ user_id: user.user.id });
     // console.log({ phoneNumber: mobile_number });
 
-// console.log(array1)
+    // console.log(array1)
 
-    fetch("http://127.0.0.1:3000/customerorders", {
-
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(merged)
-        })
-        .then(res => res.json())
-        .then(data => console.log(merged))
-
+    fetch("http://127.0.0.1:3000/order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(merged),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(merged));
 
     // const cred = {
     //   "phoneNumber": user.user.contact,
@@ -91,18 +89,9 @@ const MyOrders = () => {
     // .then(data => setStkCheck(data))
   };
 
-// function PostOrder(merged){
+  // function PostOrder(merged){
 
-
-
-
-
-// }
-
-
-
-
-
+  // }
 
   const handleClick = () => {
     // const queryParams = {
