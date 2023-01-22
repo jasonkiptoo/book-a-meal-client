@@ -35,11 +35,11 @@ const MenuCard = ({ meals }) => {
 
                   }}
                   onClick={() => setSelectedProduct(item)}
-                  className="btn btn-primary m-3"
+                  className="btn btn-primary my-3 me-2"
                 >
-                  ${item.price}
+                 {item.name} ${item.price}
                 </button>
-                <button
+                <button className="ml-2"
                   // id="subtract"
                   style={{
                     borderRadius: "40px",
@@ -75,7 +75,7 @@ const MenuCard = ({ meals }) => {
 
                 fontSize: "14px",
 
-                }}> {item.description}</div>
+                }}> {item.description.slice(0,120)}</div>
             </div>
 
           ))}

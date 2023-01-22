@@ -272,7 +272,7 @@ function Register() {
             {" "}
             Already have an account?{" "}
             <a style={{ color: "#000", fontWeight: "normal" }}>
-              <Link to="/login" style={{ color: "#000", fontWeight: "normal",  }}>Login</Link>
+              <Link to="/" style={{ color: "#000", fontWeight: "normal",  }}>Login</Link>
             </a>
           </p>
         </form>

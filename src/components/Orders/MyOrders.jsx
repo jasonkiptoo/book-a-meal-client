@@ -2,21 +2,28 @@ import React, { useState } from "react";
 import { useCart } from "react-use-cart";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-// import { useAuthContext } from "../hooks/useAuthContext";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Navbar from "../NavBar/NavBar";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const MyOrders = () => {
 
-  const [orderStatus, setOrderStatus] = useState("pending");
-  const [error, setError] = useState(null);
-
-
+  const stkpush ="https://5d69-196-216-84-65.in.ngrok.io"
+  const [orderStatus, setOrderStatus] = useState("");
   // show cart and checkout
   const [checkout, setcheckout] = useState(true);
   // state to get mobile numebr
   const [mobile_number, setMobile] = useState(null);
+  const navigate = useNavigate();
+  // console.log([user]);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  // mpesa reposnes
+  const [mpesaResponse, setMpesaResponse] = useState([])
   const {
     totalItems,
     items,
@@ -25,9 +32,8 @@ const MyOrders = () => {
     updateItemQuantity,
     removeItem,
   } = useCart();
-  const [stkCheck, setStkCheck] = useState();
-  // const { user } = useAuthContext();
   const [user, setUser] = useState(null);
+
 
   useEffect(() => {
     fetch("http://127.0.0.1:3000/profile", {
@@ -40,24 +46,17 @@ const MyOrders = () => {
       }
     });
   }, []);
-  const navigate = useNavigate();
-  // console.log([user]);
-  const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   const makePayment = () => {
     handleShow();
-    placeOrder();
-
     try {
       const cred = {
         phoneNumber: mobile_number,
         amount: cartTotal,
       };
 
-      fetch("https://d69a-41-80-114-131.in.ngrok.io/stkpush", {
+      fetch(`${stkpush}/stkpush`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -66,74 +65,86 @@ const MyOrders = () => {
         body: JSON.stringify(cred),
       })
         .then((response) => response.json())
-        .then((data) => {
-          if (data[0] === "success") {
-            setTimeout(() => {
-              const checkoutRequestID = data[1].CheckoutRequestID;
-              confirmPayment(checkoutRequestID);
-            }, 60000);
-          } else {
-            setShow(false);
-            setOrderStatus("pending");
-            handleClose();
-            alert("Got an error");
-          }
-        });
+        .then((data) => setMpesaResponse(data));
     } catch (error) {
       handleClose();
     }
   };
 
 
+  useEffect(() => {
+    if (orderStatus === "completed") {
+      placeOrder();
+      console.log(orderStatus);
+    } else{
+      navigate("/my-orders");
+    }
+  }, [orderStatus]);
 
-  const confirmPayment =(checkoutRequestID) => {
-   fetch("https://d69a-41-80-114-131.in.ngrok.io/stkquery", {
-     method: "POST",
-     headers: {
-       Authorization: `Bearer ${localStorage.getItem("token")}`,
-       "Content-Type": "application/json",
-     },
-     body: JSON.stringify({checkoutRequestID: checkoutRequestID}),
-   })
-    .then(response => response.json())
-    .then(data => {
-      if(data[0] === "success" && data[1].ResultCode === "0") {
-        setOrderStatus("completed");
-        alert("Payment received, order processing");
-        placeOrder();
-        console.log("order was placed");
-      } else {
-        setOrderStatus("pending");
-        console.log("order not placed");
-
-
-      }
+  const confirmPayment =() => {
+    const checkout = {
+      CheckoutRequestID: `${mpesaResponse[1].CheckoutRequestID}`,
+    };
+    console.log(checkout);
+    fetch(`${stkpush}/stkquery`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(checkout),
     })
-    .catch(error => console.log(error))
-    console.log("order not plced");
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data[0] === "success") {
+          setOrderStatus("completed");
+        } else {
+          alert("Kindly make payment")
+          navigate("/my-orders");
+        }
+      })
+      .catch((error) => console.log(error));
   }
 
   const placeOrder = () => {
-    // merging the two arrays the two arrays
-    let array = [{ user_id: user.user.id }];
-    let array1 = [{ items: items }];
-    let merged = Object.assign({}, ...array, ...array1);
-console.log(merged);
+
+    let itemsWithStatus = items.map((item) => ({
+      ...item,
+      status: orderStatus,
+    }));
+    let merged = {
+      user_id: user.user.id,
+      items: itemsWithStatus
+    };
+
+    console.log(merged);
+
     fetch("http://127.0.0.1:3000/orders", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
       },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(merged),
     })
-    .then((res) => res.json())
-    .then((data) => console.log(data));
+      .then((res) => res.json())
+      .then(() => {
+        alert("Payment Received. Your is order being processed!")
+        emptyCart()
+        navigate('/order-history')
+      })
 
   }
 
+
   return (
     <div className="container w-75">
+    <ToastContainer />
       <Modal
         show={show}
         onHide={handleClose}
@@ -148,12 +159,9 @@ console.log(merged);
           payment is made.
         </Modal.Body>
         <Modal.Footer className="bg-light">
-          {error && <p style={{ color: "red" }}>{error}</p>}
-          {!error && (
-            <Button variant="primary" onClick={makePayment}>
+            <Button variant="primary" onClick={confirmPayment}>
               Confirm Payment
             </Button>
-          )}
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
@@ -184,7 +192,7 @@ console.log(merged);
                 return (
                   <tr key={index}>
                     <td>
-                      {<img src={item.image_url} style={{ height: "3rem" }} />}
+                      {<img src={item.image_url} alt={item.name} style={{ height: "3rem" }} />}
                     </td>
                     <td>{item.name}</td>
                     <td className="text-center">{item.price}</td>
@@ -281,7 +289,7 @@ console.log(merged);
                         <h6 className="my-0">
                           {item.name} ({item.quantity})
                         </h6>
-                        <small className="text-muted">{item.description}</small>
+                        <small className="text-muted">{item.description.slice(0,50)}</small>
                       </div>
                       <span className="text-muted">
                         {item.price * item.quantity}
@@ -317,10 +325,7 @@ console.log(merged);
                     <p className="fs-4">{user.user.email}</p>
                   </div>
 
-                  <div className="mb-3">
-                    <label htmlFor="address">Address</label>
-                    <p className="fs-4">{user.user.email}</p>
-                  </div>
+                
                   <hr className="mb-4" />
 
                   <h4 className="mb-3">M-pesa Payment</h4>
@@ -407,16 +412,7 @@ console.log(merged);
                     />
                   </div>
 
-                  <div className="mb-3">
-                    <label htmlFor="address">Address</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="address"
-                      placeholder="1234 Kwenu St"
-                      required
-                    />
-                  </div>
+
                   <hr className="mb-4" />
 
                   <h4 className="mb-3">M-pesa Payment</h4>

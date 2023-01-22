@@ -24,7 +24,7 @@ const OrderHistory = ({ item }) => {
 
 // fetch the orders from the backend
   useEffect(() => {
-    fetch("http://127.0.0.1:3000/orders", {
+    fetch("http://127.0.0.1:3000/history", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -32,6 +32,7 @@ const OrderHistory = ({ item }) => {
       .then((res) => res.json())
       .then((data) => setOrders(data));
   }, []);
+  console.log(orders);
 
 
   return (
@@ -57,13 +58,12 @@ const OrderHistory = ({ item }) => {
           </h5>
 
           <table className="table table-light table-bordered">
-            <th>Order ID</th>
-            <th>Item</th>
+            <th className="text-center">Order ID</th>
+            <th className="text-center">Time Placed</th>
             <th className="text-center">Unit Price</th>
             <th className="text-center">Quantity</th>
             <th className="text-center">Total Price</th>
             <th className="text-center mb-2">Status</th>
-
             <tbody>
               {orders.map((order, index) => {
                 return (
@@ -71,7 +71,7 @@ const OrderHistory = ({ item }) => {
                     <td className="text-center fw-bold">
                       {order.order_id}
                                           </td>
-                    <td>{order.name}</td>
+                    <td className="text-center">{order.created_at.slice(11, 16)} AM</td>
                     <td className="text-center">{order.price}</td>
                     <td style={{ width: "15%" }}>
                       <div className="input-group">
@@ -84,7 +84,7 @@ const OrderHistory = ({ item }) => {
                     </td>
 
                     <td className="text-center">
-                      {order.total_price}
+                     $ { order.total_price}
                     </td>
 
                     <td className="text-center">
