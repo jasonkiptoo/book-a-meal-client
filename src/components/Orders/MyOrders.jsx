@@ -2,16 +2,27 @@ import React, { useState } from "react";
 import { useCart } from "react-use-cart";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-// import { useAuthContext } from "../hooks/useAuthContext";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Navbar from "../NavBar/NavBar";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const MyOrders = () => {
+
+  const [orderStatus, setOrderStatus] = useState("");
   // show cart and checkout
   const [checkout, setcheckout] = useState(true);
   // state to get mobile numebr
   const [mobile_number, setMobile] = useState(null);
+  const navigate = useNavigate();
+  // console.log([user]);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  // mpesa reposnes
+  const [mpesaResponse, setMpesaResponse] = useState([])
   const {
     totalItems,
     items,
@@ -20,12 +31,8 @@ const MyOrders = () => {
     updateItemQuantity,
     removeItem,
   } = useCart();
-  const [stkCheck, setStkCheck] = useState();
-  // const { user } = useAuthContext();
   const [user, setUser] = useState(null);
-
-  // useEffect(() => {
-  //   , []);
+  
 
   useEffect(() => {
     fetch("http://127.0.0.1:3000/profile", {
@@ -38,91 +45,99 @@ const MyOrders = () => {
       }
     });
   }, []);
-  const navigate = useNavigate();
-  // console.log([user]);
-  const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
-  const handlePayment = () => {
-    // handleShow();
-    // PostOrder()
-    // console.log(items);
+  const makePayment = () => {
+    handleShow();
+    try {
+      const cred = {
+        phoneNumber: mobile_number,
+        amount: cartTotal,
+      };
 
-    // add
-    // add mobile number to the items
-    let newArr = items.map(function (item) {
-      return { ...item, phoneNumber: mobile_number };
-    });
-    let newArrr = newArr.map((itemm) => itemm);
-    // merging the two arrays the two arrays
-    let array = [{ user_id: user.user.id }];
-    let array1 = [{ items: newArrr }];
-    let merged = Object.assign({}, ...array, ...array1);
+      fetch("https://c9e4-102-215-76-91.in.ngrok.io/stkpush", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(cred),
+      })
+        .then((response) => response.json())
+        .then((data) => setMpesaResponse(data));
+    } catch (error) {
+      handleClose();
+    }
+  };
 
-    // console.log({ "itemskkk": items.quantity });
-    // console.log({ user_id: user.user.id });
-    // console.log({ phoneNumber: mobile_number });
 
-    // console.log(array1)
+  useEffect(() => {
+    if (orderStatus === "completed") {
+      placeOrder();
+      setOrderStatus("")
+    } else{
+      navigate("/my-orders");
+    }
+  }, [orderStatus]);
 
-    fetch("http://127.0.0.1:3000/order", {
+  const confirmPayment =() => {
+    const checkout = {
+      CheckoutRequestID: `${mpesaResponse[1].CheckoutRequestID}`,
+    };
+    console.log(checkout);
+    fetch("https://c9e4-102-215-76-91.in.ngrok.io/stkquery", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(checkout),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data[0] === "success") {
+          setOrderStatus("completed");
+        } else {
+          alert("Kindly make payment")
+          navigate("/my-orders");
+        }
+      })
+      .catch((error) => console.log(error));
+  }
+
+  const placeOrder = () => {
+
+    let itemsWithStatus = items.map((item) => ({
+      ...item,
+      status: orderStatus,
+    }));
+    let merged = {
+      user_id: user.user.id,
+      items: itemsWithStatus
+    };
+    
+    fetch("http://127.0.0.1:3000/orders", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(merged),
     })
       .then((res) => res.json())
-      .then((data) => console.log(merged));
+      .then(() => {
+        alert("Payment Received. Your is order being processed!")
+        emptyCart()
+        navigate('/order-history')
+      })
+      
+  }
 
-    // const cred = {
-    //   "phoneNumber": user.user.contact,
-    //   "amount": cartTotal
-    // };
-
-    // fetch("https://6183-196-101-71-81.ngrok.io/stkpush", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(cred)
-    // })
-    // .then(res => res.json())
-    // .then(data => setStkCheck(data))
-  };
-
-  // function PostOrder(merged){
-
-  // }
-
-  const handleClick = () => {
-    // const queryParams = {
-    //   "checkoutRequestID": `${stkCheck[1].CheckoutRequestID}`
-    // }
-    // fetch("https://6183-196-101-71-81.ngrok.io/stkquery", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json"},
-    //   body: JSON.stringify(queryParams)
-    // })
-    // .then(res => res.json())
-    // .then(queryMessage => console.log(queryMessage))
-    // .then(handleClose())
-    // .then(() => {
-    //   emptyCart();
-    //   navigate("/")
-    // .then(() => {
-    //   if(query[1].ResultCode === "0") {
-    //     alert("Payment received, order processing")
-    //     emptyCart();
-    //     navigate("/")
-    //   } else {
-    //     alert("Invalid response, please try again")
-    //   }
-    // })
-  };
-
-  // console.log(query[1].ResultCode)
 
   return (
     <div className="container w-75">
+    <ToastContainer />
       <Modal
         show={show}
         onHide={handleClose}
@@ -137,8 +152,11 @@ const MyOrders = () => {
           payment is made.
         </Modal.Body>
         <Modal.Footer className="bg-light">
-          <Button variant="primary" onClick={handleClick}>
-            Confirm
+            <Button variant="primary" onClick={confirmPayment}>
+              Confirm Payment
+            </Button>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
           </Button>
         </Modal.Footer>
       </Modal>
@@ -167,7 +185,7 @@ const MyOrders = () => {
                 return (
                   <tr key={index}>
                     <td>
-                      {<img src={item.image_url} style={{ height: "3rem" }} />}
+                      {<img src={item.image_url} alt={item.name} style={{ height: "3rem" }} />}
                     </td>
                     <td>{item.name}</td>
                     <td className="text-center">{item.price}</td>
@@ -323,7 +341,7 @@ const MyOrders = () => {
                         type="number"
                         className="form-control"
                         id="cc-number"
-                        placeholder=""
+                        placeholder="25470345780"
                         required
                         name="mobile_number"
                       />
@@ -344,7 +362,7 @@ const MyOrders = () => {
                       <button
                         className="btn btn-warning btn-lg btn-block"
                         type="submit"
-                        onClick={() => handlePayment()}
+                        onClick={() => makePayment()}
                       >
                         Make Payment
                       </button>
@@ -440,7 +458,7 @@ const MyOrders = () => {
                       <button
                         className="btn btn-warning btn-lg btn-block"
                         type="button"
-                        onClick={() => handlePayment()}
+                        onClick={() => makePayment()}
                       >
                         Make Payment
                       </button>
