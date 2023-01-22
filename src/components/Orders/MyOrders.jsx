@@ -123,6 +123,10 @@ const MyOrders = () => {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
       },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(merged),
     })
       .then((res) => res.json())
@@ -476,3 +480,4 @@ const MyOrders = () => {
 };
 
 export default MyOrders;
+
