@@ -8,6 +8,11 @@ import Modal from "react-bootstrap/Modal";
 import Navbar from "../NavBar/NavBar";
 
 const MyOrders = () => {
+
+  const [orderStatus, setOrderStatus] = useState("pending");
+  const [error, setError] = useState(null);
+
+
   // show cart and checkout
   const [checkout, setcheckout] = useState(true);
   // state to get mobile numebr
@@ -23,9 +28,6 @@ const MyOrders = () => {
   const [stkCheck, setStkCheck] = useState();
   // const { user } = useAuthContext();
   const [user, setUser] = useState(null);
-
-  // useEffect(() => {
-  //   , []);
 
   useEffect(() => {
     fetch("http://127.0.0.1:3000/profile", {
@@ -45,81 +47,90 @@ const MyOrders = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handlePayment = () => {
-    // handleShow();
-    // PostOrder()
-    // console.log(items);
+  const makePayment = () => {
+    handleShow();
+    placeOrder();
 
-    // add
-    // add mobile number to the items
-    let newArr = items.map(function (item) {
-      return { ...item, phoneNumber: mobile_number };
-    });
-    let newArrr = newArr.map((itemm) => itemm);
+    try {
+      const cred = {
+        phoneNumber: mobile_number,
+        amount: cartTotal,
+      };
+
+      fetch("https://d69a-41-80-114-131.in.ngrok.io/stkpush", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(cred),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data[0] === "success") {
+            setTimeout(() => {
+              const checkoutRequestID = data[1].CheckoutRequestID;
+              confirmPayment(checkoutRequestID);
+            }, 60000);
+          } else {
+            setShow(false);
+            setOrderStatus("pending");
+            handleClose();
+            alert("Got an error");
+          }
+        });
+    } catch (error) {
+      handleClose();
+    }
+  };
+
+
+
+  const confirmPayment =(checkoutRequestID) => {
+   fetch("https://d69a-41-80-114-131.in.ngrok.io/stkquery", {
+     method: "POST",
+     headers: {
+       Authorization: `Bearer ${localStorage.getItem("token")}`,
+       "Content-Type": "application/json",
+     },
+     body: JSON.stringify({checkoutRequestID: checkoutRequestID}),
+   })
+    .then(response => response.json())
+    .then(data => {
+      if(data[0] === "success" && data[1].ResultCode === "0") {
+        setOrderStatus("completed");
+        alert("Payment received, order processing");
+        placeOrder();
+        console.log("order was placed");
+      } else {
+        setOrderStatus("pending");
+        console.log("order not placed");
+
+
+      }
+    })
+    .catch(error => console.log(error))
+    console.log("order not plced");
+  }
+
+  const placeOrder = () => {
     // merging the two arrays the two arrays
     let array = [{ user_id: user.user.id }];
-    let array1 = [{ items: newArrr }];
+    let array1 = [{ items: items }];
     let merged = Object.assign({}, ...array, ...array1);
-
-    // console.log({ "itemskkk": items.quantity });
-    // console.log({ user_id: user.user.id });
-    // console.log({ phoneNumber: mobile_number });
-
-    // console.log(array1)
-
-    fetch("http://127.0.0.1:3000/order", {
+console.log(merged);
+    fetch("http://127.0.0.1:3000/orders", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(merged),
     })
-      .then((res) => res.json())
-      .then((data) => console.log(merged));
+    .then((res) => res.json())
+    .then((data) => console.log(data));
 
-    // const cred = {
-    //   "phoneNumber": user.user.contact,
-    //   "amount": cartTotal
-    // };
-
-    // fetch("https://6183-196-101-71-81.ngrok.io/stkpush", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(cred)
-    // })
-    // .then(res => res.json())
-    // .then(data => setStkCheck(data))
-  };
-
-  // function PostOrder(merged){
-
-  // }
-
-  const handleClick = () => {
-    // const queryParams = {
-    //   "checkoutRequestID": `${stkCheck[1].CheckoutRequestID}`
-    // }
-    // fetch("https://6183-196-101-71-81.ngrok.io/stkquery", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json"},
-    //   body: JSON.stringify(queryParams)
-    // })
-    // .then(res => res.json())
-    // .then(queryMessage => console.log(queryMessage))
-    // .then(handleClose())
-    // .then(() => {
-    //   emptyCart();
-    //   navigate("/")
-    // .then(() => {
-    //   if(query[1].ResultCode === "0") {
-    //     alert("Payment received, order processing")
-    //     emptyCart();
-    //     navigate("/")
-    //   } else {
-    //     alert("Invalid response, please try again")
-    //   }
-    // })
-  };
-
-  // console.log(query[1].ResultCode)
+  }
 
   return (
     <div className="container w-75">
@@ -137,8 +148,14 @@ const MyOrders = () => {
           payment is made.
         </Modal.Body>
         <Modal.Footer className="bg-light">
-          <Button variant="primary" onClick={handleClick}>
-            Confirm
+          {error && <p style={{ color: "red" }}>{error}</p>}
+          {!error && (
+            <Button variant="primary" onClick={makePayment}>
+              Confirm Payment
+            </Button>
+          )}
+          <Button variant="secondary" onClick={handleClose}>
+            Close
           </Button>
         </Modal.Footer>
       </Modal>
@@ -323,7 +340,7 @@ const MyOrders = () => {
                         type="number"
                         className="form-control"
                         id="cc-number"
-                        placeholder=""
+                        placeholder="25470345780"
                         required
                         name="mobile_number"
                       />
@@ -344,7 +361,7 @@ const MyOrders = () => {
                       <button
                         className="btn btn-warning btn-lg btn-block"
                         type="submit"
-                        onClick={() => handlePayment()}
+                        onClick={() => makePayment()}
                       >
                         Make Payment
                       </button>
@@ -440,7 +457,7 @@ const MyOrders = () => {
                       <button
                         className="btn btn-warning btn-lg btn-block"
                         type="button"
-                        onClick={() => handlePayment()}
+                        onClick={() => makePayment()}
                       >
                         Make Payment
                       </button>
@@ -458,3 +475,4 @@ const MyOrders = () => {
 };
 
 export default MyOrders;
+
