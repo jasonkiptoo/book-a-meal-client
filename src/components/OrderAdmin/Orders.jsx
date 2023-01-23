@@ -4,7 +4,6 @@ import { ImBin } from "react-icons/im";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import './Products.css'
-import NavbarAdmin from '../HomeAdmin/NavbarAdmin';
 
 
 const Products = () => {
@@ -116,7 +115,7 @@ const Products = () => {
       });
   };
 
-
+  
 
   return (
     <div className="container">
@@ -209,7 +208,6 @@ const Products = () => {
           </div>
         </div>
       </div>
-      <div><NavbarAdmin/></div>
     </div>
   );
 }

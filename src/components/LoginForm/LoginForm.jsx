@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { FaInstagram, FaFacebook, FaTwitter, FaWhatsapp } from "react-icons/fa";
 import { useNavigate, Link } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 import { useEffect } from "react";
 
 // document.body.style.backgroundColor = "#990F02";
 
-function Login({ onLogin}) {
+function Login({ onLogin }) {
   const navigate = useNavigate();
   const [errors, setErrors] = useState([]);
 
@@ -32,7 +32,12 @@ function Login({ onLogin}) {
       .then((response) => {
         localStorage.setItem("token", response.data.jwt);
         // redirect to the home page
-        navigate("/home");
+        if (response.data.user.role === "caterer") {
+          // redirect to the admin page
+          navigate("/adminhome");
+        } else {
+          navigate("/home");
+        }
       })
       .catch((error) => {
         if (error.response) {
@@ -43,7 +48,6 @@ function Login({ onLogin}) {
       });
   };
 
-
   const handleChange = (e) => {
     setUser({
       ...user,
@@ -52,7 +56,7 @@ function Login({ onLogin}) {
   };
 
   return (
-    <div className="Login" style={{backgroundColor: "#990F02"}}>
+    <div className="Login" style={{ backgroundColor: "#990F02" }}>
       <div
         className="page-image"
         style={{
@@ -134,10 +138,13 @@ function Login({ onLogin}) {
         }}
       >
         <form onSubmit={handleSubmit}>
-        {errors && errors.map((error, index) => (
-            <p style={{color: "red"}} key={index}>{error}</p>
-          ))}
-          <h3 style={{ color: "#990F02", textAlign: "center" }}>GrubHub</h3>
+          {errors &&
+            errors.map((error, index) => (
+              <p style={{ color: "red" }} key={index}>
+                {error}
+              </p>
+            ))}
+          <h3 style={{ color: "#990F02", textAlign: "center" }}>Kibandaski</h3>
           <br />
           <label
             style={{
@@ -194,7 +201,14 @@ function Login({ onLogin}) {
           {/* {errors.map((error, index) => (
             <h6 key={index}>{error}</h6>
           ))} */}
-          <a  style={{ color: "#990F02", marginLeft: "70px", textDecoration: "none"}} href="#" >
+          <a
+            style={{
+              color: "#990F02",
+              marginLeft: "70px",
+              textDecoration: "none",
+            }}
+            href="#"
+          >
             Forgot Password?
           </a>
           <br />
@@ -223,13 +237,17 @@ function Login({ onLogin}) {
           >
             {" "}
             Don't have an account?{" "}
-            <a href="/register" style={{ color: "#000", fontWeight: "normal",  }}>
-              <Link to="/register" style={{ color: "#000", fontWeight: "normal",  }}>Register </Link>
+            <a href="/register" style={{ color: "#000", fontWeight: "normal" }}>
+              <Link
+                to="/register"
+                style={{ color: "#000", fontWeight: "normal" }}
+              >
+                Register{" "}
+              </Link>
             </a>
           </p>
         </form>
       </div>
-
     </div>
   );
 }

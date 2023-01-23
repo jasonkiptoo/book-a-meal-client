@@ -21,6 +21,9 @@ import Specials from "./components/Specials/Specials.jsx";
 import { CartProvider } from "react-use-cart";
 import MyOrders from "./components/Orders/MyOrders.jsx";
 import OrderHistory from "./components/Orders/OrderHistory";
+import NavbarAdmin from "./components/HomeAdmin/NavbarAdmin.jsx";
+import Products from "./components/Products/Products";
+// import AdminHomePage from "./components/HomeAdmin/HomeAdmin.jsx";
 function App() {
   const [user, setUser] = useState(null);
   // function handleLogin(user) {
@@ -58,37 +61,30 @@ function App() {
   console.log(user);
   return (
     <div>
+      <div>
       <CartProvider>
         <Routes>
           <Route exact path="/register" element={<Register />} />
-          {/* <Route exact path="/login"element={<LoginForm onLogin={handleLogin} />} /> */}
-          <Route
-            exact
-            path="/"
-            element={<LoginForm onLogin={handleLogin} />}
-          />
-          {/* <Route exact path="/" element={<Home />} /> */}
+          <Route exact path="/" element={<LoginForm />} />
           <Route exact path="/admin" element={<AdminHomePage />} />
           <Route exact path="/menu" element={<MenuPage />} />
           <Route exact path="/my-orders" element={<MyOrders />} />
           <Route exact path="/order-history" element={<OrderHistory />} />
-          <Route exact path="/navbar" element={<Navbar user={user} />} />
+          <Route exact path="/navbar" element={<Navbar />} />
           <Route exact path="/home" element={<HomePage />} />
-          {/* <Route exact path="/navbar" element={<Navbar user={user} current={currentUser}/>} /> */}
+          <Route exact path="/navbar" element={<Navbar />} />
           <Route exact path="/specials" element={<Specials />} />
-          <Route
-            exact
-            path="/navbar"
-            element={
-              <Navbar
-                user={user}
-                onLogout={handleLogout}
-                onLogin={handleLogin}
-              />
-            }
-          />
         </Routes>
       </CartProvider>
+    </div>
+
+
+      <Routes>
+        {/* < NavbarAdmin /> */}
+        <Route path = "/adminhome" element = {<AdminHomePage />} />
+        <Route path = "/menu" element = {<HomePage/>} />
+        <Route path = "/products" element = {<Products/>} />
+      </Routes>
     </div>
   );
 }

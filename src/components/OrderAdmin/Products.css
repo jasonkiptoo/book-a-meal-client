@@ -20,8 +20,8 @@ td {
 
 th {
 
-  background: #ffffff;
-  /* color: #FFFFFF; */
+  background: #990F02;
+  color: #FFFFFF;
 
 ;
 }
@@ -31,7 +31,7 @@ td {
   justify-content: space-between;
   text-align: center;
 
-}
+} 
 .name{
     text-align: left;
     margin-right: 25px;
@@ -44,7 +44,7 @@ td {
     line-height: 28px;
     margin-top: 30px;
     font-size: 24px;
-
+    
 }
 .pagination-buttons{
     padding-right: 20px;

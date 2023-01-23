@@ -13,7 +13,7 @@ const Navbar = ({ current }) => {
   let orderhistory = activePage === "orderhistory" ? "active" : "";
 
   const [user, setUser] = useState(null);
-  
+
   ;
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const Navbar = ({ current }) => {
         }}
       >
         <Link
-          to="/homepage"
+          to="/adminhome"
           className={homepage}
           onClick={() => setActivePage("homepage")}
           style={{
@@ -58,7 +58,7 @@ const Navbar = ({ current }) => {
           Home
         </Link>
         <Link
-          to="/menupage"
+          to="/products"
           className={menupage}
           onClick={() => setActivePage("menupage")}
           style={{
@@ -81,7 +81,7 @@ const Navbar = ({ current }) => {
           }}
         >
           Orders
-          
+
 
 
 
@@ -120,7 +120,7 @@ const Navbar = ({ current }) => {
         }}
       >
         <div className="social-icons">
-        
+
           <a
             href="https://twitter.com"
             target="_blank"

@@ -10,10 +10,10 @@ import "react-toastify/dist/ReactToastify.css";
 
 const MyOrders = () => {
 
-  const stkpush ="https://5d69-196-216-84-65.in.ngrok.io"
+  const stkpush ="https://9e96-41-80-114-131.in.ngrok.io"
   const [orderStatus, setOrderStatus] = useState("");
   // show cart and checkout
-  const [checkout, setcheckout] = useState(true);
+  const [checkout, setcheckout] = useState(show);
   // state to get mobile numebr
   const [mobile_number, setMobile] = useState(null);
   const navigate = useNavigate();
@@ -325,7 +325,7 @@ const MyOrders = () => {
                     <p className="fs-4">{user.user.email}</p>
                   </div>
 
-                
+
                   <hr className="mb-4" />
 
                   <h4 className="mb-3">M-pesa Payment</h4>

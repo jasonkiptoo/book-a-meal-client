@@ -32,6 +32,7 @@ function Register() {
         email: user.email,
         username: user.username,
         password: user.password,
+        role: "customer",
       })
       .then((response) => {
         localStorage.setItem("token", response.data.jwt);
@@ -141,7 +142,7 @@ function Register() {
           {errors.map((error, index) => (
             <p style={{color: "red"}} key={index}>{error}</p>
           ))}
-          <h3 style={{ color: "#990F02", textAlign: "center" }}>GrubHub</h3>
+          <h3 style={{ color: "#990F02", textAlign: "center" }}>Kibandaski</h3>
           <br />
           <label
             style={{
@@ -178,7 +179,7 @@ function Register() {
             }}
           >
             Email Address
-          </label>{" "}
+          </label>{" "} 
           <br />
           <input
             type="text"
